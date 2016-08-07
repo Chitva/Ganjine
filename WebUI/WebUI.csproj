@@ -2776,6 +2776,8 @@
     <Content Include="Areas\Admin\Views\Commerce\_CommerceGroupTreeview.cshtml" />
     <None Include="Properties\PublishProfiles\DaneshNahad.pubxml" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web References\MellatBank\IPaymentGateway.wsdl" />
     <None Include="Web References\MellatBank\PaymentGatewayImplService.wsdl" />
     <Content Include="Web References\MellatBank\Reference.map">
