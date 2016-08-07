@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+   Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+
+@Html.Hidden("MenuItems", "1389012364_PixelKit_5-Oclock-Shades-Icon-Set__0008_4.png" + ":-" + "مدیریت درخواستهای استخدام" + ":-"+"لیست تقاضاها")
+
+<script src="~/Scripts/jquery.js"></script> 
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script>
+        Page();
+    </script>
+
+<div class="divCssWh">
+    <div id="BoxContent">
+        @Html.Partial("_ApplicantList")
+    </div>
+</div>
+

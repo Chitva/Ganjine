@@ -1,0 +1,86 @@
+﻿
+.LeftMenu {
+    font-family: Tahoma;
+    font-size: 8pt;
+}
+.LeftMenu ul {
+    background-color: #D1E9FF;
+}
+.AspNet-Menu-Leaf {
+    padding-top:5px;
+}
+ul.AspNet-Menu li {
+    list-style: none outside none;
+    position: relative;
+    height:20px;
+
+}
+.LeftMenu ul.AspNet-Menu {
+    padding-right:0px;
+   padding-top:0px;
+   margin-top:0px;
+ margin-bottom:0px;
+    width: 190px;
+}
+.LeftMenu ul.AspNet-Menu ul, .LeftMenu ul.AspNet-Menu ul ul {
+    border: 1px solid #86B9F7;
+    right: 190px;
+    padding: 2px;
+    top: -0.5em;
+    width: 290px;
+    z-index: 400;
+}
+.LeftMenu li.AspNet-Menu-Leaf a, .LeftMenu li.AspNet-Menu-Leaf span {
+    background-image: none !important;
+}
+.LeftMenu .AspNet-Menu-Link {
+    color: #000000;
+    padding: 0px 15px 0px 7px;
+    text-align: left;
+   cursor:pointer;
+    text-align:right;
+
+    
+}
+.LeftMenu .SubMenuInRightMenu {
+    height: 0px; 
+    overflow: hidden;
+    padding-right:20px;
+    padding-top:7px;
+    display:none;
+   
+}
+.LeftMenu .SpaceSubMenu {
+    height:18px;
+    cursor:pointer;
+}
+.LeftMenu ul.AspNet-Menu li span {
+    background: transparent url('../../Images/Admin/AdminImages/menu_popup_right.gif') no-repeat scroll right center;
+    color: #333333;
+    cursor: pointer;
+    padding: 6px 7px 6px 25px;
+    text-align: left;
+}
+.LeftMenu ul.AspNet-Menu li:hover, .LeftMenu ul.AspNet-Menu li.AspNet-Menu-Hover {
+    background-image: url('../../Images/Admin/AdminImages/left_menu_hover_bkg.gif');
+    background-repeat: no-repeat;
+}
+.LeftMenu .ClickMenu {
+    background-image: url('../../Images/Admin/AdminImages/left_menu_hover_bkg_darkblue.gif');
+    background-repeat: no-repeat;
+}
+.LeftMenu .AspNet-Menu-Horizontal ul.AspNet-Menu ul {
+    background-color: #F8F8F8;
+    border: 1px solid #CCCCCC;
+}
+.LeftMenu .AspNet-Menu-Horizontal ul.AspNet-Menu ul li a {
+    border: medium none;
+    margin: 0;
+    padding: 7px 0 0 15px;
+    text-align: left;
+}
+.LeftMenu .AspNet-Menu-Horizontal ul.AspNet-Menu li ul li ul {
+    margin: 1em 10.35em 0 0;
+}
+
+

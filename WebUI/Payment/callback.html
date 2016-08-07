@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: Tahoma;
+            direction: rtl;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        body {
+            display: table;
+        }
+
+        div {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        table {
+            margin: 0 auto;
+            direction: rtl;
+            width: 50%;
+            min-width: 320px;
+            max-width: 480px;
+        }
+
+        td {
+            padding: 10px;
+            width: 10%;
+        }
+    </style>
+    <script>
+        function init() {
+
+            var result = JSON.parse('%Result%');
+
+            if (!result.Status) {
+
+                document.getElementById("title").setAttribute("style", "color: #b6ff00")
+
+                document.getElementById("title").innerHTML = "پرداخت با موفقیت انجام شد";
+            }
+            else {
+                document.getElementById("title").setAttribute("style", "color: #f84444")
+
+                document.getElementById("title").innerHTML = "پرداخت با موفقیت انجام نشد";
+            }
+
+            document.getElementById("refId").innerHTML = result.Parameters.RefId;
+
+            document.getElementById("saleReferenceId").innerHTML = result.Parameters.SaleReferenceId;
+
+            document.getElementById("code").innerHTML = result.Parameters.Code;
+
+            document.getElementById("description").innerHTML = result.Parameters.Description;
+
+            ok.performClick(result);
+        };
+    </script>
+</head>
+<body onload="init()">
+    <div>
+        <h1 id="title">&nbsp;</h1>
+        <table>
+            <tr>
+                <td style="text-align: right;">شماره پیگیری</td>
+                <td style="text-align: left;" id="refId">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="text-align: right;">شماره تراکنش</td>
+                <td style="text-align: left;" id="saleReferenceId">&nbsp;</td>
+            </tr>
+        </table>
+        <p style="color:#999; direction: ltr;">
+            <span id="code">&nbsp;</span>
+            &nbsp;:&nbsp;
+            <span id="description">&nbsp;</span>
+        </p>
+    </div>
+</body>
+</html>

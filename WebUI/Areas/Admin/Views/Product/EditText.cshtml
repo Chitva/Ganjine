@@ -1,0 +1,59 @@
+﻿@model Domain.Validation.Admin.ValidationIdAndText
+@{
+    string Text = Model.Text;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script src="~/Scripts/Admin/CloseSucc.js"></script>
+@Html.Hidden("MenuItems", "1433072936_home.png" + ":-" + "مدیریت صفحات سایت" + ":-" + "محصولات")
+@section scripts{
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript" src="~/Scripts/Admin/InitializeFckfinder.js"></script>
+    <script>
+        Page();
+        Initializes('#ckEditor');
+    </script>
+    <script src="~/Scripts/jquery.js"></script>
+}
+<div class="divCssWh">
+ 
+    <div style="padding-top: 15px">
+        @using (Html.BeginForm(actionName: "EditText", controllerName: "Product", method: FormMethod.Post))
+        {
+             @Html.HiddenFor(x=>x.Id)
+            <div class="divCss" style="padding-top: 15px">
+            <div class="DivCss1">
+                @Html.Label("نام تب", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.TabName, new { @class = "webUserTextBox", @style = "width:160px" })
+            </div>
+            <div class="FloatRight">
+                @Html.ValidationMessage("TabName", new { @class = "field-validation-left" })
+            </div>
+        </div>
+            <div class="divCss">
+                <div style="width: 700px; float: right">
+                    @Html.TextArea("ckEditor", Text)
+                </div>
+            </div>
+            <div class="divCss" style="padding-top: 15px">
+                <div class="DivCss1">
+                    <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+                </div>
+                <div class="FloatRight">
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>
+

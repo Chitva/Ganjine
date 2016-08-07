@@ -1,0 +1,82 @@
+﻿<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Sharing.css")" />
+<link href="~/Content/Admin/Grid.css" rel="stylesheet" />
+<link href="~/Content/Admin/Paging.css" rel="stylesheet" />
+<script src="~/Scripts/Admin/EditFooterColumnName.js"></script>
+@{
+    List<Domain.Entities.FooterColumnName> FooterColumnNameList = ViewBag.FooterColumnName;
+    string Result = Convert.ToString(TempData["result"]);
+    int Countergrid = 0;
+}
+
+<div class="divCssWh" style="min-height: 100px; padding-bottom: 30px;">
+    
+    <div>
+        @if (Result != "")
+        {
+            <div class="divCss" style="padding-right: 0;">
+                @if (Result == "OK")
+                {
+                    <div id="SuccessMsg" style="float: right; width: 300px; padding-bottom: 10px;">
+                        @Html.Partial("~/Areas/Admin/Views/Alerts/_Successful.cshtml")
+                    </div>
+                }
+                else
+                {
+                    <div id="AlertMsg" style="float: right; width: 300px; padding-bottom: 10px;">
+                        @Html.Partial("~/Areas/Admin/Views/Alerts/_Error.cshtml")
+                    </div>
+                }
+            </div>
+        }
+        <div class="ScrollGrid">
+            <div id="Table" style="direction: rtl;">
+                @if (FooterColumnNameList != null && FooterColumnNameList.Count() > 0)
+                {
+                    foreach (var item in FooterColumnNameList)
+                    {
+                        if (Countergrid == 0)
+                        {                 
+                    <div class="RowTop" style="width: 480px;">
+                        <div style="float: right; width: 60px">
+                            &nbsp;
+                        </div>
+                        <div style="float: right; width: 160px">
+                          نام ستون 
+                        </div>
+                        <div style="float: right; width: 160px">
+                          
+                        </div>
+                    </div>        
+                        }
+                        Countergrid++;
+                    <div class="Row" style="float: right; width: 480px;">
+                        <div class="Column" style="float: right; width: 60px;">
+                           
+                             <div style="width: 24px; float: right">
+                                <input id="BtnEditMenu" type="button" value=" " class="IconEdit" />
+                            </div>
+                        </div>
+                        @using (Ajax.BeginForm("EditFooterColumnName", routeValues: new { Id = item.Id }, ajaxOptions: new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }))
+                        {
+                         <div class="Column" style="float: right; width: 160px">
+                            @Html.Hidden("DBName", item.Name)
+                               @Html.TextBox("NameM", item.Name, htmlAttributes: new { @min = 1,@class="WebUserLabel", @style = "width:170px;border:none;height:16px;", @readonly = "readonly"  })
+                        </div>
+                             <div class="Column" style="float: right; width: 70px;">
+                                <input class="OkIcon" type="submit" value="ثبت" style="display: none;" />
+                            </div>
+                            <div class="Column" style="float: right; width: 50px;">
+                                <input class="CancelIcon" type="button" value="انصراف" style="display: none;" />
+                            </div>
+                        }
+                    </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

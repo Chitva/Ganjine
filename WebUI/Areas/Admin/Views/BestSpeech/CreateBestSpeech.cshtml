@@ -1,0 +1,101 @@
+﻿    @model Domain.Entities.BestSpeech
+    @{
+        Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    }
+    @Html.Hidden("MenuItems", "1366112940_List.png" + ":-" + "مدیریت بخش های صفحه اصلی" + ":-" + "سخن برتر جدید")
+
+@Styles.Render("~/Content/themes/base/css")
+@Styles.Render("~/Content/css")
+@Styles.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/css")
+<style>
+    .field-validation-left{
+        margin-top:-6px;
+    }
+</style>
+<script>
+    Page();
+    PageList('افزودن سخن برتر جدید', '/Admin/BestSpeechs/BestSpeechList');
+</script>
+@*<script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+<script type="text/javascript" src="~/Scripts/Admin/InitializeFckfinder.js"></script>
+<script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+<script>
+    Initializes('#ckEditor');
+</script>*@
+<script src="~/Scripts/Admin/NumberTextBox.js"></script>
+    @section scripts{
+        <script src="~/Scripts/jquery.js"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnSave").click(function () {
+
+            if (!$("#Text").val() || !$("#Text").val().length) {
+                alert("لطفا متن را وارد نمایید");
+                return;
+            }
+
+            $("#btnSave").attr("disabled", "disabled");
+
+            $.ajax({
+                url: "/Admin/BestSpeech/SaveBestSpeech",
+                data: JSON.stringify({
+                    speechText: $("#Text").val(),
+                    isEnabled: $("#IsEnabled").val(),
+                    langugeId: 1
+                }),
+                dataType: "json", contentType: "application/json; charset=utf-8",
+                type: "POST", success: function (result) {
+                    window.location.href = '/Admin/BestSpeech/BestSpeechList';
+                }, error: function () {
+                    $("#btnSave").removeAttr("disabled");
+                }
+            });
+        });
+
+    });
+</script>
+    }
+    @{ 
+       string Result = Convert.ToString(TempData["result"]);
+    }
+    <div class="divCssWh" style="overflow:hidden;">
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label("متن", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.Text, "", new { @class = "webUserTextBox" })
+            </div>
+            <div id="validationtitle" class="HideElement FloatRight">
+                <span class="field-validation-left">متن الزامی است. </span>
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label("فعال", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.CheckBox("IsEnabled")
+            </div>
+            <div id="validationtitle" class="HideElement FloatRight">
+                <span class="field-validation-left">متن الزامی است. </span>
+            </div>
+        </div>
+    </div>
+
+
+<div style="clear: both;"></div>
+
+<div class="divCss">
+    <div class="divCss" style="padding-top: 15px; padding-right:73px">
+        <div class="DivCss1">
+            <input id="btnSave" type="button"  style="width:100px !important;line-height:0;" class="webUserButton" value="ثبت" />
+        </div>
+    </div>
+</div>

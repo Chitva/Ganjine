@@ -1,0 +1,120 @@
+﻿@model  Domain.Validation.Admin.RegisterModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+@Html.Hidden("MenuItems", "1361366943_preferences-contact-list.png" + ":-" + " مدیریت ادمین سایت" + ":-"+"لیست مدیران")
+
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/UserNameCharacters.js"></script>
+    <script src="~/Scripts/Admin/NumberTextBox.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script>
+        Page();
+        PageList('ایجاد مدیر', '/Admin/UserAdmin/UserList');
+    </script>
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+}
+<div class="divCssWh">
+    <div style="float: right; width: 100%">
+        <div class="divCss" style="padding-bottom: 15px; width: 300px;" id="thisis">
+        </div>
+    </div>
+    <div>
+        @using (Html.BeginForm(actionName: "CreateUser", controllerName: "UserAdmin", method:FormMethod.Post ,
+                       htmlAttributes: new { }))
+        {
+            <div id="RegisterBox">
+                <div style="width: 300px; float: right;">
+                    <div class="divCss">
+                        <div class="DivCss2" style="width: 80px">
+                            @Html.Label("نام کاربری", new { @class = "WebUserLabel" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "webUserTextBox", @style = "width:160px" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.ValidationMessage("UserName", new { @class = "field-validation-left", @id = "UserNameCheck" })
+                        </div>
+                    </div>
+                    <div class="divCss">
+                        <div class="DivCss2" style="width: 80px">
+                            @Html.Label("نام", new { @class = "WebUserLabel" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "webUserTextBox", @style = "width:160px" })
+                        </div>
+                    </div>
+                    <div class="divCss">
+                        <div class="DivCss2" style="width: 80px">
+                            @Html.Label("گذر واژه", new { @class = "WebUserLabel" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.PasswordFor(model => model.Password, new { @class = "webUserTextBox", @style = "width:160px" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.ValidationMessage("Password", new { @class = "field-validation-left" })
+                        </div>
+                    </div>
+                    <div class="divCss">
+                        <div class="DivCss2" style="width: 80px">
+                            @Html.Label("تکرار گذر واژه", new { @class = "WebUserLabel" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "webUserTextBox", @style = "width:160px" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "پسورد جدید و تکرار پسورد جدید مشابه هم نیستند ", new { @class = "field-validation-left" })
+                        </div>
+                    </div>
+        
+                    <div class="divCss">
+                        &nbsp;
+                    </div>
+                </div>
+                <div style="width: 300px; float: right">
+                    <div class="divCss">
+                        <div class="DivCss2">
+                            @Html.Label("نام خانوادگی", new { @class = "WebUserLabel" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.TextBoxFor(model => model.Famil, new { @class = "webUserTextBox", @style = "width:160px" })
+                        </div>
+                    </div>
+                    <div class="divCss">
+                        <div class="DivCss2" >
+                            @Html.Label("ایمیل", new { @class = "WebUserLabel" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.TextBoxFor(model => model.Email, new { @class = "webUserTextBox", @style = "width:160px" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.ValidationMessageFor(model => model.Email, "ایمیل را به درستی وارد کنید.", new { @class = "field-validation-left" })
+                        </div>
+                    </div>
+                    <div class="divCss">
+                        <div class="DivCss2">
+                            @Html.Label("شماره تماس", new { @class = "WebUserLabel" })
+                        </div>
+                        <div class="FloatRight">
+                            @Html.TextBoxFor(model => model.TellNumber, new { @class = "webUserTextBox", maxlength = 11, @onkeypress = "return isNum(event)", @style = "width:160px" })
+                        </div>
+                    </div>
+                </div>
+                <div class="divCss" style="padding-top: 15px; padding-right: 34px;">
+                    <div class="DivCss1">
+                        &nbsp;
+                    </div>
+                    <div class="FloatRight">
+                        <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

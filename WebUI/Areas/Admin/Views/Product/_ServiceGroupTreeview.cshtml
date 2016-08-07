@@ -1,0 +1,89 @@
+﻿<script src="~/Scripts/Admin/TreeView/Service/GetList.js"></script>
+<script>
+
+    $(function () {
+        $("#red").treeview({
+            animated: "fast",
+            expanded: true,
+
+        })
+    });
+  
+    $(document).ready(function () {
+
+        $("#isHome input").change(function () {
+           
+            $.ajax({
+                url: "/Admin/Product/ChangeIsHomeState",
+                data: JSON.stringify({
+                    Id: $("#HiddenMenuId").val()
+                }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                success: function (result) {
+                    alert("وضعیت نمایش در صفحه اصلی ویرایش شد");
+                    $("#red li[Value=" + result.ServiceGroupId + "]").attr("isHome", result.IsHome);
+                }
+            });
+        });
+      
+        $('#red span').click(function () {
+           
+            if ($(this).parent().find("ul").length) {
+                $("#isHome").hide();
+            }
+            else if ($(this).parent().attr("HasTab") == "true")
+            {
+                $("#isHome input").attr("checked", $(this).parent().attr("isHome") == "true")
+                $("#isHome").show();
+            }
+            else if ($(this).parent().attr("HasTab") == "false")
+            {
+                $("#isHome").hide();
+            }
+
+            $('#MenuInfoDetail').removeClass('DivMenuInfoDetailShow');
+            $('#MenuInfoDetail').addClass('DivMenuInfoDetailHide');
+            $('#HiddenMenuId').val($(this).parent().val());
+            $('#IsSelected').val("1");
+            $('#HiddenNodeAfterBeforCurrent').val($(this).parent().prev().val());
+            $('span').filter(function () {
+                return this.className;
+            }).removeClass('SelectedLi');
+            $(this).addClass('SelectedLi');
+        });
+    });
+</script>
+
+ <div id="red" class="treeview-red" style="overflow: auto;overflow-y: hidden;"  >
+        @CreateNodes(null)
+    </div>
+  
+
+ @helper  CreateNodes(int? ParentID)
+{
+List<Domain.Entities.ServiceGroup> MenuList = ViewBag.MenuList;
+MenuList = MenuList.Where(p => p.ParentID == ParentID).OrderBy(p=>p.Priority).ToList();
+int CountMenuList = MenuList.Count;
+if (CountMenuList > 0)
+{
+    HtmlString StartUL = new HtmlString("<ul>");
+    @StartUL 
+    for (int i = 0; i < CountMenuList; i++)
+    {
+        HtmlString StartLi = new HtmlString("<li  value=" + MenuList[i].Id
+            + "  isHome ="+ MenuList[i].IsHome.ToString().ToLower()
+            + "  HasTab ="+ MenuList[i].HasTab.ToString().ToLower() +">");
+    @StartLi
+<span>
+   @MenuList[i].Name
+    </span>
+    @CreateNodes(MenuList[i].Id);
+    }
+    HtmlString EndLi = new HtmlString("</li>");
+    @EndLi
+    HtmlString EndUL = new HtmlString("</ul>");
+    @EndUL 
+}
+}

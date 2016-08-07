@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8358193D-C121-41BE-B1C9-3B502D7A3E38}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Repository</RootNamespace>
+    <AssemblyName>Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\IArticleRepository.cs" />
+    <Compile Include="Abstract\IBannerRepository.cs" />
+    <Compile Include="Abstract\ICityProvinceRepository.cs" />
+    <Compile Include="Abstract\IInvoiceRepository.cs" />
+    <Compile Include="Abstract\IContactInfoRepository.cs" />
+    <Compile Include="Abstract\IContactRepository.cs" />
+    <Compile Include="Abstract\IFooterRepository.cs" />
+    <Compile Include="Abstract\IStoryRepository.cs" />
+    <Compile Include="Abstract\INewsRepository.cs" />
+    <Compile Include="Abstract\IPrtoductOrderRepository.cs" />
+    <Compile Include="Abstract\IQuestionRepository.cs" />
+    <Compile Include="Abstract\ISaleAgenciesRepository.cs" />
+    <Compile Include="Abstract\ISeoMngRepository.cs" />
+    <Compile Include="Abstract\IServiceRepository.cs" />
+    <Compile Include="Abstract\ISettingRepository.cs" />
+    <Compile Include="Abstract\IShoppingCartRepository.cs" />
+    <Compile Include="Abstract\IUploadRepository.cs" />
+    <Compile Include="Abstract\IUserAccountRepository.cs" />
+    <Compile Include="Abstract\IWorkExperienceRepository.cs" />
+    <Compile Include="Concrete\EFArticleRepository.cs" />
+    <Compile Include="Concrete\EFBannerRepository.cs" />
+    <Compile Include="Concrete\EFCityProvinceRepository.cs" />
+    <Compile Include="Concrete\EFInvoiceRepository.cs" />
+    <Compile Include="Concrete\EFContactInfoRepository.cs" />
+    <Compile Include="Concrete\EFContactRepository.cs" />
+    <Compile Include="Concrete\EFFooterRepository.cs" />
+    <Compile Include="Concrete\EFStoryRepository.cs" />
+    <Compile Include="Concrete\EFNewsRepository.cs" />
+    <Compile Include="Concrete\EFProductOrderRepository.cs" />
+    <Compile Include="Concrete\EFQuestionRepository.cs" />
+    <Compile Include="Concrete\EFSaleAgenciesRepository.cs" />
+    <Compile Include="Concrete\EFSeoMngRepository.cs" />
+    <Compile Include="Concrete\EFServiceRepository.cs" />
+    <Compile Include="Concrete\EFSettingRepository.cs" />
+    <Compile Include="Concrete\EFShoppingCartRepository.cs" />
+    <Compile Include="Concrete\EFUploadRepository.cs" />
+    <Compile Include="Concrete\EFUserAccountRepository.cs" />
+    <Compile Include="Concrete\EFWorkExperienceRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{46ad697b-5130-40c6-ae03-5164f293f675}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{bdeff00e-3d7d-4e60-99e3-f715e36056c8}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

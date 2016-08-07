@@ -1,0 +1,23 @@
+﻿<script src="~/Scripts/Admin/CloseSucc.js"></script>
+@{
+    string Result = Convert.ToString(TempData["result"]);}
+ @if (Result == "OK")
+            {
+<div id="divsuccess" class="DivClass" style="height: 32px;">
+    <div id="SuccessMsg" style="float: right; width: 300px;">
+        @Html.Partial("~/Areas/Admin/Views/Alerts/_Successful.cshtml")
+    </div>
+</div>
+     <script>
+         $('#divsuccess').fadeIn('fast').delay(1000).fadeOut('fast');
+     </script>
+ }
+<div style="text-align: left; padding-left: 29px;">
+    <div class="WebUserLabelGray" style="padding-right: 4px; float: left">
+        @ViewBag.UserNameList
+    </div>
+    <div style="width: 200px; padding-left: 5px; float: left">
+        @Html.Label("آخرین بروزرسانی توسط", new { @class = "WebUserLabelGray" })
+    </div>
+</div>
+

@@ -1,0 +1,216 @@
+﻿    @model Domain.Entities.Article
+    @{
+        Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+        string Folder = Convert.ToString(TempData["Folder"]);
+        TempData["Folder"] = Folder;
+        string[] Tags = null;
+        if (Model.Tags != null)
+        {
+            Tags = Model.Tags.Split(';');
+        }
+    }
+@Html.Hidden("MenuItems", "1366112940_List.png" + ":-" + "مدیریت سایر صفحات" + ":-" + "مقاله")
+@Styles.Render("~/Content/themes/base/css")
+@Styles.Render("~/Content/css")
+@Styles.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/css")
+   <link href="~/Content/Tags/jquery.tagit.css" rel="stylesheet" />
+<link href="~/Content/Tags/tagit.ui-zendesk.css" rel="stylesheet" />
+<script src="~/Scripts/Tags/JqueryForTags/jquery.min.js"></script>
+<script src="~/Scripts/Tags/JqueryForTags/jquery-ui.min1.js"></script>
+        <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script src="~/Scripts/Tags/tag-it.js"></script>
+        <script>
+            Page();
+            PageList('جزئیات مقاله', '/Admin/Article/ArticleList');
+            $(document).ready(function () {
+                $('#readOnlyTags').tagit({
+                    readOnly: true
+                });
+            });
+        </script>
+
+    <div class="divCssWh" style="overflow:hidden;">
+        <div>
+            <div class="DivClass">
+                <div style="float: left; padding-left: 31px; padding-top: 3px">
+                    @Html.ActionLink("بازگشت", actionName: "BackArticleList", controllerName: "Article",
+                   routeValues: new { Page = @ViewBag.Page }, htmlAttributes: new { @class = "LinkBackPage" })
+                </div>
+            </div>
+        </div>
+        <div class="divCss">
+            <div style="width: 80px; text-align: right; float: right">
+                @Html.Label("عنوان", new { @class = "WebUserLabel" })
+            </div>
+            <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+                @Html.DisplayFor(model => model.Title, new { @class = "WebUserLabel" })
+            </div>
+        </div>
+        <div class="divCss">
+            <div style="width: 80px; text-align: right; float: right">
+                @Html.Label("خلاصه مقاله", new { @class = "WebUserLabel" })
+            </div>
+            <div class="WebUserLabel" style="float: right; text-align: right; width: 620px;">
+                @Html.DisplayFor(model => model.ShortDes, new { @class = "WebUserLabel" })
+            </div>
+        </div>
+        <div class="divCss">
+            <div style="width: 80px; text-align: right; float: right">
+                @Html.Label("متن", new { @class = "WebUserLabel" })
+            </div>
+            <div class="WebUserLabel" style="float: right; text-align: right; width: 620px">
+                @Html.Raw(Server.HtmlDecode(@Html.DisplayFor(model => model.LongDes, new { @class = "WebUserLabel" }).ToString()))
+            </div>
+        </div>
+        <div class="divCss">
+            <div style="width: 80px; text-align: right; float: right">
+                @Html.Label("عدم نمایش", new { @class = "WebUserLabel" })
+            </div>
+            <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+                @Html.DisplayFor(model => model.IsShow, new { @class = "WebUserLabel" })
+            </div>
+        </div>
+            <div class="divCss">
+            <div style="width: 80px; text-align: right; float: right">
+                @Html.Label("تاریخ ایجاد", new { @class = "WebUserLabel" })
+            </div>
+            <div class="WebUserLabel" style="float: right">
+                @{
+                    PersianToolS.PersinToolsClass mtfa1 = new PersianToolS.PersinToolsClass();
+                    string st1 = mtfa1.DateToPersian(Convert.ToDateTime(Model.CreationDate)).year + "،" +
+                        mtfa1.DateToPersian(Convert.ToDateTime(Model.CreationDate)).DayOfweak + " ، " +
+                        mtfa1.DateToPersian(Convert.ToDateTime(Model.CreationDate)).day.ToString() + 
+                        " " + mtfa1.DateToPersian(Convert.ToDateTime(Model.CreationDate)).MonthName;
+                }
+                @st1
+            </div>
+        </div>
+        <div class="divCss">
+            <div style="width: 80px; text-align: right; float: right">
+                @Html.Label("تاریخ ویرایش", new { @class = "WebUserLabel" })
+            </div>
+            <div class="WebUserLabel" style="float: right">
+                @{
+                    PersianToolS.PersinToolsClass mtfa = new PersianToolS.PersinToolsClass();
+                    string st = (Model.ModifiedDate == null) ? "-" : mtfa.DateToPersian(Convert.ToDateTime(Model.ModifiedDate)).year + "،" +
+                        mtfa.DateToPersian(Convert.ToDateTime(Model.ModifiedDate)).DayOfweak + " ، " +
+                        mtfa.DateToPersian(Convert.ToDateTime(Model.ModifiedDate)).day.ToString() +
+                        " " + mtfa.DateToPersian(Convert.ToDateTime(Model.ModifiedDate)).MonthName;
+                }
+                @st
+            </div>
+        </div>
+
+        <div class="divCss" style="width:710px;">
+            <div style="width: 80px; text-align: right; float: right">
+                تگ
+            </div>
+            <div class="WebUserLabel" style="float: right;width:630px;" >
+                <ul id="readOnlyTags">
+                    @if (Tags != null)
+                    {
+                        for (int i = 0; i < Tags.Count(); i++)
+                        {
+                            <li>@Tags[i]</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+
+
+       
+    </div>
+<div style="padding:20px;border-top:1px solid #ccc;">
+    <b>تصاویــر گالری</b>
+</div>
+<div>
+    <!-- The file upload form used as target for the file upload widget -->
+    <form id="fileupload" action="/Backload/UploadHandler" method="POST" enctype="multipart/form-data">
+        <!-- Redirect browsers with JavaScript disabled to the origin page -->
+        <noscript><input type="hidden" name="redirect" value="/"></noscript>
+
+
+        <input type="hidden" name="objectContext" value="ArticleGallery" />
+
+        <input type="hidden" name="uploadContext" value="@Folder" />
+
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+    </form>
+
+    <!-- The template to display files available for upload -->
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) {  %}
+        <tr class="template-upload fade">
+            <td>
+                <span class="preview"></span>
+            </td>
+            <td>
+                <p class="name">{%=file.name%}</p>
+                {% if (file.error) { %}
+                <div><span class="label label-important">Error</span> {%=file.error%}</div>
+                {% } %}
+            </td>
+            <td>
+                <p class="size">{%=o.formatFileSize(file.size)%}</p>
+                {% if (!o.files.error) { %}
+                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+                {% } %}
+            </td>
+            <td>
+                {% if (!o.files.error && !i && !o.options.autoUpload) { %}
+                <button class="btn btn-primary start" style="display:none;">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start</span>
+                </button>
+                {% } %}
+                {% if (!i) { %}
+                <button class="btn btn-warning cancel">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>انصراف</span>
+                </button>
+                {% } %}
+            </td>
+        </tr>
+        {% } %}
+    </script>
+    <!-- The template to display files available for download -->
+    <script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade">
+            <td>
+                <span class="preview">
+                    {% if (file.thumbnail_url) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" data-gallery="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}" alt="ArticleImage"></a>
+                    {% } %}
+                </span>
+            </td>
+            <td>
+                <p class="name">
+                    <a href="{%=file.url%}" title="{%=file.name%}" data-gallery="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+                </p>
+                {% if (file.error) { %}
+                <div><span class="label label-important">Error</span> {%=file.error%}</div>
+                {% } %}
+            </td>
+            <td>
+                <span class="size">{%=o.formatFileSize(file.size)%}</span>
+            </td>
+            <td>
+                @*<button class="btn btn-danger delete" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" {% if (file.delete_with_credentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                    <i class="icon-trash icon-white"></i>
+                    <span>حذف</span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle">*@
+            </td>
+        </tr>
+        {% } %}
+    </script>
+</div>
+
+@*@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")*@
+@Scripts.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/js")
+<script src="~/Scripts/FileUpload/backload.demo.js"></script>

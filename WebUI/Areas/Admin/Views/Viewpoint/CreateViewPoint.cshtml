@@ -1,0 +1,108 @@
+﻿@model Domain.ViewModel.Admin.ViewpointViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#btnSave").click(function () {
+
+            var error = false;
+
+            $("#validationText").addClass("HideElement");
+            $("#validationOption0").addClass("HideElement");
+            $("#validationOption1").addClass("HideElement");
+
+            var Text = $("#Text");
+
+            if (!Text.val() || !Text.val().length) {
+                $("#validationText").removeClass("HideElement");
+                error = true;
+            }
+
+            var OptionText0 = $("#Option0");
+
+            if (!OptionText0.val() || !OptionText0.val().length) {
+                $("#validationOption0").removeClass("HideElement");
+                error = true;
+            }
+
+            var OptionText1 = $("#Option1");
+
+            if (!OptionText1.val() || !OptionText1.val().length) {
+                $("#validationOption1").removeClass("HideElement");
+                error = true;
+            }
+
+            if (error) {
+                return;
+            }
+
+            $("#btnSave").attr("disabled", "disabled");
+
+            var options = [];
+
+            $("[id^=Option]").each(function () {
+                if ($(this).val() && $(this).val().length)
+                    options.push({
+                        OptionText: $(this).val()
+                    });
+            });
+
+            $.ajax({
+                url: "/Admin/ViewPoint/SaveViewPoint",
+                data: JSON.stringify({
+                    Text: $("#Text").val(),
+                    Options: options,
+                    langugeId: 1
+                }),
+                dataType: "json", contentType: "application/json; charset=utf-8",
+                type: "POST", success: function (result) {
+                    window.location.href = '/Admin/ViewPoint/ViewPointList';
+                }, error: function () {
+                    alert("درهنگام ثبت اطلاعات خطایی رخ داده است");
+                    $("#btnSave").removeAttr("disabled");
+                }
+            });
+        });
+    });
+</script>
+
+<div class="divCssWh" style="overflow:hidden;">
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("متن", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight">
+            @Html.TextArea("Text", new { @class = "webUserTextBox", style = "width: 615px;", rows = "5" })
+        </div>
+        <div id="validationText" class="HideElement FloatRight">
+            <span class="field-validation-left">متن الزامی است. </span>
+        </div>
+    </div>
+    @for (int i = 0; i < 6; i++)
+    {
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label(string.Format("گزینه {0}", i + 1), new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                <input type="text" id="Option@(i)" style="width: 615px;" />
+            </div>
+            <div id="validationOption@(i)" class="HideElement FloatRight">
+                <span class="field-validation-left">گزینه الزامی است. </span>
+            </div>
+        </div>
+    }
+</div>
+
+<div style="clear: both;"></div>
+
+<br />
+
+<input id="btnSave" type="button" style="float: left; margin:20px;" class="webUserButton" value="ثبت" />
+
+<div style="clear: both;"></div>

@@ -1,0 +1,193 @@
+﻿@model Domain.ViewModel.Admin.viewModelServiceSeo
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+    string Result = Convert.ToString(TempData["result"]);
+}
+
+
+@Styles.Render("~/Content/themes/base/css")
+@Styles.Render("~/Content/css")
+
+
+<style>
+    .field-validation-left {
+        margin-top: -6px;
+    }
+</style>
+
+<link href="~/Content/Tags/jquery.tagit.css" rel="stylesheet" />
+<link href="~/Content/Tags/tagit.ui-zendesk.css" rel="stylesheet" />
+<script src="~/Scripts/Tags/JqueryForTags/jquery.min.js"></script>
+<script src="~/Scripts/Tags/JqueryForTags/jquery-ui.min1.js"></script>
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script src="~/Scripts/Tags/tag-it.js"></script>
+<script>
+    Page();
+
+</script>
+
+<script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+<script type="text/javascript" src="~/Scripts/Admin/InitializeFckfinder.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        
+
+        $('#allowSpacesTags').tagit({
+            allowSpaces: true
+        });
+
+        $("#metaDescriptionCounter").html($("#metaDescription").val().length);
+
+        $("#metaDescription").keyup(function () {
+            $("#metaDescriptionCounter").html($("#metaDescription").val().length);
+        });
+
+        $("#btnSave").click(function (e) {
+            var metaDescription = $('#metaDescription').val();
+           
+            $("#btnSave").attr("disabled", "disabled");
+
+            @if (Request.Url.OriginalString.ToLower().Contains("/admin/product"))
+            {
+                <text>
+                var url = "/admin/Product/SeoMng";
+                var redirectUrl = '/Admin/Product/ProductList';
+                </text>
+            }
+
+          
+            @if (Request.Url.OriginalString.ToLower().Contains("/admin/setting/seomng"))
+            {
+                <text>
+                var url = "/admin/Setting/SeoMng";
+                var redirectUrl = '/admin/Setting/SeoMng';
+                </text>
+            }
+
+            @if (Request.Url.OriginalString.ToLower().Contains("/admin/home/seomng"))
+            {
+                <text>
+                var url = "/admin/home/SeoMng";
+                var redirectUrl = '/admin/home/SeoMng';
+            </text>
+            }
+
+             @if (Request.Url.OriginalString.ToLower().Contains("/admin/setting/contactinfoseomng"))
+             {
+                 <text>
+                 var url = "/admin/setting/contactinfoseomng";
+                 var redirectUrl ="/admin/setting/contactinfoseomng";
+                 </text>
+             }
+            
+            $.ajax({
+                url: url,
+                data: JSON.stringify({
+                    title: $("#pageTitle").val(), metaDescription: metaDescription,
+                    Keywords: $('#allowSpacesTags').tagit('assignedTags').join(";"),
+                    id: '@(Model.id)'
+                }),
+                dataType: "json", contentType: "application/json; charset=utf-8",
+                type: "POST", success: function (result) {
+                    window.location.href = redirectUrl;
+                }
+            });
+        });
+    });
+</script>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+}
+
+
+<div class="divCssWh" style="overflow:hidden;">
+
+    @if (Result != "")
+    {
+        <div class="divCss" style="padding-right: 0;">
+            @if (Result == "OK")
+            {
+                <div id="SuccessMsg" style="float: right; width: 300px;">
+                    @Html.Partial("~/Areas/Admin/Views/Alerts/_Successful.cshtml")
+                </div>
+            }
+            else
+            {
+                <div id="AlertMsg" style="float: right; width: 300px;">
+                    @Html.Partial("~/Areas/Admin/Views/Alerts/_Error.cshtml")
+                </div>
+            }
+        </div>
+    }
+
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("عنوان صفحه", new { @class = "WebUserLabel" })
+        </div>
+
+        <div class="FloatRight" style="width:633px;">
+            @Html.TextBoxFor(x => x.title, new { @class = "webUserTextBox", @id = "pageTitle", style = "width: 630px;" })
+        </div>
+
+        <label class="FloatLeft" style="color: #b1b1b1; width: 650px; line-height: 26px; font-size: 12px;">
+            * جهت بهینه سازی سایت در موتورهای جستجو وارد کردن عنوان الزامی است
+        </label>
+        <div id="validationText" class="HideElement FloatRight">
+            <span class="field-validation-left">عنوان صفحه مورد نیاز است</span>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <br />
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("توضیحات صفحه", new { @class = "WebUserLabel" })
+        </div>
+
+        <div class="FloatRight" style="width:633px;">
+            @Html.TextAreaFor(x => x.metaDescription, new { @id = "metaDescription", style = "width: 630px;" })
+        </div>
+        <label class="FloatLeft" style="color: #b1b1b1; width: 650px; line-height: 26px; font-size: 12px;">
+            * کاراکتر تایپ شده : <span id="metaDescriptionCounter">0</span>
+        </label>
+        <label class="FloatLeft" style="color: #b1b1b1; width: 650px; line-height: 26px; font-size: 12px;">
+            * برای بهینه سازی سایت برای موتورهای جستجو بهتر است توضیحات صفحه بین 60 تا 170 کاراکتر بادرنظرگرفتن فاصله باشد.
+        </label>
+        <label class="FloatLeft" style="color: #b1b1b1; width: 650px; line-height: 26px; font-size: 12px;">
+            * پر کردن عنوان هر عکس در صفحه ویرایش مربوط به آن صفحه انجام می پذیرد
+        </label>
+        <div id="validationText" class="HideElement FloatRight">
+            <span class="field-validation-left">توضیحات صفحه برای سئو مورد نیاز است.</span>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <br />
+    <div class="divCss" style="width:710px;">
+        <div class="DivCss2" style="width:75px;">
+            کلمات کلیدی
+        </div>
+        <div class="FloatRight" style="width:633px;">
+            <ul id="allowSpacesTags" name="allowSpacesTags">
+                @{
+                    if (Model.keyWords != null)
+                    {
+                        var keywords = Model.keyWords.Split(new char[] { ';' });
+                        foreach (var keyWord in keywords)
+                        {
+                            <li>@(keyWord)</li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+</div>
+<input id="btnSave" type="button" style="width:100px !important;line-height:0; margin:16px 6px 6px 6px" class="webUserButton FloatLeft" value="ثبت" />
+
+
+

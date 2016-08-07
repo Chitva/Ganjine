@@ -1,0 +1,137 @@
+﻿@model Domain.Validation.Admin.ValidationOrder
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+}
+@Html.Hidden("MenuItems", "1389012364_PixelKit_5-Oclock-Shades-Icon-Set__0008_4.png" + ":-" + "مدیریت سفارشات" + ":-" + "جزئیات سفارش ")
+   <script src="~/Scripts/jquery.js"></script> 
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+    <script>
+        Page();
+    </script>
+<div class="divCssWh">
+    <div>
+        <div class="DivClass">
+            <div style="float: left; padding-left: 31px; padding-top: 3px">
+                @Html.ActionLink("بازگشت", actionName: "BackListOrders", controllerName: "Order", routeValues: new { Page = @ViewBag.Page }, htmlAttributes: new { @class = "LinkBackPage" })
+            </div>
+        </div>
+    </div>
+    <div class="divCss" style="padding-top: 15px;">
+        <div style="width: 100px; text-align: right; float: right">
+            @Html.Label("نام سفارش دهنده", new {@class = "WebUserLabel"})
+        </div>
+        <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+            @Html.DisplayFor(model => model.Name, new {@class = "WebUserLabel"})
+        </div>
+    </div>
+
+    <div class="divCss" style="padding-top: 15px;">
+        <div style="width: 100px; text-align: right; float: right">
+            @Html.Label("نام خانوادگی", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+            @Html.DisplayFor(model => model.Family, new { @class = "WebUserLabel" })
+        </div>
+    </div>
+
+    <div class="divCss" style="padding-top: 15px;">
+        <div style="width: 100px; text-align: right; float: right">
+            @Html.Label("نام محصول", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+            @Html.DisplayFor(model => model.ServiceGroupName, new { @class = "WebUserLabel" })
+        </div>
+    </div>
+
+    <div class="divCss" style="padding-top: 15px;">
+        <div style="width: 100px; text-align: right; float: right">
+            @Html.Label("جنسیت", new {@class = "WebUserLabel"})
+        </div>
+        <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+            @(Model.IsMale ? "مرد" : "زن")
+        </div>
+    </div>
+
+    <div class="divCss" style="padding-top: 15px;">
+        <div style="width: 100px; text-align: right; float: right">
+            @Html.Label("شماره تماس", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+            @Html.DisplayFor(model => model.Tell, new { @class = "WebUserLabel" })
+        </div>
+    </div>
+
+    <div class="divCss" style="padding-top: 15px;">
+        <div style="width: 100px; text-align: right; float: right">
+            @Html.Label("ایمیل", new {@class = "WebUserLabel"})
+        </div>
+        <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+            @Html.DisplayFor(model => model.Email, new {@class = "WebUserLabel"})
+        </div>
+    </div>
+
+    <div class="divCss" style="padding-top: 15px;">
+        <div style="width: 100px; text-align: right; float: right">
+            @Html.Label("آدرس", new {@class = "WebUserLabel"})
+        </div>
+        <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+            @Html.DisplayFor(model => model.Address, new {@class = "WebUserLabel"})
+        </div>
+    </div>
+
+    <div class="divCss" style="padding-top: 15px;">
+        <div style="width: 100px; text-align: right; float: right">
+            @Html.Label("متن سفارش", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right; text-align: right; width: auto">
+            @Html.DisplayFor(model => model.OrderText, new { @class = "WebUserLabel" })
+        </div>
+    </div>
+
+    <div class="divCss">
+        <div style="width: 100px; text-align: right; float: right">
+            @Html.Label("تاریخ سفارش", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right">
+            @{
+                PersianToolS.PersinToolsClass mtfa1 = new PersianToolS.PersinToolsClass();
+                string st1 = mtfa1.DateToPersian(Convert.ToDateTime(Model.OrderDate)).year + "،" +
+                    mtfa1.DateToPersian(Convert.ToDateTime(Model.OrderDate)).DayOfweak + " ، " +
+                    mtfa1.DateToPersian(Convert.ToDateTime(Model.OrderDate)).day + " " +
+                    mtfa1.DateToPersian(Convert.ToDateTime(Model.OrderDate)).MonthName;
+            }
+            @st1
+        </div>
+    </div>
+     
+@using (Html.BeginForm(actionName: "SaveReadInfo", controllerName: "Order", routeValues: new { Page = @ViewBag.Page }, method: FormMethod.Post,
+                            htmlAttributes: new { enctype = "multipart/form-data" }))
+    {
+    @Html.Hidden("orderId",Model.Id)
+    <div>
+        <div class="divCss">
+            <div class="FloatRight" style="width:100px;">
+                <span class="WebUserLabel"> وضعیت</span>
+            </div>
+            <div class="FloatRight">
+                @Html.DropDownList("dpStatus", (SelectList)ViewBag.DpStatus1, new { @class = "webUserDropDown", @style = "width:163px" })
+            </div>
+        </div>
+        
+        <div class="divCss">
+            <div class="FloatRight" style="width:100px;">
+                &nbsp;
+            </div>
+            <div class="FloatRight">
+                <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+            </div>
+        </div>
+    </div>
+}
+</div>
+

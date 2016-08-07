@@ -1,0 +1,53 @@
+﻿  .thumb
+    {
+        height: 100px;
+        border: 1px solid #000;
+        margin: 10px 5px 0 0;
+    }
+    table
+    {
+        width: 100%;
+        border-collapse: collapse;
+        outline: 1px solid #5e5e5e;
+    }
+        table thead tr th:first-of-type
+        {
+            width: 20px;
+        }
+        table thead, tfoot
+        {
+            background-color: #5E5E5E;
+            border-color: #5E5E5E;
+            color: white;
+        }
+            table thead th
+            {
+                padding: 5px;
+            }
+        table tfoot td
+        {
+            text-align:center;
+            padding: 5px;
+        }
+        table tbody tr
+        {
+            margin: 5px 0px;
+            border-bottom: 1px solid silver;
+        }
+            table tbody tr td
+            {
+                padding: 5px;
+                text-align: center;
+            }
+                table tbody tr td:last-of-type
+                {
+                    padding: 0;
+                }
+        table tfoot tr td:last-of-type {
+            padding: 0;
+        }
+#uploadform {
+    margin: 10px;
+    width: 700px;
+    padding: 30px 5px;
+}

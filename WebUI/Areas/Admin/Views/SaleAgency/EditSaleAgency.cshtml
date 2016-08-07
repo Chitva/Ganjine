@@ -1,0 +1,176 @@
+﻿@model Domain.ViewModel.Admin.SalesAgencyViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    string Result = Convert.ToString(TempData["result"]);
+    string Page =Convert.ToString( ViewBag.Page);
+}
+@Html.Hidden("MenuItems", "1366112940_List.png" + ":-" + "مدیریت بخش های صفحه اصلی" + ":-" + "ویرایش سخن برتر")
+@Styles.Render("~/Content/themes/base/css")
+@Styles.Render("~/Content/css")
+@Html.Hidden("hfPage", Page)
+@Html.Hidden("dels","1")
+@Html.Hidden("hfTg", Page)
+
+<style>
+    .field-validation-left {
+        margin-top: -6px;
+    }
+</style>
+
+<script src="~/Scripts/jquery.js"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#btnSave").click(function () {
+            debugger;
+            var error = false;
+            //$("#validationSpeechText").addClass("HideElement");
+            //var title = $("#SpeechText");
+            //if (!title.val() || !title.val().length) {
+            //    $("#validationSpeechText").removeClass("HideElement");
+            //    error = true;
+            //}
+
+            //if (error) {
+            //    return;
+            //}
+
+            $("#btnSave").attr("disabled", "disabled");
+
+            $.ajax({
+                url: "/Admin/SaleAgency/EditSaleAgency",
+                data: JSON.stringify({
+                    Id :@(Model.Id) ,
+                    Address: $("#Address").val(),
+                    CityId: $("#ddlcity").val(),
+                    ManagerName: $("#ManagerName").val(),
+                    Telephone: $("#Telephone").val(),
+                    LanguageId : 1
+                }),
+                dataType: "json", contentType: "application/json; charset=utf-8",
+                type: "POST", success: function (result) {
+                    window.location.href = '/Admin/SaleAgency/SaleAgencyList';
+                }, error: function () {
+                    $("#btnSave").removeAttr("disabled");
+                }
+            });
+        });
+
+    });
+</script>
+        <script>
+            //Page();
+            PageList('ویرایش  نمایندگی فروش ', '/Admin/SaleAgency/SaleAgencyList');
+        </script>
+        <script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+        <script src="~/Scripts/Admin/NumberTextBox.js"></script>
+<script>
+    function GetCity(_stateId) {
+        debugger;
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#ddlcity").html(procemessage).show();
+        var url = "/Admin/SaleAgency/GetCityByProvinceId/";
+
+        $.ajax({
+            url: url,
+            data: { ProvinceId: _stateId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                debugger;
+                var markup = "<option value='0'>انتخاب شهر</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>" ;
+                }
+                $("#ddlcity").html(markup).show();
+
+                if( $("#ddlstate").val() == '@(Model.ProvinceId)')
+                {
+                    $("#ddlcity").val("@(Model.CityId)");
+                }
+
+            },
+            error : function (reponse) {
+                alert("error");
+            }
+        });
+    }
+</script>
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+<div class="divCssWh" style="overflow:hidden;">
+
+    <div style="width: 100%">
+        <div style="float: left; padding-left: 31px; padding-top: 3px; padding-bottom: 5px">
+            @Html.ActionLink("بازگشت", actionName: "SaleAgencyList", controllerName: "SaleAgency",
+                       routeValues: new { Page = @ViewBag.Page }, htmlAttributes: new { @class = "LinkBackPage" })
+        </div>
+    </div>
+   
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("آدرس", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight">
+            @Html.TextAreaFor(x => x.Address, new { @class = "webUserTextArea" ,@cols = "29" })
+        </div>
+    </div>
+
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("نام مدیر", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight">
+            @Html.TextBoxFor(x => x.ManagerName, new { @class = "webUserTextBox" })
+        </div>
+    </div>
+
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("تلفن", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight">
+            @Html.TextBoxFor(x => x.Telephone, new { @class = "webUserTextBox", @type = "number" })
+        </div>
+        @*<div id="validationtitle" class="HideElement FloatRight">
+                <span class="field-validation-left">متن الزامی است. </span>
+            </div>*@
+    </div>
+
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("استان", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight">
+            @Html.DropDownListFor(_=>_.ProvinceId, new SelectList(Model.Provinces, "Id", "ProvinceName"),
+               new { @id = "ddlstate",  @class = "webUserTextBox" , @onchange = "javascript : GetCity(this.value);" })
+            <script>
+                $(document).ready(function(){
+                    debugger;
+                    GetCity("@(Model.ProvinceId)");
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("شهر", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight">
+            <select id="ddlcity" name="ddlcity" style="width: 220px"></select>
+        </div>
+    </div>
+</div>
+
+<div style="clear: both;"></div>
+<div class="divCss">
+    <div class="divCss" style="padding-top: 15px; padding-right:73px">
+        <div class="DivCss1">
+            <input id="btnSave" type="button" style="width:100px !important;line-height:0;" class="webUserButton" value="ثبت" />
+        </div>
+    </div>
+</div>
+

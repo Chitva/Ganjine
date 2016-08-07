@@ -1,0 +1,10 @@
+
+body {
+    direction: ltr;
+    font-family: 'tahoma', 'Open Sans', sans-serif !important;
+}
+
+.dropdown-menu .dropdown-menu {
+    right: 0 !important;
+    left: 100% !important;
+}

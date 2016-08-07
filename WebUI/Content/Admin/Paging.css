@@ -1,0 +1,81 @@
+﻿#pagination {
+    width: 310px;
+    margin: 0 auto;
+    text-align:center;
+    clear:both;
+}
+    #pagination ul {
+        list-style-type:none;
+    }
+    #pagination ul span {
+        float: right;
+        color: #fff;
+        font-size: 12px;
+        font-family: tahoma;
+        line-height: 22px;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+    #pagination ul a {
+        color: #666;
+        text-decoration: none;
+        float: right;
+        border-radius: 3px;
+        border: 1px solid #AFAFAF;
+        width: 22px;
+        height: 22px;
+        text-align: center;
+        font-family: tahoma;
+        color: #666;
+        font-size: 11px;
+        font-weight: bold;
+        line-height: 24px;
+        padding: 0;
+        background-color: #F9F9F9;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#F9F9F9), to(#EAEAEA));
+        background-image: -webkit-linear-gradient(top, #F9F9F9, #EAEAEA);
+        background-image: -moz-linear-gradient(top, #F9F9F9, #EAEAEA);
+        background-image: -ms-linear-gradient(top, #F9F9F9, #EAEAEA);
+        background-image: -o-linear-gradient(top, #F9F9F9, #EAEAEA);
+        background-image: linear-gradient(top, #F9F9F9, #EAEAEA);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f9f9f9', EndColorStr='#eaeaea');
+        -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, .15);
+        -moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,.15);
+        box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, .15);
+        -webkit-box-shadow: inset 0px 1px 1px 0px white;
+        -moz-box-shadow: inset 0px 1px 1px 0px #fff;
+        box-shadow: inset 0px 1px 1px 0px white;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+    #pagination ul .current {
+    color: #fff;
+    text-decoration: none;
+    float: right;
+    border-radius: 3px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    font-family: Tahoma;
+    font-size: 12px;
+    line-height: 24px;
+    margin-left: 2px;
+    padding: 0px;
+    background-image: url('../../Images/Admin/AdminImages/Paging.png');
+    background-repeat: no-repeat;
+    margin-right: 2px;
+}
+    #pagination ul .prev {
+    color: transparent;
+    background-image: url('../../Images/Admin/AdminImages/page_right.png');
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+    #pagination ul .next {
+    color: transparent;
+    background-image: url('../../Images/Admin/AdminImages/page_left.png');
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

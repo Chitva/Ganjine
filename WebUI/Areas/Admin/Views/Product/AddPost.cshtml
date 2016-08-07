@@ -1,0 +1,537 @@
+﻿@model Domain.ViewModel.Admin.viewmodelNews
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+    var HasTitle = TempData["HasTitle"];
+
+}
+@Html.Hidden("MenuItems", "1433072936_home.png" + ":-" + "مدیریت صفحات سایت" + ":-" + "محصولات")
+
+@Styles.Render("~/Content/themes/base/css")
+@Styles.Render("~/Content/css")
+@Styles.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/css")
+<style>
+    .field-validation-left {
+        margin-top: -6px;
+    }
+</style>
+
+<link href="~/Content/Tags/jquery.tagit.css" rel="stylesheet" />
+<link href="~/Content/Tags/tagit.ui-zendesk.css" rel="stylesheet" />
+<script src="~/Scripts/Tags/JqueryForTags/jquery.min.js"></script>
+<script src="~/Scripts/Tags/JqueryForTags/jquery-ui.min1.js"></script>
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script src="~/Scripts/Tags/tag-it.js"></script>
+<script>
+            Page();
+            PageList('افزودن متن و تصویر', '/Admin/Product/ProductList');
+</script>
+<script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+<script type="text/javascript" src="~/Scripts/Admin/InitializeFckfinder.js"></script>
+<script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+<script>
+    Initializes('#ckEditor');
+</script>
+<script>
+    $(document).ready(function () {
+        $('#allowSpacesTags').tagit({
+            allowSpaces: true
+        });
+
+        window.CheckValidations = function () {
+            debugger;
+            var isError = false;
+
+            if ($('#Discount').length && $("#Price").length) {
+                if ($('#Discount').val().length > 0 && $('#Price').val().length > 0) {
+                    if (parseInt($('#Discount').val()) > parseInt($("#Price").val())) {
+                        alert("تخفیف نمیتواند از قیمت بیشتر باشد.");
+                        isError = true;
+                    }
+                }
+            }
+
+            if ($("#ProductTitle").length) {
+
+                if ($("#ProductTitle").val().length == 0) {
+                    $("#tileValidation").removeClass("HideElement");
+                    isError = true;
+                }
+                else {
+                    $("#tileValidation").addClass("HideElement");
+                }
+            }
+
+            if (CKEDITOR.instances['LongDes'].getData().length == 0) {
+                $("#validationText").removeClass("HideElement");
+                isError = true;
+            }
+            else {
+                $("#validationText").addClass("HideElement");
+            }
+
+            if ($("#Price").val() == "" || $("#Price").val() == 0)
+            {
+                $("#PriceValidation").removeClass("HideElement");
+                isError = true;
+            }
+            else
+            {
+                $("#PriceValidation").addClass("HideElement");
+            }
+
+
+            if ($("#ProductUnit").length)
+            {
+                if ($("#ProductUnit").val().length == 0) {
+                    $("#UnitValidation").removeClass("HideElement");
+                    isError = true;
+                }
+                else {
+                    $("#UnitValidation").addClass("HideElement");
+                }
+            }
+
+            return isError;
+
+        };
+
+        window.SavePost = function (images) {
+            debugger;
+            var Txt = CKEDITOR.instances['LongDes'].getData();
+            var ProductTitle = $("#ProductTitle").val();
+
+            $("#btnSave").attr("disabled", "disabled");
+
+            var discount = 0;
+            if ($('#Discount').val())
+                discount = $('#Discount').val();
+
+            var price = 0;
+            if ($('#Price').val()) {
+                price = $('#Price').val();
+            }
+
+            $.ajax({
+                url: "/Admin/Product/SavePost",
+                data: JSON.stringify({
+                    LongDes: Txt,
+                    Title: ProductTitle,
+                    IsShow: true,
+                    Tags: $('#allowSpacesTags').tagit('assignedTags').join(";"),
+                    Price: price,
+                    Discount: discount,
+                    IsExist: $('#IsExist').is(':checked'),
+                    ProductUnit: $('#ProductUnit').val(),
+                    files: images.map(function (i) {
+                        return {
+                            title: i.title,
+                            fileName: i.name,
+                            description: i.description
+                        };
+                    })
+                }),
+                dataType: "json", contentType: "application/json; charset=utf-8",
+                type: "POST", success: function (result) {
+                    debugger;
+                    $("#ObjectContext").val("ServiceGallery\\" + result.Idms);
+                    window.location.href = '/Admin/Product/ProductList';
+                }
+            });
+        }
+    });
+</script>
+<script src="~/Scripts/Admin/NumberTextBox.js"></script>
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+}
+@{
+    string Result = Convert.ToString(TempData["result"]);
+}
+
+@if (@HasTitle != null && Convert.ToBoolean(@HasTitle.ToString()))
+{
+    <div class="divCssWh" style="overflow: hidden;">
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label("عنوان محصول", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight" style="width: 633px;">
+                @Html.TextBoxFor(x => x.Title, new { @id = "ProductTitle", @class = "webUserTextBox" })
+            </div>
+            <div id="tileValidation" class="HideElement FloatRight">
+                <span class="field-validation-left">وارد کردن عنوان محصول الزامی است. </span>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="divCssWh" style="overflow:hidden;">
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("محتوای متنی", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight" style="width:633px;">
+            @Html.TextAreaFor(x => x.LongDes, new { @class = "ckeditor", @id = "LongDes" })
+        </div>
+        <div id="validationText" class="HideElement FloatRight">
+            <span class="field-validation-left">وارد کردن محتوای متنی الزامی است. </span>
+        </div>
+    </div>
+    @if (@HasTitle != null && Convert.ToBoolean(@HasTitle.ToString()))
+    {
+
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label("قیمت", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight" style="width:633px;">
+                @Html.TextBoxFor(m => m.Price, new { type = "number", min = "0", step = "1", @id = "Price", required = true })
+            </div>
+            <div id="PriceValidation" class="HideElement FloatRight">
+                <span class="field-validation-left">وارد کردن قیمت الزامی است. </span>
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label("تخفیف", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight" style="width:633px;">
+                @Html.TextBoxFor(m => m.Discount, new { type = "number", min = "0", step = "1", @id = "Discount" })
+            </div>
+            @*<div id="validationText" class="HideElement FloatRight">
+                    <span class="field-validation-left">وارد کردن محتوای متنی الزامی است. </span>
+                </div>*@
+        </div>
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label("واحدمحصول", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight" style="width:633px;">
+                @Html.TextBoxFor(m => m.ProductUnit, new { @id = "ProductUnit" })
+            </div>
+            <div id="UnitValidation" class="HideElement FloatRight">
+                <span class="field-validation-left">وارد کردن واحدمحصول الزامی است. </span>
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="DivCss2">
+                &nbsp;
+            </div>
+            <div class="FloatRight">
+                <div class="FloatRight">
+                    @Html.CheckBoxFor(x => x.IsExist)
+                </div>
+                <div class="FloatRight">
+                    @Html.Label("موجود است ؟", new { @class = "WebUserLabel" })
+                </div>
+            </div>
+        </div>
+
+    }
+    <div class="divCss" style="width:710px;">
+        <div class="DivCss2" style="width:75px;">
+            تگ
+        </div>
+        <div class="FloatRight" style="width:633px;">
+            <ul id="allowSpacesTags" name="allowSpacesTags"></ul>
+        </div>
+    </div>
+</div>
+<div style="padding:20px;border-top:1px solid #ccc;">
+    <b>مدیــریت تصاویــر گالری</b>
+</div>
+
+<
+<style>
+    .ltr {
+        direction: ltr;
+    }
+
+    .text-left {
+        text-align: left !important;
+    }
+
+    .text-right {
+        text-align: right !important;
+    }
+
+    .files {
+        width: 95%;
+        margin: 0 auto;
+        direction: rtl;
+        font-size: 14px;
+    }
+
+        .files * {
+            font-family: Tahoma;
+        }
+
+        .files table {
+            width: 100%;
+            /*border-collapse: collapse;*/
+        }
+
+            .files table th {
+                background: #ccc;
+            }
+
+                .files table th:not(:last-child),
+                .files table td:not(:last-child) {
+                    word-break: break-all;
+                }
+
+            .files table th,
+            .files table td {
+                text-align: center;
+                padding: 8px;
+                vertical-align: middle;
+                max-width: 100px;
+            }
+
+            .files table th,
+            .files table td,
+            .files table .empty td {
+                border: 1px solid #dddddd;
+            }
+
+            .files table tr:not(:last-child) td {
+                border-bottom: 1px solid #dddddd;
+            }
+
+            .files table td img {
+                height: 64px;
+                margin-bottom: 8px;
+            }
+
+            .files table td input,
+            .files table td textarea {
+                width: calc(100% - 16px);
+                margin: 5px;
+                padding: 3px;
+                border: 1px solid #dddddd;
+            }
+
+        .files button {
+            background-color: #555555;
+            border: none;
+            color: white;
+            padding: 4px 16px;
+            cursor: pointer;
+            border: solid 1px #ccc;
+        }
+
+            .files button.error {
+                background-color: #dd2c00;
+            }
+
+            .files button.success {
+                background-color: green;
+            }
+
+            .files button.warning {
+                background-color: #ffeb3b;
+                color: #555;
+            }
+</style>
+<div ng-app="app">
+    <div class="files"
+         files="model.images"
+         scope="scope"
+         options="fileUploadConfig">
+        <div>
+            <button ng-click="add()"
+                    type="button">
+                اضافه کردن فایل
+            </button>
+            <button ng-click="upload()"
+                    ng-if="!isComplete() && !isUploading() && files.length"
+                    type="button">
+                بارگذاری
+            </button>
+            <button ng-click="pause()"
+                    ng-if="!isComplete() && isUploading()"
+                    type="button">
+                توقف
+            </button>
+            <button ng-click="clear()"
+                    ng-if="files.length"
+                    type="button">
+                حذف
+            </button>
+        </div>
+        <br />
+        <table>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    پیش نمایش
+                </th>
+                @*<th>
+                        نوع
+                    </th>*@
+                <th>
+                    حجم
+                </th>
+                <th>
+                    نوع
+                </th>
+                <th>
+                    اطلاعات
+                </th>
+                <th>
+                    وضعیت
+                </th>
+                <th>
+                    پیشرفت
+                </th>
+                <th>
+                    عملیات
+                </th>
+            </tr>
+            <tr ng-repeat="i in files">
+                <td>
+                    {{$index+1}}
+                </td>
+                <td class="ltr">
+                    <img src="{{i.data}}" height="60" />
+                    <br />
+                    {{i.name}}
+                </td>
+                @*<td>
+                        <div class="file-icon"
+                             data-type="{{i.ext || '...'}}"
+                             style="background: {{i.color}}"></div>
+                    </td>*@
+                <td class="ltr">
+                    {{i.size ? (i.size / (1024)).toFixed(2) + ' KB' : ''}}
+                </td>
+                <td class="ltr">
+                    {{i.type}}
+                </td>
+                <td>
+                    <input ng-model="i.title"
+                           placeholder="عنوان"
+                           type="text">
+                    <textarea ng-model="i.description"
+                              placeholder="توضیحات"></textarea>
+                </td>
+                <td>
+                    <div ng-show="i.isPaused && i.isComplete && i.isUploading">
+                        <span ng-show="i.isPaused()">
+                            توقف
+                        </span>
+                        <span ng-show="i.isUploading()">
+                            درحال بارگذاری
+                        </span>
+                        <span ng-show="i.isComplete() && !i.hasError()">
+                            تکمیل
+                        </span>
+                        <span ng-show="!i.isComplete() && !i.isPaused() && !i.isUploading()">
+                            انتظار
+                        </span>
+                        <span ng-show="i.hasError()">
+                            خطا
+                        </span>
+                    </div>
+                </td>
+                <td class="ltr">
+                    {{i.percent != undefined ? (i.percent.toFixed(0) + ' %') : ''}}
+                </td>
+                <td>
+                    <button type="button"
+                            ng-click="remove(i)">
+                        حذف
+                    </button>
+                    <button type="button"
+                            ng-click="pause(i)"
+                            ng-if="!i.isComplete() && i.isUploading()">
+                        توقف
+                    </button>
+                </td>
+            </tr>
+            <tr class="empty"
+                ng-hide="files.length">
+                <td colspan="8">
+                    هیچ فایلی انتخاب نشده
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="~/Scripts/NewFileUpload/files.js"></script>
+<script>
+    window.app =
+        angular.module("app", ["simon"])
+        .run(function ($rootScope) {
+
+            $rootScope.model = {};
+
+            $rootScope.fileUploadConfig = {
+                autoUpload: false,
+                fileType: ["png", "jpg", "jpeg"],
+                target: '/api/FileUpload/Upload',
+                on: {
+                    complete: function () {
+
+                        var error = false;
+
+                        for (var i in $rootScope.model.images) {
+                            if ($rootScope.model.images[i].hasError && $rootScope.model.images[i].hasError()) {
+                                error = true;
+                                break;
+                            }
+                        }
+
+                        if (error) {
+                            if (confirm("برخی از فایل ها بدرستی بارگذاری نشده است آیا ادامه میدهید؟")) {
+                                // ajax
+                                if (!CheckValidations())
+                                {
+                                    SavePost($rootScope.model.images);
+                                }
+                            }
+                            else {
+                                // nothing
+                            }
+                        }
+                        else {
+                            // ajax
+                            if (!CheckValidations())
+                            {
+                                SavePost($rootScope.model.images);
+                            }
+                        }
+                    },
+                    //remove: function () {
+                    //    return confirm("remove single");
+                    //},
+                    //clear: function () {
+                    //    var deferred = $q.defer();
+                    //    if (confirm("remove all after 1 second")) {
+                    //        $timeout(function () {
+                    //            deferred.resolve();
+                    //        }, 1000);
+                    //    }
+                    //    else {
+                    //        deferred.reject();
+                    //    }
+                    //    return deferred.promise;
+                    //}
+                },
+            };
+
+            window.saveSimulate = function () {
+
+                $rootScope.scope.upload();
+            };
+        })
+</script>
+
+<button onclick="saveSimulate()">Save</button>

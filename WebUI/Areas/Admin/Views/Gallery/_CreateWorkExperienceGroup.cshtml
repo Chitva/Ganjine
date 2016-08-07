@@ -1,0 +1,271 @@
+﻿@model Domain.Validation.Admin.validationImageGroup
+@{
+    string Prev = Convert.ToString(ViewBag.prev);
+    string IsSel = Convert.ToString(ViewBag.prev);
+    string Ids = Convert.ToString(ViewBag.Ids);
+    string IsFirstRun = Convert.ToString(ViewBag.IsFirstRun);
+}
+<link href="~/Content/Admin/alert.css" rel="stylesheet" />
+<script src="~/Scripts/Admin/TreeView/WorkExperience/AddNode.js"></script>
+<script src="~/Scripts/Admin/TreeView/WorkExperience/DeleteNode.js"></script>
+  <script src="~/Scripts/Admin/AlertPopUp.js"></script>
+    <script src="~/Scripts/Admin/TreeView/WorkExperience/TreeView.js"></script>
+    <script src="~/Scripts/Admin/AlertBeforeDelete.js"></script>
+
+@{
+    string Result = Convert.ToString(TempData["Message"]);
+    bool IsAdmin = ViewBag.IsAdmin;
+}
+@Html.Hidden("HiddenMenuId", 1)
+@Html.Hidden("HiddenMenuNameEdit", "")
+@Html.Hidden("HiddenNodeAfterBeforCurrent")
+@Html.Hidden("IsSelected")
+@Html.Hidden("TypeOpr")
+@if (IsFirstRun=="Yes")
+{
+   <script>
+       $(document).ready(function () {
+           $("#BoxContent1").addClass("HideElement");
+       });
+     </script>
+}
+<script>
+    
+    $(document).ready(function () {
+        $("#DivInfoForm").addClass("HideElement");
+        $("#hrefAddTab").click(function () {
+          
+            var value = $("#HiddenMenuId").val();
+         
+            if (value == '1') {
+                alert("گروهی انتخاب کنید");
+            }
+            else {
+                $('#red li').each(function () {
+                    if ($(this).attr("value") == value) {
+                        var count = $(this).children('ul').children('li').length;
+                        if (count > 0) {
+                            alert("سطح آخر انتخاب شود .");
+                        }
+                        else
+                        {
+                            $(location).attr("href", "/Admin/Product/AddTab/" + value);
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+@if (ViewBag.IsNode == "Yes")
+{
+    <script>
+        $(document).ready(function () {
+            if ($("#DivInfoForm").hasClass("HideElement"))
+                $("#DivInfoForm").removeClass("HideElement");
+        });
+    </script>
+
+}
+@if (Ids != "" && Ids!="0")
+{
+    <script>
+        $(document).ready(function () {
+        $("#HiddenMenuId").val(@Ids);
+        $("#IsSelected").val("1");
+        $("#HiddenNodeAfterBeforCurrent").val(@Prev);
+       
+
+            $('li').each(function () {
+               
+                if ($(this).val() == '@Ids') {
+                    debugger;
+                    $(this).find('span').addClass("SelectedLi");
+                    $("#IsSelected").val("1");
+            }
+        });
+        });
+    </script>
+}
+
+<div id="BoxBeforDelete">
+    <div id="PopUp-Content-BoxBeforDelete">
+        <div class="TB_title">
+            <div class="TB_ajaxWindowTitle">اخطار</div>
+            <div class="TB_closeAjaxWindow">
+                <a title="بستن" class="TB_closeWindowButton" href="#">
+                    <img src="/Images/Admin/AdminImages/CloseBox.gif" style="border-width: 0px;" alt="experienceImage">
+                </a>
+            </div>
+        </div>
+        <div id="TB_ajaxContent-BoxBeforDelete">
+            <div>
+                <div style="float: right;">
+                    <img src="../../../../Images/Admin/Design/warning.png" width="70px" height="70px" alt="experienceImage" />
+                </div>
+                <div>در صورت حذف گروه کلیه ی فایل های مربوط به این منو و زیر منوهای آن حذف خواهد شد . </div>
+            </div>
+            <div class="BoxBtn">
+                <div class="Btn" style="margin-right:20px;">
+                    <div>
+                        <input id="OKDelete" type="submit" value="حذف" onclick="Deletes();" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+                <div class="Btn" style="float: left;margin-right:10px;">
+                    <div>
+                        <input id="cancelBtn1" type="submit"  value="انصراف" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="BoxDelete">
+    <div id="PopUp-Content">
+        <div class="TB_title">
+            <div class="TB_ajaxWindowTitle">حذف</div>
+            <div class="TB_closeAjaxWindow">
+                <a title="بستن" class="TB_closeWindowButton" href="#">
+                    <img src="/Images/Admin/AdminImages/CloseBox.gif" alt="experienceImage">
+                </a>
+            </div>
+        </div>
+        <div id="TB_ajaxContent">
+            <div>آیا از حذف مطمئن هستید؟</div>
+            <div class="BoxBtn">
+                <div class="Btn">
+                    <div>
+                        @using (Ajax.BeginForm(actionName: "DeleteUserMenu", routeValues: new { }, ajaxOptions: new AjaxOptions
+                       {
+                           HttpMethod = "POST",
+                           UpdateTargetId = "MenuUser",
+                           InsertionMode = InsertionMode.Replace,
+                       }, htmlAttributes: new { @id = "MyFormDelete" }))
+                        {
+                            <input id="OkBtn" type="submit" value="بله" class="webUserButton" style="width: 85px;" />
+                        }
+                    </div>
+                </div>
+                <div class="Btn" style="float: left;">
+                    <div>
+                        <input id="cancelBtn" type="submit" value="خیر" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="BoxAlert">
+    <div id="PopUp-Content-Alert">
+        <div class="TB_title">
+            <div class="TB_ajaxWindowTitle">اخطار</div>
+            <div class="TB_closeAjaxWindow">
+                <a title="بستن" class="TB_closeWindowButton" href="#">
+                    <img src="/Images/Admin/AdminImages/CloseBox.gif" style="border-width: 0px;" alt="experienceImage">
+                </a>
+            </div>
+        </div>
+        <div id="TB_ajaxContent-Alert">
+            <div>
+                <div style="float: right;">
+                    <img src="../../../../Images/Admin/Design/warning.png" width="70px" height="70px" alt="experienceImage" />
+                </div>
+                <div>منویی انتخاب نشده است </div>
+            </div>
+            <div class="BoxBtn">
+                <div class="Btn">
+                    <div>
+                        <input id="OKAlert" type="submit" value="تایید" class="webUserButton" style="width: 70px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="MenuOperation" style="text-align:right;">
+
+    <div style="float:right; width:70px;">
+        <div><img id="btnAddParentMenu" onclick="AddMenuSubMenu('Menu')" src="../../../../Images/Admin/Design/AddMenu.png" title="افزودن سر منو" /></div>
+        <div style="font-size:9px;">افزودن سر منو </div>
+    </div>
+    <div style="float: right; width: 80px;">
+        <div>  <img id="btnAddSubMenu" onclick="AddMenuSubMenu('SubMenu')" src="../../../../Images/Admin/Design/AddSubMenu.png" title="افزودن زیر منو" /></div>
+        <div style="font-size:9px;">افزودن زیر منو </div>
+    </div>
+
+    <div style="float: right; width: 70px;">
+        <div>
+            <img id="btnEditSubMenu" onclick="EditMenu();" src="../../../../Images/Admin/Design/EditMenu.png" title="ویرایش منو" />
+        </div>
+        <div style="font-size:9px;padding-right:7px;">ویرایش منو </div>
+    </div>
+
+    <div style="float: right; width: 70px;">
+        <div>
+            <img id="btnDeleteSubMenu" onclick="DeleteMenu();" src="../../../../Images/Admin/Design/DeleteMenu.png" title="حذف منو" />
+        </div>
+        <div style="font-size: 9px; padding-right: 12px;">حذف منو </div>
+    </div>
+
+    <div style="float: right; width: 70px;">
+        <div>
+            <img id="btnUpMenu" onclick="UpMenu();" src="../../../../Images/Admin/Design/Up.png" title="افزایش الویت" />
+        </div>
+        <div style="font-size:9px;">افزایش الویت </div>
+    </div>
+    <div style="float: right; width: 70px;">
+        <div>
+            <img id="btnDownMenu" onclick="DownMenu()" style="margin-right:2px;" src="../../../../Images/Admin/Design/Down.png" title="کاهش الویت" />
+        </div>
+        <div style="font-size:9px;">کاهش الویت </div>
+    </div>
+    <div id="MenuInfoDetail" class="DivMenuInfoDetailHide" style="width:240px;float:right;">
+        @using (Ajax.BeginForm(actionName: "AddParentMenu", routeValues: new { }, ajaxOptions: new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    UpdateTargetId = "MenuUser",
+                    InsertionMode = InsertionMode.Replace
+                }, htmlAttributes: new { @id = "MyForm" }))
+        {
+            <div class="divCss">
+                <div class="DivCss2" style="width: 50px">
+                    <span class="WebUserLabel">نام منو</span>
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBox("ParentMenuName", "", new { @class = "webUserTextBox", @style = "width:150px;" })
+                </div>
+                <div id="divValidationName" class="FloatRight HideElement">
+                    <span class="field-validation-left" style="z-index: 1300;margin-top:-7px;">وارد کردن نام گروه الزامی است .</span>
+                </div>
+            </div>
+            <div class="divCss">
+                <div class="DivCss2" style="width: 80px">
+
+                </div>
+                <div  class="FloatRight " style="margin-right:50px">
+                    <input type="submit" style="width:100px !important;" onclick="return WhichOprForPriority();" class="webUserButton" value="افزودن" />
+                </div>
+
+            </div>
+        }
+    </div>
+
+</div>
+
+<div style="direction:rtl;font-size:10px;line-height:15px;clear:both;padding-top:20px;">
+    <hr />
+    <div id="MenuUser" style="float:right;width:120px;float:right; ">
+        @Html.Partial("_WorkExperienceGroupTreeview")
+    </div>
+    <div style="width: 590px; float: right; border-right: 1px solid #ccc;">
+
+        <div id="BoxContent1" style="position:relative;height:320px;">
+            @Html.Partial("_Post")
+        </div>
+    </div>
+</div>
+
+

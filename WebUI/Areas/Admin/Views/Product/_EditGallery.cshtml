@@ -1,0 +1,208 @@
+﻿<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Admin/Paging.css")" />
+<link href="~/Content/Admin/Grid.css" rel="stylesheet" />
+<link href="~/Content/Admin/alert.css" rel="stylesheet" />
+<script src="~/Scripts/Admin/CloseSucc.js"></script>
+<script src="~/Scripts/Admin/AlertPopUp.js"></script>
+@{
+    int TabId = 0;
+    IList<Domain.Entities.ServiceTabFile> StateHouseTabFileList =  ViewBag.ServiceTabFileList ;
+    int TotalCount = Convert.ToInt32(TempData["Count"]);
+    TempData["Count"] = TotalCount;
+    int EndPage = 0;
+    int StartPage = 0;
+    int TotalPage = 0;
+    int Page = Convert.ToInt32(ViewBag.PageNumber);
+    if (Page == 0)
+    {
+        Page = 1;
+    }
+    if (TotalCount % 5 == 0)
+    {
+        TotalPage = TotalCount / 5;
+    }
+    else
+    {
+        TotalPage = (TotalCount / 5) + 1;
+    }
+    if (Page + 4 > TotalPage)
+    {
+        EndPage = TotalPage;
+    }
+    else
+    {
+        EndPage = Page + 4;
+    }
+    if (Page <= 4)
+    {
+        StartPage = 1;
+    }
+    else
+    {
+        StartPage = Page - 4;
+    }
+    int Countergrid = 0;     
+}
+
+
+<div id="BoxDelete">
+    <div id="PopUp-Content">
+        <div class="TB_title">
+            <div class="TB_ajaxWindowTitle">حذف</div>
+            <div class="TB_closeAjaxWindow">
+                <a title="بستن" class="TB_closeWindowButton" href="#">
+                    <img src="/Images/Admin/AdminImages/CloseBox.gif" alt="GalleryImage"></a>
+            </div>
+        </div>
+        <div id="TB_ajaxContent">
+            <div>آیا از حذف مطمئن هستید؟</div>
+            <div class="BoxBtn">
+                <div class="Btn">
+                    <div>
+                        <input id="OkBtn" type="submit" value="بله" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+                <div class="Btn" style="float: left;">
+                    <div>
+                        <input id="cancelBtn" type="submit" value="خیر" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="BoxAlert">
+    <div id="PopUp-Content-Alert">
+        <div class="TB_title">
+            <div class="TB_ajaxWindowTitle">اخطار</div>
+            <div class="TB_closeAjaxWindow">
+                <a title="بستن" class="TB_closeWindowButton" href="#">
+                    <img src="/Images/Admin/AdminImages/CloseBox.gif" style="border-width: 0px;" alt="GalleryImage"></a>
+            </div>
+        </div>
+        <div id="TB_ajaxContent-Alert">
+            <div>
+                <div style="float: right;">
+                    <img src="~/Images/Admin/AdminImages/dialog_warning.png" alt="GalleryImage" />
+                </div>
+                <div>برای حذف ، ابتدا باید محصولات ثبت شده در گروه را حذف نمایید. </div>
+            </div>
+            <div class="BoxBtn">
+                <div class="Btn">
+                    <div>
+                        <input id="OKAlert" type="submit" value="تایید" class="webUserButton" style="width: 70px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (StateHouseTabFileList!=null && StateHouseTabFileList.Count>0)
+{
+    TabId = StateHouseTabFileList[0].ServiceTabId; 
+<div id="Table">
+    @foreach (var item in StateHouseTabFileList)
+    {
+        if (Countergrid == 0)
+        { 
+        <div class="RowTop">
+            <div style="float: right; width: 52px;">
+                &nbsp;
+            </div>
+            <div style="float: right; width: 100px">
+               عکس
+            </div>
+        </div>
+        }
+        Countergrid++;
+        <div class="Row" style="float: right;">
+            <div class="Column" style="float: right; width: 52px;">
+                <div style="width: 24px; float: right">
+                   @{
+      
+                        using (Ajax.BeginForm(actionName: "DeleteImageGallery", routeValues: new { Id = item.Id, Page = Page }, ajaxOptions: new AjaxOptions
+                   {
+                       HttpMethod = "POST",
+                       UpdateTargetId = "BoxContent",
+                       InsertionMode = InsertionMode.Replace,
+                   }, htmlAttributes: new { @class = "webUserLink" }))
+                        {
+                        <input type="button" class="IconDelete" value=" " onclick="return ShowPopup('#PopUp-Content', this);" />  
+                        }
+     
+                    }
+                </div>
+            </div>
+            <div class="Column" style="float: right; width: 100px">
+
+                <img src="/Images/TabGalleryService/thum/@item.File" width="50" height="50" alt="GalleryImage" />
+            </div>
+            <div class="Column" style="float: right; width: 500px; margin-top: 16px;">
+                <span style="font-size: 14px;">عنوان : </span>
+                @Html.TextBox("alt", item.Alt, new { style = "width: 70%", placeholder = "عنوان عکس را وارد کنید", @class = "imageAlts", id = item.Id })
+            </div>
+        </div>
+    }
+    @{
+        if (Countergrid != 0)
+        {
+        <div class="Row" style="background-color: transparent; height: 29px; float: right; width: 698px">
+        </div>
+        <div class="RowBottom" style="margin-bottom: 80px;">
+            <div class="Column" style="float: right; width: 380px;">
+                <div class="IconDelDes" style="width: 19px; margin-right: 10px;">
+                </div>
+                <div class="Item" style="width: 40px;">
+                    حذف
+                </div>
+            </div>
+        </div>
+        }
+    }
+</div>
+}
+<p>
+    &nbsp;
+</p>
+<div id="pagination">
+    <ul class="page-numbers">
+        @if (Page != 1)
+        {
+            <li>@Ajax.ActionLink(".", "RefreshGallery", new { Page = Page - 1, TabId = TabId }, new AjaxOptions
+           { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers prev" })</li>
+        }
+        @for (int i = StartPage; i < Page; i++)
+        {
+            <li>@Ajax.ActionLink(i.ToString(), "RefreshGallery", new { Page = i, TabId = TabId }, new AjaxOptions
+           { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers" })</li>
+        }
+        @if (StateHouseTabFileList!=null && StateHouseTabFileList.Count() != 0)
+        {
+            <li><span class="page-numbers current">@Page</span></li>
+        }
+        @for (int i = Page + 1; i <= EndPage; i++)
+        {
+            <li>@Ajax.ActionLink(i.ToString(), "RefreshGallery", new { Page = i, TabId = TabId }, new AjaxOptions
+           { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers" })</li>
+        }
+        @if ((Page != TotalPage) && (TotalPage != 0))
+        {
+            <li>@Ajax.ActionLink(".", "RefreshGallery", new { Page = Page + 1, TabId = TabId }, new AjaxOptions
+           { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers next" })</li>
+        }
+    </ul>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $(document).on('keyup', '.imageAlts', function () {
+            var alts = "";
+            for (var i = 0; i < $(".imageAlts").length; i++) {
+                alts += $($(".imageAlts")[i]).attr("id") + ":" + $($(".imageAlts")[i]).val() + "|";
+            }
+            if (alts.length > 0) {
+                alts = alts.substr(0, alts.length - 1);
+            }
+            $("#alts").val(alts);
+        });
+    });
+</script>

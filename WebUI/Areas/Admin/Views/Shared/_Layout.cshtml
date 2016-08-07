@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title> 
+    <link rel="PaakAvard Icon" href="~/Paakavard%20Icon.jpg">
+
+      
+    @Styles.Render( "~/Content/Admin")
+    @Scripts.Render("~/bundles/modernizr")   
+    <script>
+        Initializes('#ckEditor');
+
+    </script>
+</head>
+<body>
+  
+    @RenderBody()
+    @Scripts.Render("~/bundles/Adminjquery")
+    @RenderSection("scripts", required: false)
+   
+</body>
+</html>

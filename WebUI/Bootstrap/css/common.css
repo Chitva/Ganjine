@@ -1,0 +1,73 @@
+﻿.border-1-solid-ccc{
+    border:1px solid #ccc;
+}
+.padding-bottom-10{
+padding-bottom:10px !important;
+}
+.padding-top-20{
+padding-top:20px !important;
+}
+.padding-top-7{
+    padding-top:7px !important;
+}
+.padding-left-10{
+    padding-left:10px !important;
+}
+.padding-right-40{
+    padding-right:40px !important;
+}
+.positionabs{
+    position:absolute !important;
+}
+.right-mi-10{
+    right:-10px !important;
+}
+.top-0{
+    top:0 !important;
+}
+.top-5{
+    top:5px !important;
+}
+.padding-top-5{
+    padding-top:5px !important;
+}
+.left-mi-10{
+    left:-10px !important;
+}
+.padding-top-10{
+      padding-top:10px !important;
+}
+.padding-right-10{
+    padding-right:10px !important;
+}
+.padding-right-0{
+    padding-right:0px !important; 
+}
+.wordwbrw{
+word-wrap: break-word !important;
+}
+
+.newssidebar .tagsarea a {
+    background: #f0f0f0 none repeat scroll 0 0;
+    color: #242424;
+    display: block;
+   
+    margin: 8px 4px 0;
+    padding: 1px 10px 0;
+    white-space: nowrap;
+    text-decoration:none;
+}
+
+.boldtext {
+    font-weight: bold;
+}
+.newssidebar .tagsarea a:hover, .newssidebar .tagsarea a.current {
+    background: #0f91af none repeat scroll 0 0;
+    color: #fff;
+}
+.padding-bottom-20{
+    padding-bottom:20px !important;
+}
+.ln-height30{
+    line-height:30px;
+}

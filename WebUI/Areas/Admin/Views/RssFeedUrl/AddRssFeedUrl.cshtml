@@ -1,0 +1,119 @@
+﻿@model  Domain.Entities.RssFeedURL
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+}
+@Html.Hidden("MenuItems", "1366112940_List.png" + ":-" + ":-" + "مدیرت لینک های RSS")
+
+@Styles.Render("~/Content/themes/base/css")
+@Styles.Render("~/Content/css")
+@Styles.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/css")
+<style>
+    .field-validation-left {
+        margin-top: -6px;
+    }
+</style>
+<script>
+    Page();
+    PageList('افزودن لینک جدید', '/Admin/BestSpeechs/BestSpeechList');
+</script>
+
+<script src="~/Scripts/Admin/NumberTextBox.js"></script>
+@section scripts{
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
+    <script>
+    $(document).ready(function () {
+
+        $("#btnSave").click(function () {
+            debugger;
+            var error = false;
+
+            $("#validationtitle").addClass("HideElement");
+            $("#validationlink").addClass("HideElement");
+
+            var title = $("#Title").val();
+
+            if (title == null || title == "") {
+                $("#validationtitle").removeClass("HideElement");
+                error = true;
+            }
+
+            var link = $("#FeedURL").val();
+
+            if (link == null  || link == "") {
+                $("#validationlink").removeClass("HideElement");
+                error = true;
+            }
+
+            if (error) {
+                return;
+            }
+
+            $("#btnSave").attr("disabled", "disabled");
+
+            $.ajax({
+                url: "/Admin/RssFeedUrl/AddRssFeedUrl",
+                data: JSON.stringify({
+                    Title: $("#Title").val(),
+                    RssUrl: link
+                }),
+                dataType: "json", contentType: "application/json; charset=utf-8",
+                type: "POST", success: function (result) {
+                    window.location.href = '/Admin/RssFeedUrl/RssFeedUrlList';
+                }, error: function () {
+                    $("#btnSave").removeAttr("disabled");
+                }
+            });
+        });
+
+    });
+    </script>
+}
+@{
+    string Result = Convert.ToString(TempData["result"]);
+}
+<div class="divCssWh" style="overflow:hidden;">
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("عنوان", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight">
+            @Html.TextBoxFor(x => x.Title, "", new { @class = "webUserTextBox" })
+        </div>
+        <div id="validationtitle" class="HideElement FloatRight">
+            <span class="field-validation-left">عنوان الزامی است. </span>
+        </div>
+    </div>
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("آدرس لینک", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight">
+            @Html.TextBoxFor(x => x.FeedURL, "", new { @class = "webUserTextBox" })
+        </div>
+        <div id="validationlink" class="HideElement FloatRight">
+            <span class="field-validation-left">آدرس الزامی است. </span>
+        </div>
+    </div>
+
+    <div class="divCss">
+        <div class="DivCss2">
+            @Html.Label("فعال", new { @class = "WebUserLabel" })
+        </div>
+        <div class="FloatRight">
+            @Html.CheckBox("IsShown")
+        </div>
+    </div>
+</div>
+
+<div style="clear: both;"></div>
+
+<div class="divCss">
+    <div class="divCss" style="padding-top: 15px; padding-right:73px">
+        <div class="DivCss1">
+            <input id="btnSave" type="button" style="width:100px !important;line-height:0;" class="webUserButton" value="ثبت" />
+        </div>
+    </div>
+</div>

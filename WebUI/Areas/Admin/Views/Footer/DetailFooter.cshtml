@@ -1,0 +1,109 @@
+﻿@model Domain.Entities.Footer
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+@Html.Hidden("MenuItems", "1429956437_upload.png" + ":-" + "مدیریت فوتر" + ":-" + "جزئیات فوتر")
+
+<script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script>
+        Page();
+    </script>
+  @if (Model.FooterColumnNameId == 3)
+  {
+<script>
+    $(document).ready(function () {
+        $('#DivFooterLink').addClass("DivMenuInfoDetailHide");
+    });
+</script>
+  }
+<div class="divCssWh">
+    <div>
+        <div class="DivClass">
+            <div style="float: left; padding-left: 31px; padding-top: 3px">
+                @Html.ActionLink("بازگشت", actionName: "BackFooterList", controllerName: "Footer", 
+               routeValues: new { Page = @ViewBag.Page }, htmlAttributes: new { @class = "LinkBackPage" })
+            </div>
+        </div>
+    </div>
+ 
+      <div class="divCss">
+        <div style="width: 80px; text-align: right; float: right">
+            @Html.Label("ستون", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right">
+            @Html.DisplayFor(model => model.FooterColumnName.Name, new { @class = "WebUserLabel" })
+        </div>
+    </div>
+    <div class="divCss">
+        <div style="width: 80px; text-align: right; float: right">
+            @Html.Label("متن", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right">
+            @{
+                string Txt = Model.FooterText;
+            }
+            @Html.Raw(Txt)
+        </div>
+    </div>
+    
+     <div id ="DivFooterLink" class="divCss">
+        <div style="width: 80px; text-align: right; float: right">
+            @Html.Label("لینک", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right">
+            @Html.DisplayFor(model => model.FooterLink, new { @class = "WebUserLabel" })
+        </div>
+    </div>
+    <div class="divCss">
+        <div style="width: 80px; text-align: right; float: right">
+            @Html.Label("تاریخ ایجاد", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right">
+            @{
+                PersianToolS.PersinToolsClass mtfa1 = new PersianToolS.PersinToolsClass();
+                string st1 = mtfa1.DateToPersian(Convert.ToDateTime(Model.CreationDate)).year + "،"
+                    + mtfa1.DateToPersian(Convert.ToDateTime(Model.CreationDate)).DayOfweak + " ، "
+                    + mtfa1.DateToPersian(Convert.ToDateTime(Model.CreationDate)).day.ToString() + " "
+                    + mtfa1.DateToPersian(Convert.ToDateTime(Model.CreationDate)).MonthName;
+            }
+            @st1
+        </div>
+    </div>
+   
+    <div class="divCss">
+        <div style="width: 80px; text-align: right; float: right">
+            @Html.Label("تاریخ ویرایش", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right">
+            @{
+                PersianToolS.PersinToolsClass mtfa = new PersianToolS.PersinToolsClass();
+                string st = (Model.ModifiedDate == null) ? "-" : mtfa.DateToPersian(Convert.ToDateTime(Model.ModifiedDate)).year +
+                    "،" + mtfa.DateToPersian(Convert.ToDateTime(Model.ModifiedDate)).DayOfweak + " ، "
+                    + mtfa.DateToPersian(Convert.ToDateTime(Model.ModifiedDate)).day.ToString() + " "
+                    + mtfa.DateToPersian(Convert.ToDateTime(Model.ModifiedDate)).MonthName;
+            }
+            @st
+        </div>
+    </div>
+      <div class="divCss">
+        <div style="width: 80px; text-align: right; float: right">
+            @Html.Label("ایجاد توسط", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right">
+           @Html.DisplayFor(model => model.DefineUser.Username, new { @class = "WebUserLabel" })
+        </div>
+    </div>
+
+      <div class="divCss">
+        <div style="width: 80px; text-align: right; float: right">
+            @Html.Label("ویرایش توسط", new { @class = "WebUserLabel" })
+        </div>
+        <div class="WebUserLabel" style="float: right">
+           @Html.DisplayFor(model => model.EditDefineUser.Username, new { @class = "WebUserLabel" })
+        </div>
+    </div>
+</div>
+
+

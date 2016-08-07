@@ -1,0 +1,76 @@
+﻿@model Domain.ViewModel.Admin.TitleMngViewModel
+@{
+    ViewBag.Title = "TitleMng";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    string result = Convert.ToString(TempData["result"]); 
+}
+@Styles.Render("~/Content/themes/base/css")
+@Styles.Render("~/Content/css")
+
+
+<style>
+    .field-validation-left {
+        margin-top: -6px;
+    }
+    .rtl{
+        direction: rtl;
+    }
+    .divTitle{
+        width: 120px;
+        float: right;
+    }
+</style>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+}
+
+<div class="divCssWh">
+    @if (result != "")
+            {
+        <div class="divCss" style="padding-right: 0;">
+            @if (result == "OK")
+            {
+                <div id="SuccessMsg" style="float: right; width: 300px;">
+                    @Html.Partial("~/Areas/Admin/Views/Alerts/_Successful.cshtml")
+                </div>
+            }
+            else
+            {
+                <div id="AlertMsg" style="float: right; width: 300px;">
+                    @Html.Partial("~/Areas/Admin/Views/Alerts/_Error.cshtml")
+                </div>
+            }
+        </div>
+    }
+    @using (Html.BeginForm(actionName: "TitleMng", controllerName: "Setting", method: FormMethod.Post))
+    {
+        <div class="divCss">
+            <div class="divTitle" style="">
+                @Html.Label("عنوان متن متحرک", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.BestSpeechTitle ,new {@class ="ltr" })
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="divTitle">
+                @Html.Label("عنوان معرفی مجموعه", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.CompanyIntroductionTitle, new { @class = "ltr" })
+            </div>
+        </div>
+       
+        <div class="divCss">
+                <div class="divCss" style="padding-top: 15px; padding-right: 50px">
+                    <div class="DivCss1">
+                        <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+
+    

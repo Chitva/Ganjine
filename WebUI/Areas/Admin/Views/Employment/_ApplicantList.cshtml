@@ -1,0 +1,348 @@
+﻿<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Admin/Paging.css")" />
+<link href="~/Content/Admin/Grid.css" rel="stylesheet" />
+<link href="~/Content/Admin/alert.css" rel="stylesheet" />
+<script src="~/Scripts/Admin/CloseSucc.js"></script>
+@model  IEnumerable<Domain.Entities.Emp_GeneralApplicanInfo>
+@{
+    string Result = Convert.ToString(TempData["result"]);
+   
+    bool IsAdmin = ViewBag.IsAdmin;
+    int TotalCount = Convert.ToInt32(TempData["Count"]);
+    TempData["Count"] = TotalCount;
+    int EndPage = 0;
+    int StartPage = 0;
+    int TotalPage = 0;
+    
+    int Page = Convert.ToInt32(Request.QueryString["Page"]);
+    if (Page == 0)
+    {
+        Page = 1;
+    }
+    if (TotalCount % 5 == 0)
+    {
+        TotalPage = TotalCount / 5;
+    }
+    else
+    {
+        TotalPage = (TotalCount / 5) + 1;
+    }
+    if (Page + 4 > TotalPage)
+    {
+        EndPage = TotalPage;
+    }
+    else
+    {
+        EndPage = Page + 4;
+    }
+    if (Page <= 4)
+    {
+        StartPage = 1;
+    }
+    else
+    {
+        StartPage = Page - 4;
+    }
+    int Countergrid = 0;
+}
+<script src="~/Scripts/Admin/ConfirmDelete.js"></script>
+<div class="divCss" style="padding-right: 0;">
+    <div class="divCss">
+        <div id="SuccessMsg" style="float: right; width: 300px; padding-bottom: 10px; display: none">
+            @Html.Partial("~/Areas/Admin/Views/Alerts/_Successful.cshtml")
+        </div>
+    </div>
+</div>
+@{
+    if (Result != null)
+    {
+        if (Result == "OK")
+        {
+            <script type="text/javascript">
+                $('#SuccessMsg').show();
+            </script>
+        }
+    }
+}
+<div id="BoxDelete">
+    <div id="PopUp-Content">
+        <div class="TB_title">
+            <div class="TB_ajaxWindowTitle">حذف</div>
+            <div class="TB_closeAjaxWindow">
+                <a title="بستن" class="TB_closeWindowButton" href="#">
+                    <img src="/Images/Admin/AdminImages/CloseBox.gif" alt="ContactUsImage">
+                </a>
+            </div>
+        </div>
+        <div id="TB_ajaxContent">
+            <div>آیا از حذف مطمئن هستید؟</div>
+            <div class="BoxBtn">
+                <div class="Btn">
+                    <div>
+                        <input id="OkBtn" type="submit" value="بله" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+                <div class="Btn" style="float: left;">
+                    <div>
+                        <input id="cancelBtn" type="submit" value="خیر" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a href="/admin/Employment/ExcelExport">دریافت فایل اکسل</a>
+</div>
+<div>
+    <br />
+    <h4>جستجو</h4>
+    <br />
+    <input type="text" id="searchName" placeholder="نام" value="@(ViewBag.name)"/>
+    <input type="text" id="searchFamily" placeholder="نام خانوادگی" value="@(ViewBag.family)" />
+    <input type="text" id="searchStudy" placeholder="رشته تحصیلی" value="@(ViewBag.fieldOfStudy)" />
+    <select id="searchStatus">
+        <option value="" @(ViewBag.status == null ? "selected" : "")>وضعیت فرم</option>
+        <option value="0" @(ViewBag.status != null && (int)ViewBag.status == 0 ? "selected" : "")>جدید</option>
+        <option value="1" @(ViewBag.status != null && (int)ViewBag.status == 1 ? "selected" : "")>درحال بررسی</option>
+        <option value="2" @(ViewBag.status != null && (int)ViewBag.status == 2 ? "selected" : "")>بررسی شده</option>
+        <option value="3" @(ViewBag.status != null && (int)ViewBag.status == 3 ? "selected" : "")>مصاحبه شده</option>
+        <option value="4" @(ViewBag.status != null && (int)ViewBag.status == 4 ? "selected" : "")>تماس گرفته شده</option>
+        <option value="5" @(ViewBag.status != null && (int)ViewBag.status == 5 ? "selected" : "")>درانتظار مصاحبه</option>
+        <option value="6" @(ViewBag.status != null && (int)ViewBag.status == 6 ? "selected" : "")>رد شده</option>
+        <option value="7" @(ViewBag.status != null && (int)ViewBag.status == 7 ? "selected" : "")>تایید شده</option>
+    </select>
+    &nbsp;&nbsp;&nbsp;
+    <a href="/admin/employment/ApplicantList?" id="find">
+        جستجو
+    </a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(document).on("change", "#searchName, #searchFamily, #searchStudy, #searchStatus", function () {
+            var name = $("#searchName").val();
+            var family = $("#searchFamily").val();
+            var study = $("#searchStudy").val();
+            var status = $("#searchStatus").val();
+            var result = "/admin/employment/ApplicantList?" + "name=" + name + "&family=" + family + "&fieldOfStudy=" + study + "&status=" + status;
+            $("#find").attr("href", result);
+            console.log(result);
+        });
+    });
+</script>
+
+<div id="Table">
+    @foreach (var item in Model)
+    {
+        if (Countergrid == 0)
+        {
+            <div class="Column" style="float: right; width: 76px; overflow: hidden; padding:6px 15px;">
+                عملیات
+            </div>
+            <div class="Column" style="float: right; width: 110px; overflow: hidden; padding:6px 15px;">
+                نام
+            </div>
+            <div class="Column" style="float: right; width: 110px; overflow: hidden; padding:6px 15px;">
+                نام خانوادگی
+            </div>
+            <div class="Column" style="float: right; width: 90px; overflow: hidden; padding:6px 15px;">
+                نام پدر
+            </div>
+            <div class="Column" style="float: right; width: 50px; overflow: hidden; padding:6px 15px;">
+                جنسیت
+            </div>
+            <div class="Column" style="float: right; width: 80px; overflow: hidden; padding:6px 15px;">
+                وضعیت
+            </div>
+        }
+        Countergrid++;
+        <div class="Row" style="float: right;">
+            <div class="Column" style="float: right; width: 76px; padding:6px 15px;">
+                <div style="width: 24px; float: right">
+                    @using (Ajax.BeginForm(actionName: "DeleteApplicantRequest", controllerName: "Employment",
+                    routeValues: new { Id = item.Id, Page = Page }, ajaxOptions: new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "BoxContent",
+                        InsertionMode = InsertionMode.Replace,
+                    }, htmlAttributes: new { @class = "webUserLink" }))
+                    {
+                        <input type="button" class="IconDelete" value=" " onclick="return ShowPopup('#PopUp-Content', this);" />
+                    }
+                </div>
+                <div style="width: 24px; margin-right: 3px; float: right">
+                    @using (Html.BeginForm(actionName: "ApplicantDetails", controllerName: "Employment",
+                    routeValues: new { Id = item.Id, Extparam = Page }, method: FormMethod.Get))
+                    {
+                        <input type="submit" value=" " class="IconPreview" />
+                    }
+                </div>
+            </div>
+            <div class="Column" style="float: right; width: 110px; overflow: hidden; padding:10px 15px;">
+                @item.FirstName
+            </div>
+            <div class="Column" style="float: right; width: 110px; overflow: hidden; padding:10px 15px;">
+                @item.Family
+            </div>
+            <div class="Column" style="float: right; width: 90px; overflow: hidden; padding:10px 15px;">
+                @if (string.IsNullOrEmpty(item.FatherName))
+                {
+                    <span class="text-muted">ثبت نشده</span>
+                }
+                else
+                {
+                    <span>@item.FatherName</span>
+                }
+            </div>
+            <div class="Column" style="float: right; width: 50px; overflow: hidden; padding:10px 15px;">
+                @if (item.IsMale == null)
+                {
+                    <span class="text-muted">مشخص نشده</span>
+                }
+                else if ((bool)item.IsMale)
+                {
+                    <span>مرد</span>
+                }
+                else
+                {
+                    <span>زن</span>
+                }
+            </div>
+            <div class="Column" style="float: right; overflow: hidden; padding:10px 15px;">
+                @switch ((int)item.RequestStatus)
+                {
+                    case 0:
+                        {
+                            <span style="color: dodgerblue">جدید</span>
+                            break;
+                        }
+                    case 1:
+                        {
+                            <span style="color: darkorange">درحال بررسی</span>
+                            break;
+                        }
+                    case 2:
+                        {
+                            <span style="color: deeppink">بررسی شده</span>
+                            break;
+                        }
+                    case 3:
+                        {
+                            <span style="color: gold">مصاحبه شده</span>
+                            break;
+                        }
+                    case 4:
+                        {
+                            <span style="color: teal">تماس گرفته شده</span>
+                            break;
+                        }
+                    case 5:
+                        {
+                            <span style="color: blueviolet">درانتظار مصاحبه</span>
+                            break;
+                        }
+                    case 6:
+                        {
+                            <span style="color: red">رد شده</span>
+                            break;
+                        }
+                    case 7:
+                        {
+                            <span style="color: green">تایید شده</span>
+                            break;
+                        }
+                }
+            </div>
+        </div>
+    }
+    @{
+        if (Countergrid != 0)
+        {
+            <div class="Row" style="background-color: transparent; height: 29px; float: right; width: 698px">
+            </div>
+            <div class="RowBottom" style="margin-bottom: 80px;">
+                <div class="Column" style="float: right; width: 380px;">
+                    <div class="IconDelDes" style="width: 19px; margin-right: 10px;">
+                    </div>
+                    <div class="Item" style="width: 40px;">
+                        حذف
+                    </div>
+
+                    <div class="IconPrevDes" style="width: 19px; margin-right: 10px;">
+                    </div>
+                    <div class="Item" style="width: 60px;">
+                        جزئیات
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<p>
+    &nbsp;
+</p>
+<div id="pagination">
+    <ul class="page-numbers">
+        @if (Page != 1)
+        {
+            <li>
+                @Ajax.ActionLink(".", "RefreshEmployment", new {
+                   Page = Page - 1,
+                   @name = ViewBag.Params == null ? string.Empty : ViewBag.Params.name,
+                   @family = ViewBag.Params == null ? string.Empty : ViewBag.Params.family,
+                   @fieldOfStudy = ViewBag.Params == null ? string.Empty : ViewBag.Params.fieldOfStudy,
+                   @status = ViewBag.Params == null ? string.Empty : ViewBag.Params.status
+               },
+               new AjaxOptions { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers prev" })
+            </li>
+        }
+        @for (int i = StartPage; i < Page; i++)
+        {
+            <li>
+                @Ajax.ActionLink(i.ToString(), "RefreshEmployment", new {
+                   Page = i,
+                   @name = ViewBag.name,
+                   @family = ViewBag.family,
+                   @fieldOfStudy = ViewBag.fieldOfStudy,
+                   @status = ViewBag.status
+               },
+               new AjaxOptions { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers" })
+            </li>
+        }
+        @if (Model.Count() != 0)
+        {
+            <li><span class="page-numbers current">@Page</span></li>
+        }
+        @for (int i = Page + 1; i <= EndPage; i++)
+        {
+            <li>
+                @Ajax.ActionLink(i.ToString(), "RefreshEmployment", new {
+                   Page = i,
+                   @name = ViewBag.name,
+                   @family = ViewBag.family,
+                   @fieldOfStudy = ViewBag.fieldOfStudy,
+                   @status = ViewBag.status
+               },
+               new AjaxOptions { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers" })
+            </li>
+        }
+        @if ((Page != TotalPage) && (TotalPage != 0))
+        {
+            <li>
+                @Ajax.ActionLink(".", "RefreshEmployment", new {
+                   Page = Page + 1,
+                   @name = ViewBag.name,
+                   @family = ViewBag.family,
+                   @fieldOfStudy = ViewBag.fieldOfStudy,
+                   @status = ViewBag.status
+               },
+               new AjaxOptions { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers next" })
+            </li>
+        }
+    </ul>
+</div>
+
+
+
+
+
