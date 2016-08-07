@@ -270,6 +270,17 @@
     <Compile Include="CaptchaValidator.cs" />
     <Compile Include="Common\CommonMethods.cs" />
     <Compile Include="Controllers\SaleAgencyController.cs" />
+    <Compile Include="DTO\BaseDto.cs" />
+    <Compile Include="DTO\Customer\Create.cs" />
+    <Compile Include="DTO\Customer\Details.cs" />
+    <Compile Include="DTO\Customer\Update.cs" />
+    <Compile Include="DTO\Logo\Create.cs" />
+    <Compile Include="DTO\Logo\Details.cs" />
+    <Compile Include="DTO\Logo\Update.cs" />
+    <Compile Include="DTO\Pages\Home\Index.cs" />
+    <Compile Include="DTO\Template\Details.cs" />
+    <Compile Include="DTO\Template\Create.cs" />
+    <Compile Include="DTO\Template\Update.cs" />
     <Compile Include="Infrastructure\Extentions\Admin\ArticleExtentions.cs" />
     <Compile Include="Infrastructure\Extentions\Admin\ContactExtensions.cs" />
     <Compile Include="Infrastructure\Extentions\Admin\StoryExtentions.cs" />
@@ -2792,7 +2803,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DTO\Pages\Home\" />
     <Folder Include="Files\ServiceGallery\2032\_thumbs\" />
     <Folder Include="Images\Admin\Banner\large\" />
     <Folder Include="Images\Admin\Banner\small\" />

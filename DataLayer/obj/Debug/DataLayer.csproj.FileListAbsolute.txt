@@ -117,3 +117,15 @@ H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
 H:\Azizi\Git\Ganjine\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
 H:\Azizi\Git\Ganjine\DataLayer\obj\Debug\DataLayer.dll
 H:\Azizi\Git\Ganjine\DataLayer\obj\Debug\DataLayer.pdb
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.Mvc.dll
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.Razor.dll
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.WebPages.Razor.dll
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.WebPages.dll
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\Microsoft.Web.Infrastructure.dll
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.WebPages.Deployment.dll
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.Mvc.xml
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.Razor.xml
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.WebPages.Razor.xml
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.WebPages.xml
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\Microsoft.Web.Infrastructure.xml
+H:\Azizi\Git\Ganjine\DataLayer\bin\Debug\System.Web.WebPages.Deployment.xml

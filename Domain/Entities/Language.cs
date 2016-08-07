@@ -22,6 +22,8 @@ namespace Domain.Entities
         public virtual ICollection<SaleAgency>  SaleAgency { get; set; }
         public virtual ICollection<Article> Articles { get; set; }
         public virtual ICollection<Story>  Story { get; set; }
+
+        public virtual ICollection<Customer> Customers { get; set; }
     }
     
 }

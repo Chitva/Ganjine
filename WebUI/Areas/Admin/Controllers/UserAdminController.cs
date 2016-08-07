@@ -21,8 +21,8 @@ namespace WebUI.Areas.Admin.Controllers
     {
        
         IUserAccountRepository _RUser;
-       
         UserAccountExtentions EDefineUser;
+
         public UserAdminController(IUserAccountRepository DefineUserRepository)
         {
           
@@ -41,6 +41,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
+
         [HttpPost]
         public ActionResult ChangePass(ChangePasswordModel model)
         {
@@ -61,6 +62,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return JavaScript("window.location.href ='/Admin/Home/Login';");
         }
+
         [HttpGet]
         public ActionResult CreateUser()
         {
@@ -71,6 +73,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
+
         [HttpGet]
         public ActionResult UserList(int Page = 1)
         {
@@ -90,6 +93,7 @@ namespace WebUI.Areas.Admin.Controllers
         {
             return RedirectToAction("UserList", new { Page = Page });
         }
+
         [HttpPost]
         public ActionResult DeleteUser(int id, int Page = 1)
         {
@@ -108,6 +112,7 @@ namespace WebUI.Areas.Admin.Controllers
             }
             return JavaScript("window.location.href ='/Admin/Home/Login';");
         }
+
         [HttpGet]
         public ActionResult refreshUser(int Page = 1)
         {
@@ -125,6 +130,7 @@ namespace WebUI.Areas.Admin.Controllers
                 return JavaScript("window.location.href ='/Admin/Home/Login';");
             }
         }
+
         [HttpPost]
         public ActionResult CreateUser(RegisterModel RegisterModel)
         {
@@ -153,6 +159,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return JavaScript("window.location.href ='/Admin/Home/Login';");
         }
+
         public PartialViewResult succ()
         {
             ViewBag.result = TempData["result"];
@@ -172,6 +179,7 @@ namespace WebUI.Areas.Admin.Controllers
                 return PartialView("~/Areas/Admin/Views/Alerts/_Error.cshtml");
             }
         }
+
         [HttpGet]
         public ActionResult EditUser(int id, int Extparam)
         {
@@ -186,6 +194,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
+
         [HttpPost]
         public ActionResult EditUser(string EditId, EditUserModel EditUserModel, int Page)
         {
@@ -214,6 +223,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
+
         [HttpPost]
         public ActionResult ChangePassByAdmin(int dpUserList, ChangePasswordModel model)
         {
@@ -226,6 +236,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return JavaScript("window.location.href ='/Admin/Home/Login';");
         }
+
         [HttpGet]
         public ActionResult UserInfoEdit()
         {
@@ -238,6 +249,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return RedirectToAction("Login", "Home");
         }
+
         [HttpPost]
         public ActionResult UserInfoEdit(EditUserModel EditUserModel)
         {
@@ -255,6 +267,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return JavaScript("window.location.href ='/Admin/Home/Login';");
         }
+
         [HttpGet]
         public ActionResult CreateRole()
         {
@@ -281,6 +294,7 @@ namespace WebUI.Areas.Admin.Controllers
             if (!Query) return Json(false);
             return Json(true);
         }
+
         [HttpPost]
         [OutputCache(Location = System.Web.UI.OutputCacheLocation.None, NoStore = true)]
         public ActionResult CheckPassword(string OldPassword)
@@ -298,6 +312,7 @@ namespace WebUI.Areas.Admin.Controllers
             else
                 return false;
         }
+
         //بررسی می کند که آیا مدیر اصلی سایت به این صفحه دسترسی پیدا کرده یا خیر
         //private bool IsMasterValidSession()
         //{

@@ -21,7 +21,6 @@ namespace WebUI.Common
         static readonly string VIKey = "@1B2c3D4e5F6g7H8";
 
 
-
         //ChangeUnknownCharactersToDash
         public static string ChangeUnKnownCharacters(string inputstring)
         {
@@ -168,7 +167,6 @@ namespace WebUI.Common
 
         }
 
-
         public static DateTime ConvertToPersianDatetime(DateTime datetime)
         {
             var per = new PersianCalendar();
@@ -181,5 +179,7 @@ namespace WebUI.Common
 
             return new DateTime(year, month, day, hour, minute, 0);
         }
+
+       
     }
 }

@@ -20,6 +20,7 @@ namespace DataLayer.Context
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<Upload> Uploads { get; set; }
         public DbSet<ContactInfo> ContactInfos { get; set; }
+        public DbSet<Customer>  Customers { get; set; }
         public DbSet<ContactUs> ContactUs { get; set; }
         public DbSet<NewsLetterEmails> NewsLetterEmails { get; set; }
         public DbSet<News> News { get; set; }
