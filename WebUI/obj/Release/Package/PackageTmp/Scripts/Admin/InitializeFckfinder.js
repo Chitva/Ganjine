@@ -1,0 +1,1 @@
+﻿function Initializes(e) { $(e).ckeditor(); CKFinder.setupCKEditor(null, "/Scripts/ckfinder/") }

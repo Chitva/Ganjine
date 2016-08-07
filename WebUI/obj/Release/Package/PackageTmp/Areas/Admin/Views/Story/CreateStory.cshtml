@@ -1,0 +1,334 @@
+﻿    @model Domain.ViewModel.Admin.viewmodelStory
+    @{
+        Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    }
+    @Html.Hidden("MenuItems", "1366112940_List.png" + ":-" + "مدیریت سایر صفحات" + ":-" + "حکایت")
+
+@Styles.Render("~/Content/themes/base/css")
+@Styles.Render("~/Content/css")
+@Styles.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/css")
+<style scoped>
+    .field-validation-left{
+        margin-top:-6px;
+    }
+</style>
+    
+<link href="~/Content/Tags/jquery.tagit.css" rel="stylesheet" />
+<link href="~/Content/Tags/tagit.ui-zendesk.css" rel="stylesheet" />
+<script src="~/Scripts/Tags/JqueryForTags/jquery.min.js"></script>
+<script src="~/Scripts/Tags/JqueryForTags/jquery-ui.min1.js"></script>
+        <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script src="~/Scripts/Tags/tag-it.js"></script>
+
+        <script>
+            Page();
+            PageList('افزودن حکایت جدید', '/Admin/Story/StoryList');
+        </script>
+<script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+<script type="text/javascript" src="~/Scripts/Admin/InitializeFckfinder.js"></script>
+      <script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+<script>
+    Initializes('#ckEditor');
+</script>
+<script>
+    $(document).ready(function () {
+        $('#allowSpacesTags').tagit({
+            allowSpaces: true
+        });
+
+        $("#metaDescription").keyup(function () {
+            $("#metaDescriptionCounter").html($("#metaDescription").val().length);
+        });
+
+      
+        $("#Title").keyup(function () {
+
+            if ($(this).val().length == 0) {
+                $("#validationtitle").removeClass("HideElement");
+            }
+            else {
+                $("#validationtitle").addClass("HideElement");
+
+            }
+        });
+        $("#btnSave").click(function () {
+            var Txt = CKEDITOR.instances['LongDes'].getData();
+            var isError = false;
+            if ($("#Title").val().length == 0)
+            {
+                $("#validationtitle").removeClass("HideElement");
+                isError = true;
+            }
+            else
+            {
+                $("#validationtitle").addClass("HideElement");
+
+            }
+            if (Txt.length == 0) {
+                $("#validationText").removeClass("HideElement");
+                isError = true;
+
+            }
+            else
+            {
+                $("#validationText").addClass("HideElement");
+            }
+            if (isError)
+            {
+                return false;
+            }
+            $("#btnSave").attr("disabled", "disabled");
+
+            $.ajax({
+                url: "/Admin/Story/SaveStory",
+                data: JSON.stringify({
+                    Title: $("#Title").val(),
+                    ShortDes: $("#ShortDes").val(),
+                    LongDes: Txt,
+                    IsShow: true,
+                    Tags: $('#allowSpacesTags').tagit('assignedTags').join(";"),
+                    metaDescription: $("#metaDescription").val()
+                }),
+                dataType: "json", contentType: "application/json; charset=utf-8",
+                type: "POST", success: function (result) {
+                  
+                    $("#ObjectContext").val("StoryGallery\\" + result.Idms);
+                    var cnt = 0;
+                    $('tbody.files tr').each(function (i, e) {
+                        cnt = cnt + 1;
+                    });
+                    if (cnt > 0)
+                    {
+                   
+                        $("#btnstart").click();
+
+                    }
+                    else
+                        window.location.href = '/Admin/Story/StoryList';
+
+                }
+            });
+
+
+        });
+
+    });
+</script>
+<script src="~/Scripts/Admin/NumberTextBox.js"></script>
+    @section scripts{
+        <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    }
+    @{ 
+       string Result = Convert.ToString(TempData["result"]);
+    }
+     <div class="divCssWh" style="overflow:hidden;">
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label("عنوان", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.Title, "", new { @class = "webUserTextBox" })
+            </div>
+            <div id="validationtitle" class="HideElement FloatRight">
+                <span class="field-validation-left" >عنوان الزامی است. </span>
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label("خلاصه حکایت", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextAreaFor(x => x.ShortDes, new { @class = "webUserTextBox", @style = "width:630px;", @rows = "4" })
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="DivCss2">
+                @Html.Label("متن", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight" style="width:633px;">
+                @Html.TextAreaFor(x => x.LongDes, new { @class = "ckeditor", @id = "LongDes" })
+            </div>
+            <div id="validationText" class="HideElement FloatRight">
+                <span class="field-validation-left">متن الزامی است. </span>
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="DivCss2">
+                &nbsp;
+            </div>
+            <div class="FloatRight">
+                <div class="FloatRight">
+                    @Html.CheckBoxFor(x => x.IsShow)
+                </div>
+                <div class="FloatRight">
+                    @Html.Label("عدم نمایش", new { @class = "WebUserLabel" })
+                </div>
+            </div>
+        </div>
+         <div class="divCss" style="width:710px;">
+             <div class="DivCss2" style="width:75px;">
+               تگ
+             </div>
+             <div class="FloatRight" style="width:633px;">
+                 <ul id="allowSpacesTags">
+                     
+                 </ul>
+             </div>
+         </div>
+
+</div>
+<div style="padding:20px;border-top:1px solid #ccc;margin-top:20px;">
+    <b>مدیــریت سئو</b>
+    <div class="divCss">
+        @Html.Label("توضیحات صفحه", new { @class = "WebUserLabel" })
+        <div class="FloatRight" style="width: 698px;">
+            @Html.TextAreaFor(x => x.metaDescription, new { @id = "metaDescription", style = "width: 698px;" })
+        </div>
+        <label class="FloatLeft" style="color: #b1b1b1; width: 689px; line-height: 26px; font-size: 12px;">
+            * کاراکتر تایپ شده : <span id="metaDescriptionCounter">0</span>
+        </label>
+        <label class="FloatLeft" style="color: #b1b1b1; width: 689px; line-height: 26px; font-size: 12px;">
+            * برای بهینه سازی سایت برای موتورهای جستجو بهتر است توضیحات صفحه بین 60 تا 170 کاراکتر بادرنظرگرفتن فاصله باشد.
+        </label>
+        <label class="FloatLeft" style="color: #b1b1b1; width: 689px; line-height: 26px; font-size: 12px;">
+            * پر کردن عنوان هر عکس در صفحه ویرایش مربوط به آن صفحه انجام می پذیرد
+        </label>
+        <div id="validationText" class="HideElement FloatRight">
+            <span class="field-validation-left">توضیحات صفحه برای سئو مورد نیاز است.</span>
+        </div>
+    </div>
+</div>
+<div style="clear: both;"></div>
+<div style="padding:20px;border-top:1px solid #ccc;">
+    <b>مدیــریت تصاویــر گالری</b>
+</div>
+<div >
+    <!-- The file upload form used as target for the file upload widget -->
+    <form id="fileupload" action="/Backload/UploadHandler" method="POST" enctype="multipart/form-data">
+        <!-- Redirect browsers with JavaScript disabled to the origin page -->
+        <noscript><input type="hidden" name="redirect" value="/"></noscript>
+        <input id="ObjectContext" type="hidden" name="ObjectContext" value="StoryGallery" />
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div class="row fileupload-buttonbar">
+            <div class="span7">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success fileinput-button">
+                    <i class="icon-plus icon-white"></i>
+                    <span>افزودن عکس...</span>
+                    <input type="file" name="files[]" multiple>
+                </span>
+                <button id="btnstart" type="submit" class="btn btn-primary start" style="display:none;">
+                    <i class="icon-upload icon-white"></i>
+                    <span>شروع آپلود</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>انصراف آپلود</span>
+                </button>
+                <button type="button" class="btn btn-danger delete" style="display:none;">
+                    <i class="icon-trash icon-white"></i>
+                    <span>حذف</span>
+                </button>
+                <input type="checkbox" class="toggle" style="display:none;">
+                <!-- The loading indicator is shown during file processing -->
+                <span class="fileupload-loading"></span>
+            </div>
+            <!-- The global progress information -->
+            <div class="span5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="bar" style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress information -->
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+    </form>
+
+    <!-- The template to display files available for upload -->
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) {  %}
+        <tr class="template-upload fade">
+            <td>
+                <span class="preview"></span>
+            </td>
+            <td>
+                <p class="name">{%=file.name%}</p>
+                {% if (file.error) { %}
+                <div><span class="label label-important">Error</span> {%=file.error%}</div>
+                {% } %}
+            </td>
+            <td>
+                <p class="size">{%=o.formatFileSize(file.size)%}</p>
+                {% if (!o.files.error) { %}
+                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+                {% } %}
+            </td>
+            <td>
+                {% if (!o.files.error && !i && !o.options.autoUpload) { %}
+                <button class="btn btn-primary start" style="display:none;">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start</span>
+                </button>
+                {% } %}
+                {% if (!i) { %}
+                <button class="btn btn-warning cancel"  >
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>انصراف</span>
+                </button>
+                {% } %}
+            </td>
+        </tr>
+        {% } %}
+    </script>
+    <!-- The template to display files available for download -->
+    <script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade">
+            <td>
+                <span class="preview">
+                    {% if (file.thumbnail_url) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" data-gallery="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}" alt="StoryImage"></a>
+                    {% } %}
+                </span>
+            </td>
+            <td>
+                <p class="name">
+                    <a href="{%=file.url%}" title="{%=file.name%}" data-gallery="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+                </p>
+                {% if (file.error) { %}
+                <div><span class="label label-important">Error</span> {%=file.error%}</div>
+                {% } %}
+            </td>
+            <td>
+                <span class="size">{%=o.formatFileSize(file.size)%}</span>
+            </td>
+            <td>
+                <button style="display:none;" class="btn btn-danger delete" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" {% if (file.delete_with_credentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                    <i class="icon-trash icon-white"></i>
+                    <span>حذف</span>
+                </button>
+                <input style="display:none;" type="checkbox" name="delete" value="1" class="toggle">
+            </td>
+        </tr>
+        {% } %}
+    </script>
+</div>
+<div class="divCss">
+    <div class="divCss" style="padding-top: 15px; padding-right:73px">
+        <div class="DivCss1">
+            <input id="btnSave" type="button"  style="width:100px !important;line-height:0;" class="webUserButton" value="ثبت" />
+        </div>
+    </div>
+</div>
+
+@*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")*@
+  @Scripts.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/js")
+<script src="~/Scripts/FileUpload/backload.demoStory.js"></script>
+

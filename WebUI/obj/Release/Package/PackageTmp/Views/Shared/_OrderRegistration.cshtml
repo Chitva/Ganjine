@@ -1,0 +1,110 @@
+﻿@model Domain.Validation.Admin.ValidationOrder
+@{
+    var urlArray = Request.Url.PathAndQuery.Split('/');
+    int serviceGroupId = 0;
+    if (HttpContext.Current.Request.HttpMethod == "GET")
+    {
+        if (urlArray != null && urlArray.Length > 2)
+        {
+            serviceGroupId = Convert.ToInt32(urlArray[2]);
+        }
+    }
+}
+
+
+<div class="row innerPage" style="padding-top:0;">
+    <div class="col-xs-12">
+        <div class="modal-body" style="padding-top:50px;">
+            @using (@Html.BeginForm("OrderRegistration", "Product",new {serviceGroupId},FormMethod.Post))
+            {
+                if (ViewBag.Msg != null && ViewBag.Msg == "1")
+                {
+                     <div id="divsuccess" class="alert alert-success">
+                        <strong>ارسال!</strong> عملیات با موفقیت ثبت شد .
+                    </div>
+                }
+                if (ViewBag.Msg != null && ViewBag.Msg == "2")
+                {
+                    <div class="alert alert-error" id="divfailed">
+                        <strong>خطا!</strong> خطا در ارسال اطلاعات.
+                    </div>
+                }
+                <div class="row">
+
+                    <div class="col-xs-6">
+                        <div class="form-group reg-username">
+                            @Html.TextBoxFor(x => x.Family, new { @class = "form-control input", @placeholder = "نام خانوادگی", @name = "family", @size = "20", required = "required" })
+                            @Html.ValidationMessage("Family", new { @class = "field-validation-right" })
+
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <div class="form-group reg-username">
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control input", @placeholder = "نام ", @name = "login", @size = "20" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group reg-username">
+                            @Html.DropDownListFor(m => m.IsMale, new SelectList(
+                                new[]
+                                {
+                                    new { Value = "true", Text = "مرد" },
+                                    new { Value = "false", Text = "زن" },
+                                },
+                                "Value",
+                                "Text",
+                                @Model.IsMale
+                            ), new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group reg-username">
+                            @Html.TextBoxFor(x => x.Tell, new { @class = "form-control input", @placeholder = "شماره تماس", @name = "tell", @size = "20", type = "text" })
+                            @Html.ValidationMessage("Tell", new { @class = "field-validation-right" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group reg-username">
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control input", @placeholder = "ایمیل ", @name = "email", @size = "20", type = "Email" })
+                            @Html.ValidationMessage("Email", new { @class = "field-validation-right" })
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group reg-username">
+                            @Html.TextBoxFor(x => x.Address, new { @class = "form-control input", @placeholder = "آدرس", @name = "address", @size = "20" })
+                            @Html.ValidationMessage("Address", new { @class = "field-validation-right" })
+                        </div>
+                    </div>
+        </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group reg-username">
+                            @Html.TextAreaFor(x => x.OrderText, new { @class = "form-control input", @placeholder = "متن سفارش", @name = "orderText", @size = "20" })
+                            @Html.ValidationMessage("OrderText", new { @class = "field-validation-right" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div>
+                            <input name="submit" class="btn  btn-block btn-lg btn-primary" value="ثبت" type="submit">
+                        </div>
+                    </div>
+                <div class="form-group has-feedback col-xs-6">
+                    <script src='https://www.google.com/recaptcha/api.js?hl=fa' async defer></script>
+                    <div class="g-recaptcha" data-sitekey="6LdQpCYTAAAAAL8dJ4l3eaKsKooNE2KklCg3kR-Z"></div>
+                </div></div>
+                <!--userForm-->
+            }
+        </div>
+    </div>
+
+</div>
+<!--/row || innerPage end-->
+<div style="clear: both"></div>
+

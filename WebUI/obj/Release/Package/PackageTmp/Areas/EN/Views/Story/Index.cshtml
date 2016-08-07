@@ -1,0 +1,119 @@
+﻿@{
+
+    PersianToolS.PersinToolsClass dateFa = new PersianToolS.PersinToolsClass();
+    PersianToolS.PersinToolsClass.PersianDate PersianDate = new PersianToolS.PersinToolsClass.PersianDate();
+    List<Domain.Entities.Story> StoryList = ViewBag.Story;
+    int TotalCount = Convert.ToInt32(TempData["Count"]);
+    TempData["Count"] = TotalCount;
+    int EndPage = 0;
+    int StartPage = 0;
+    int TotalPage = 0;
+    int Id = 0;
+    int Page = Convert.ToInt32(ViewBag.PageNumber);
+    if (Page == 0)
+    {
+        Page = 1;
+    }
+    if (TotalCount % 10 == 0)
+    {
+        TotalPage = TotalCount / 10;
+    }
+    else
+    {
+        TotalPage = (TotalCount / 10) + 1;
+    }
+    if (Page + 9 > TotalPage)
+    {
+        EndPage = TotalPage;
+    }
+    else
+    {
+        EndPage = Page + 9;
+    }
+    if (Page <= 9)
+    {
+        StartPage = 1;
+    }
+    else
+    {
+        StartPage = Page - 9;
+    }    
+}
+    
+<style>
+    .blogpost .blogpost-body {
+        max-height: 145px;
+        min-height: 70px;
+    }
+</style>
+<div class="page-intro ltr" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                    </li>
+                    <li class="active">Story</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="main-container">
+    <div class="container">
+        <div class="row">
+            <div class="main col-md-12">
+                @foreach(var item in StoryList)
+                {
+                    var title = item.Title.Replace(" ", "-");
+                       <article class="clearfix blogpost object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="200" style="margin-bottom:20px;">
+                           <footer class="clearfix">
+                               <a class="pull-left" href="/EN/Story/@item.Id/@title"><span>@item.Title</span></a>
+                           </footer>
+                             <div class="blogpost-body clearfix">
+                        <div class="blogpost-content" style="margin-right:0;">
+                            <p>@item.ShortDes</p>
+                        </div>
+                    </div>
+                    <footer class="clearfix" style="background-color: #fafafa; border-top: none;">
+                        <a class="pull-right link" href="/EN/Story/@item.Id/@title"><span>Read More</span></a>
+                        <span class="pull-right" style="padding-right:20px;"> @item.CreationDate.Day , @item.CreationDate.Month ,@item.CreationDate.Year</span>
+                    </footer>
+                </article>
+                }
+                <ul class="pagination">
+                    @{
+                        int Page1 = 0;
+                    }
+                    @if (Page != 1)
+{
+    Page1 = Page - 1;
+    <li>    <a href="/EN/Story/@Page1">Previous</a></li>
+}
+
+                    @for (int i = StartPage; i < Page; i++)
+{
+    Page1 = i;
+    <li>  <a href="/EN/Storys/@Page1">@i</a></li>
+}
+                    @if (StoryList != null && StoryList.Count() != 0)
+                    {
+                                 <li class="active"><a href="#">@Page <span class="sr-only">(current)</span></a></li>
+                    }
+                    @for (int i = Page + 1; i <= EndPage; i++)
+{
+    Page1 = i;
+    <li>   <a href="/EN/Story/@Page1">@i</a></li>
+}
+                    @if ((Page != TotalPage) && (TotalPage != 0))
+{
+    Page1 = Page + 1;
+    <li> <a href="/EN/Story/@Page1">Next</a></li>
+}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

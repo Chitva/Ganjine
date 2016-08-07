@@ -1,0 +1,30 @@
+﻿@{
+    
+    ViewBag.Title = "Home Page";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<div class="row">
+    <br />
+    <br />
+    <br />
+    <input type="button" name="SendEmail" value="Sending Email" onclick="Send()"/>
+    @*<div id="ajaxResult"></div>*@
+</div>
+
+<script>
+        function Send()
+        {
+            debugger;
+            $.ajax({
+                url: "/TestSnd/SendEmail",
+                type: 'POST',
+                cashe: 'false',
+                success: function (result) {
+                    debugger;
+                    alert(result.result);
+                    //$("#ajaxResult").html = result.result;
+                }
+            });
+        }
+  
+ </script>>

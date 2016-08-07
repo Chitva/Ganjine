@@ -1,0 +1,142 @@
+﻿@{
+    List<Domain.Entities.WorkExperienceGroup> WorkExperienceGroupList = ViewBag.WorkExperienceGroup;
+    List<Domain.Entities.WorkExperienceGroup> Parents = new List<Domain.Entities.WorkExperienceGroup>();
+    if(WorkExperienceGroupList != null)
+    {
+        Parents = WorkExperienceGroupList.Where(x => x.ParentID == null).OrderBy(p => p.Priority).ToList();
+    }
+    string dashName = "";
+}
+
+<link href="~/Bootstrap/css/othertemplate/skin-0.css" rel="stylesheet" />
+<link href="~/Bootstrap/css/othertemplate/style.css" rel="stylesheet" />
+<style>
+    .owl-buttons{
+        display:none;
+    }
+    .blogpost.full .blogpost-body{
+        padding-top:0px;
+    }
+    .owl-carousel .owl-item > div{
+        margin-top:0px;
+    }
+    /*.blogpost .blogpost-content{
+        margin-right:1px;
+    }
+    .owl-item{
+        width:846px !important;
+    }*/
+   
+</style>
+<div class="page-intro">
+    <div class="container">
+        <div class="row">
+            <div id="navdiv1" class="col-md-12">
+               @Html.Partial("_Nav")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-container" style="padding:0;">
+    <div class="section clearfix ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-12">
+                    <div id="WorkExpDiv">
+                        @Html.Partial("_Gallery")
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 ">
+                    <div class="panel-group" id="accordionNo">
+                        <!--Category-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" href="#collapseCategory" class="collapseWill">
+                                        <span class="pull-left"> </span> دسته بندی گالری ها
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <div id="collapseCategory" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <ul class="nav nav-pills nav-stacked tree">
+                                        <li class="active dropdown-tree open-tree">
+                                            <ul class="category-level-2 dropdown-menu-tree">
+                                                @foreach (var Item in Parents)
+                                                {
+                                                    dashName = Item.Name.Replace(" ", "-");
+                                                    if (WorkExperienceGroupList.FirstOrDefault(x => x.ParentID == Item.Id) == null)
+                                                    {
+                                                        <li value="@Item.Id">
+                                                        @if (ViewBag.catids == Item.Id)
+                                                        {
+                                                            <a class="stbnodewnone" style="color: #355a0b; text-decoration:underline;" href="/Gallery/@Item.Id/@dashName"> @Item.Name</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="stbnodewnone" href="/Gallery/@Item.Id/@dashName"> @Item.Name</a>
+                                                        }
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="dropdown-tree open-tree">
+                                                            <a class="dropdown-tree-a" href="#" style="font-weight: normal !important;">@Item.Name</a>
+                                                            <ul class="category-level-2 dropdown-menu-tree">
+                                                                @CreateNodes(Item.Id)
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    @helper  CreateNodes(int? ParentID)
+{
+    List<Domain.Entities.WorkExperienceGroup> WorkExperienceGroupAllList = ViewBag.WorkExperienceGroup;
+    List<Domain.Entities.WorkExperienceGroup> WorkExperienceGroupList = ViewBag.WorkExperienceGroup;
+    WorkExperienceGroupList = WorkExperienceGroupList.Where(p => p.ParentID == ParentID).OrderBy(p => p.Priority).ToList();
+    int CountServiceGroupList = WorkExperienceGroupList.Count;
+    string dashTitle = "";
+    if (CountServiceGroupList > 0)
+    {
+        for (int i = 0; i < CountServiceGroupList; i++)
+        {
+            if (WorkExperienceGroupAllList.FirstOrDefault(x => x.ParentID == WorkExperienceGroupList[i].Id) != null)
+            {
+                <li class="dropdown-tree open-tree">
+                    <a class="dropdown-tree-a" href="#">@WorkExperienceGroupList[i].Name</a>
+                    <ul class="category-level-2 dropdown-menu-tree">
+                        @CreateNodes(WorkExperienceGroupList[i].Id)
+                    </ul>
+                </li>
+            }
+            else
+            {
+                dashTitle = WorkExperienceGroupList[i].Name.Replace(" ", "-");
+                <li value="@WorkExperienceGroupList[i].Id">
+                    @if (ViewBag.catids == WorkExperienceGroupList[i].Id)
+                    {
+                        <a class="stbnodewnone" style="color: #355a0b; text-decoration:underline;" href="/Gallery/@WorkExperienceGroupList[i].Id/@dashTitle"> @WorkExperienceGroupList[i].Name</a>
+                    }
+                    else
+                    {
+                        <a class="stbnodewnone" href="/Gallery/@WorkExperienceGroupList[i].Id/@dashTitle"> @WorkExperienceGroupList[i].Name</a>
+                    }
+                
+                </li>
+            }
+        }
+    }
+}

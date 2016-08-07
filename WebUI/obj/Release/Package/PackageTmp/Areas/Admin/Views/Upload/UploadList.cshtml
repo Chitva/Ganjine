@@ -1,0 +1,24 @@
+﻿@{
+      Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+}
+<script src="~/Scripts/jquery.js"></script>
+ @Html.Hidden("MenuItems", "1429956437_upload.png" + ":-" + "مدیریت آپلودها")
+
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script>
+    Page();
+</script>
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+  <div class="divCssWh" >
+      <div class="FloatL">
+        <a href="~/Admin/Upload/CreateUpload" class="LinkForCreateItems">افزودن فایل جدید</a>
+    </div>
+<div id="BoxSitePart">
+    @Html.Partial("_UploadList")
+</div>
+      </div>
+
+
+

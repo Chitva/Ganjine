@@ -1,0 +1,512 @@
+﻿/*---BoxDeletePopUp---*/
+#BoxDelete #PopUp-Content
+{
+    width:250px;
+    height:150px;
+}
+#BoxDelete #PopUp-Content
+{
+    width:250px;
+    height:150px;
+}
+#BoxDelete #TB_ajaxContent {
+    padding:20px;
+    font-size:12px;
+}
+#BoxDelete .BoxBtn {
+    margin-top: 24px;
+    width: 180px;
+}
+#BoxDelete .Btn {
+    width:80px;
+    height:23px;
+    float:right;
+     padding: 2px
+}
+    #BoxDelete .Btn div {
+        width:78px;
+        height:16px;
+    }
+ #Popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #341705;
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    filter: alpha(opacity=20);
+    -moz-opacity: 0.20;
+    opacity: 0.20;
+} 
+#PopUp-Content
+{
+    position: fixed;
+    width:750px;
+    direction: rtl;
+    display: none;
+    font-family: tahoma;
+    font-size: 10px;
+    -moz-border-radius: 10px;
+    z-index: 2000;
+    background-color:#FFF;
+    	color: #333333;
+    border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+    height:575px;
+}
+#PopUp-Content .TB_ajaxContent{
+	clear:both;
+	padding:2px 15px 15px 15px;
+	text-align:right;
+    direction:rtl;
+}
+#PopUp-Content .TB_ajaxWindowTitle{
+    text-align:right;
+	float:right;
+	padding:5px 10px 1px 10px;
+	margin-bottom:1px;
+    font-weight:bold;
+    font-size:11pt;
+}
+#PopUp-Content .TB_closeAjaxWindow{
+	padding:7px 0px 5px 10px;
+	margin-bottom:1px;
+	float:left;
+}
+#PopUp-Content .TB_title{
+	background-color:#3e7bc1;
+	height:32px;
+    color:#ffffff;
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+    -moz-border-radius-topleft:6px;
+    -moz-border-radius-topright:6px;
+	-webkit-border-top-left-radius:6px;
+	-webkit-border-top-right-radius:6px;
+}
+/*---BoxDeletePopUpTab---*/
+#BoxDeleteTab #PopUp-Content-DeleteTab
+{
+    width:250px;
+    height:150px;
+}
+#BoxDeleteTab #PopUp-Content-DeleteTab
+{
+    width:250px;
+    height:150px;
+}
+#BoxDeleteTab #TB_ajaxContentTab {
+    padding:20px;
+    font-size:12px;
+}
+#BoxDeleteTab .BoxBtn {
+    margin-top: 24px;
+    width: 180px;
+}
+#BoxDeleteTab .Btn {
+    width:80px;
+    height:23px;
+    float:right;
+     padding: 2px
+}
+    #BoxDeleteTab .Btn div {
+        width:78px;
+        height:16px;
+    }
+ #Popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #341705;
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    filter: alpha(opacity=20);
+    -moz-opacity: 0.20;
+    opacity: 0.20;
+} 
+#PopUp-Content-DeleteTab
+{
+    position: fixed;
+    width:750px;
+    direction: rtl;
+    display: none;
+    font-family: tahoma;
+    font-size: 10px;
+    -moz-border-radius: 10px;
+    z-index: 2000;
+    background-color:#FFF;
+    	color: #333333;
+    border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+    height:575px;
+}
+#PopUp-Content-DeleteTab .TB_ajaxContent{
+	clear:both;
+	padding:2px 15px 15px 15px;
+	text-align:right;
+    direction:rtl;
+}
+#PopUp-Content-DeleteTab .TB_ajaxWindowTitle{
+    text-align:right;
+	float:right;
+	padding:5px 10px 1px 10px;
+	margin-bottom:1px;
+    font-weight:bold;
+    font-size:11pt;
+}
+#PopUp-Content-DeleteTab .TB_closeAjaxWindow{
+	padding:7px 0px 5px 10px;
+	margin-bottom:1px;
+	float:left;
+}
+#PopUp-Content-DeleteTab .TB_title{
+	background-color:#3e7bc1;
+	height:32px;
+    color:#ffffff;
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+    -moz-border-radius-topleft:6px;
+    -moz-border-radius-topright:6px;
+	-webkit-border-top-left-radius:6px;
+	-webkit-border-top-right-radius:6px;
+}
+/*--Box Befor Delete--*/
+
+#BoxBeforDelete #PopUp-Content-BoxBeforDelete
+{
+    width:350px;
+    height:150px;
+}
+#BoxBeforDelete #PopUp-Content-BoxBeforDelete
+{
+    width:350px;
+    height:150px;
+}
+#BoxBeforDelete #TB_ajaxContent-BoxBeforDelete {
+    padding:20px;
+    font-size:12px;
+}
+#BoxBeforDelete .BoxBtn {
+    margin-top: 24px;
+    width: 280px;
+}
+#BoxBeforDelete .Btn {
+    width:80px;
+    height:23px;
+    float:right;
+     padding: 2px
+}
+    #BoxBeforDelete .Btn div {
+        width:78px;
+        height:16px;
+    }
+ #Popups {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #341705;
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    filter: alpha(opacity=20);
+    -moz-opacity: 0.20;
+    opacity: 0.20;
+} 
+#PopUp-Content-BoxBeforDelete
+{
+    position: fixed;
+    width:750px;
+    direction: rtl;
+    display: none;
+    font-family: tahoma;
+    font-size: 10px;
+    -moz-border-radius: 10px;
+    z-index: 2000;
+    background-color:#FFF;
+    	color: #333333;
+    border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+    height:575px;
+}
+#PopUp-Content-BoxBeforDelete .TB_ajaxContent{
+	clear:both;
+	padding:2px 15px 15px 15px;
+	text-align:right;
+    direction:rtl;
+}
+#PopUp-Content-BoxBeforDelete .TB_ajaxWindowTitle{
+    text-align:right;
+	float:right;
+	padding:5px 10px 1px 10px;
+	margin-bottom:1px;
+    font-weight:bold;
+    font-size:11pt;
+}
+#PopUp-Content-BoxBeforDelete .TB_closeAjaxWindow{
+	padding:7px 0px 5px 10px;
+	margin-bottom:1px;
+	float:left;
+}
+#PopUp-Content-BoxBeforDelete .TB_title{
+	background-color:#3e7bc1;
+	height:32px;
+    color:#ffffff;
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+    -moz-border-radius-topleft:6px;
+    -moz-border-radius-topright:6px;
+	-webkit-border-top-left-radius:6px;
+	-webkit-border-top-right-radius:6px;
+}
+
+
+
+/*End Box Before Delete*/
+
+/*---Box Add Node ---*/
+/*---BoxDeletePopUp---*/
+#BoxAddNode #PopUp-ContentAddNode
+{
+    width:250px;
+    height:150px;
+}
+#BoxAddNode #PopUp-ContentAddNode
+{
+    width:250px;
+    height:150px;
+}
+#BoxAddNode #TB_ajaxContentAddNode {
+    padding:20px;
+    font-size:12px;
+}
+#BoxAddNode .BoxBtn {
+    margin-top: 24px;
+    width: 180px;
+}
+#BoxAddNode .Btn {
+    width:80px;
+    height:23px;
+    float:right;
+     padding: 2px
+}
+    #BoxAddNode .Btn div {
+        width:78px;
+        height:16px;
+    }
+ #Popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #341705;
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    filter: alpha(opacity=20);
+    -moz-opacity: 0.20;
+    opacity: 0.20;
+} 
+#PopUp-ContentAddNode
+{
+    position: fixed;
+    width:750px;
+    direction: rtl;
+    display: none;
+    font-family: tahoma;
+    font-size: 10px;
+    -moz-border-radius: 10px;
+    z-index: 2000;
+    background-color:#FFF;
+    	color: #333333;
+    border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+    height:575px;
+}
+#PopUp-ContentAddNode .TB_ajaxContent{
+	clear:both;
+	padding:2px 15px 15px 15px;
+	text-align:right;
+    direction:rtl;
+}
+#PopUp-ContentAddNode .TB_ajaxWindowTitle{
+    text-align:right;
+	float:right;
+	padding:5px 10px 1px 10px;
+	margin-bottom:1px;
+    font-weight:bold;
+    font-size:11pt;
+}
+#PopUp-ContentAddNode .TB_closeAjaxWindow{
+	padding:7px 0px 5px 10px;
+	margin-bottom:1px;
+	float:left;
+}
+#PopUp-ContentAddNode .TB_title{
+	background-color:#3e7bc1;
+	height:32px;
+    color:#ffffff;
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+    -moz-border-radius-topleft:6px;
+    -moz-border-radius-topright:6px;
+	-webkit-border-top-left-radius:6px;
+	-webkit-border-top-right-radius:6px;
+}
+ /*---BoxAlertPopUp---*/
+#BoxAlert #PopUp-Content-Alert
+{
+    width:300px;
+    height:170px;
+}
+#BoxAlert #TB_ajaxContent-Alert {
+    padding:20px;
+    font-size:12px;
+    line-height:20px;
+    text-align:justify
+}
+#BoxAlert .BoxBtn {
+    margin-top: 15px;
+    width: 180px;
+}
+#BoxAlert .Btn {
+    margin-right:100px;
+    width:90px;
+}
+    #BoxAlert .Btn div {
+        line-height:normal;
+        width:78px;
+    }
+#PopUp-Content-Alert {
+    position: fixed;
+    width: 750px;
+    direction: rtl;
+    display: none;
+    font-family: tahoma;
+    font-size: 10px;
+    -moz-border-radius: 10px;
+    z-index: 2000;
+    background-color: #FFF;
+    color: #333333;
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    height: 575px;
+}
+    #PopUp-Content-Alert .TB_ajaxContent-Alert {
+        clear: both;
+        padding: 2px 15px 15px 15px;
+        text-align: right;
+        direction: rtl;
+    }
+    #PopUp-Content-Alert .TB_ajaxWindowTitle {
+        text-align: right;
+        float: right;
+        padding: 5px 10px 1px 10px;
+        margin-bottom: 1px;
+        font-weight: bold;
+        font-size: 11pt;
+    }
+    #PopUp-Content-Alert .TB_closeAjaxWindow {
+        padding: 7px 0px 5px 10px;
+        margin-bottom: 1px;
+        float: left;
+    }
+    #PopUp-Content-Alert .TB_title {
+        background-color: #3e7bc1;
+        height: 32px;
+        color: #ffffff;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        -moz-border-radius-topleft: 6px;
+        -moz-border-radius-topright: 6px;
+        -webkit-border-top-left-radius: 6px;
+        -webkit-border-top-right-radius: 6px;
+    }
+    /*for faq*/
+
+#BoxDeleteFaq #PopUp-Content-DeleteFaq
+{
+    width:250px;
+    height:150px;
+}
+#BoxDeleteFaq #PopUp-Content-DeleteFaq
+{
+    width:250px;
+    height:150px;
+}
+#BoxDeleteFaq #TB_ajaxContentTab {
+    padding:20px;
+    font-size:12px;
+}
+#BoxDeleteFaq .BoxBtn {
+    margin-top: 24px;
+    width: 180px;
+}
+#BoxDeleteFaq .Btn {
+    width:80px;
+    height:23px;
+    float:right;
+     padding: 2px
+}
+    #BoxDeleteFaq .Btn div {
+        width:78px;
+        height:16px;
+    }
+
+#PopUp-Content-DeleteFaq
+{
+    position: fixed;
+    width:750px;
+    direction: rtl;
+    display: none;
+    font-family: tahoma;
+    font-size: 10px;
+    -moz-border-radius: 10px;
+    z-index: 2000;
+    background-color:#FFF;
+    	color: #333333;
+    border-radius: 7px;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+    height:575px;
+}
+#PopUp-Content-DeleteFaq .TB_ajaxContent{
+	clear:both;
+	padding:2px 15px 15px 15px;
+	text-align:right;
+    direction:rtl;
+}
+#PopUp-Content-DeleteFaq .TB_ajaxWindowTitle{
+    text-align:right;
+	float:right;
+	padding:5px 10px 1px 10px;
+	margin-bottom:1px;
+    font-weight:bold;
+    font-size:11pt;
+}
+#PopUp-Content-DeleteFaq .TB_closeAjaxWindow{
+	padding:7px 0px 5px 10px;
+	margin-bottom:1px;
+	float:left;
+}
+#PopUp-Content-DeleteFaq .TB_title{
+	background-color:#3e7bc1;
+	height:32px;
+    color:#ffffff;
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+    -moz-border-radius-topleft:6px;
+    -moz-border-radius-topright:6px;
+	-webkit-border-top-left-radius:6px;
+	-webkit-border-top-right-radius:6px;
+}
+    /*end faq*/

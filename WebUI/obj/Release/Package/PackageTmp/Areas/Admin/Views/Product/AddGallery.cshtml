@@ -1,0 +1,217 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+    string Result = Convert.ToString(TempData["result"]);
+}
+
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<link href="~/Content/Admin/MultiFileUpload.css" rel="stylesheet" />
+@Html.Hidden("MenuItems", "1433072936_home.png" + ":-" + "مدیریت صفحات سایت" + ":-" + "محصولات")
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script>
+    Page();
+    PageList('افزودن تصویر به گالری', '/Admin/ImageGallery/ImageGalleryList');
+    function roundToTwo(num) {
+        return +(Math.round(num + "e+2") + "e-2");
+    }
+</script>
+<script src="~/Scripts/knockout-2.3.0.js"></script>
+<script src="~/Scripts/toastr.js"></script>
+
+
+
+
+
+
+<div id="uploadform">
+    @using (@Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+
+
+        <div style="margin-bottom:10px;">
+            <input type="file" id="files" name="files" multiple title="افزودن پیوست" data-bind="event: { change: function () { addFiles($element.files) } }" />
+
+        </div>
+        <p data-bind="visible: totalFiles() <= 0">
+            هیچ فایلی انتخاب نشده است !
+        </p>
+
+        <div id="results" ></div>
+        <table data-bind="visible: totalFiles() > 0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th colspan="2">نام فایل</th>
+                    <th>حجم (مگا بایت)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: selectedFileArray">
+                <tr>
+                    <td data-bind="text: $index() + 1"></td>
+                    <td colspan="2" data-bind="text: fileName"></td>
+                    <td data-bind="text:roundToTwo(fileSize/1048576)"></td>
+                    <td>
+                        <button class="webUserButton" data-bind="click: $root.removeFile">حذف</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td colspan="2">تعداد فایل : <span data-bind="text:totalFiles()"></span> </td>
+                    <td> حجم کل : <span data-bind="text:  roundToTwo(totalSize()/1048576)"></span> مگابایت</td>
+                    <td>  <button id="RemoveAll" class="webUserButton" data-bind="click: $root.removeAllFiles">حذف همه</button></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div style="margin-top:15px;">
+            <input id="BtnSavePic" type="submit" value="ثبت" class="webUserButton" data-bind="visible: totalFiles() > 0" />
+       </div>
+    }
+</div>
+
+
+@section scripts
+{
+
+    <script>
+        function PlsWait() {
+            $("#BtnSavePic").attr('disabled', 'disabled');
+            $("#BtnSavePic").val("لطفا منتظر بمانید...");
+
+        }
+        function CompeleteFunc() {
+            $("#BtnSavePic").val("ثبت");
+            $("#BtnSavePic").removeAttr('disabled');
+        }
+
+
+
+        function SelectedFile(fileName, fileSize, fileContent) {
+            this.fileName = fileName;
+            this.fileSize = fileSize;
+            this.fileContent = fileContent;
+            this.ProductId = $("#SubProduct").val();
+            this.category = ko.observable("None");
+            this.title = ko.observable("Untitled");
+
+        }
+
+        function viewModel() {
+            var self = this;
+
+            self.categories = [
+                { id: 1, name: "نامه" },
+                { id: 2, name: "سند" },
+                { id: 3, name: "اسکن" },
+                { id: 4, name: "پرونده" }
+            ];
+            this.selectedFileArray = ko.observableArray();
+
+            self.addFiles = function (files) {
+
+                for (var i = 0; i < files.length; i++) {
+                    var f = files[i];
+
+                    //toastr.success(f.name);
+                    var reader = new FileReader;
+                    reader.onload = (function (curFile) {
+                        return function (e) {
+                            var data = e.target.result;
+                            console.log(curFile.name + " ; size : " + curFile.size);
+                            var fileContent = data;
+
+                            self.selectedFileArray.push(new SelectedFile(curFile.name,
+                                curFile.size,
+                                fileContent));
+
+                        };
+                    })(f);
+
+                    reader.readAsDataURL(f);
+
+                };
+            };
+
+            self.removeFile = function (selectedFile) { $("#files").val(""); self.selectedFileArray.remove(selectedFile); };
+            self.removeAllFiles = function (selectedFile) { $("#files").val(""); self.selectedFileArray.removeAll(); };
+
+            self.totalFiles = ko.computed(function () {
+                return self.selectedFileArray().length;
+            });
+
+            self.totalSize = ko.computed(function () {
+                var total = 0;
+                for (var i = 0; i < self.selectedFileArray().length; i++) {
+                    total += self.selectedFileArray()[i].fileSize;
+                }
+                return total;
+            });
+        }
+
+        myViewModel = new viewModel;
+        ko.applyBindings(myViewModel);
+
+
+        $('form').submit(function (e) {
+            e.preventDefault();
+
+            var oFileList = ko.toJS(myViewModel.selectedFileArray);
+
+          
+            var Counterf = 0;
+            function ajaxUpload(indx, elem) {
+                PlsWait();
+
+                $.ajax({
+
+                    url: '/Admin/Product/UploadFiles',
+
+                    type: "POST",
+                   
+                   data:elem,
+                    beforeSend: function () {
+                      
+                        toastr.info("شروع ارسال فایل :" + elem.fileName);
+                    },
+                    success: function (result) {
+                        $('#results').show();
+                        if (result != "error")
+                        {
+                            Counterf++;
+                            toastr.success("فایل آپلود شد :" + elem.fileName);
+                            if (oFileList.length == Counterf) {
+                               // alert("oFileList.length:" + oFileList.length);
+                                //alert("indx + 1:" + parseInt(indx + 1));
+                                window.location.href = '/Admin/Product/ProductList';
+                                $("#files").val("");
+                                $("#RemoveAll").click();
+                                CompeleteFunc();
+                            }
+                        }
+                        else
+                            toastr.error("فایل مجاز نمی باشد :" + elem.fileName);
+                   
+                    }
+                });
+            }
+
+            $.each(oFileList, ajaxUpload);
+        });
+
+    </script>
+
+
+
+}
+
+
+
+

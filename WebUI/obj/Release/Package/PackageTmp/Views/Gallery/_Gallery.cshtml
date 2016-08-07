@@ -1,0 +1,160 @@
+﻿@using Domain.Entities
+    @{
+        Domain.Entities.WorkExperience WorkExp = ViewBag.WorkExp;
+        PersianToolS.PersinToolsClass dateFa = new PersianToolS.PersinToolsClass();
+        PersianToolS.PersinToolsClass.PersianDate Date=new PersianToolS.PersinToolsClass.PersianDate();
+        List<WorkExperienceGallery> ServiceTabFileList =new List<WorkExperienceGallery>();
+        if (WorkExp != null)
+        {
+            ServiceTabFileList = WorkExp.WorkExperiencesGallery.ToList();
+        }
+    }
+
+<style>
+    .overlay-links {
+        margin-left: -25px;
+    }
+</style>
+
+@if (ServiceTabFileList != null && ServiceTabFileList.Count > 0)
+                            {
+    <div class="clearfix"></div>
+    <div class="row grid-space-20">
+        @foreach (var Item1 in ServiceTabFileList)
+        {
+            if (File.Exists(Server.MapPath("~/Files/Gallery/" + Item1.WorkExperiencesId + "/" + Item1.Image)))
+    {
+    <div class="col-xs-6 col-sm-6 col-md-3 padding-top-20">
+        <div class="image-box  border-1-solid-ccc" style="padding: 2px;">
+            <div class="overlay-container" style="display: table; height: 190px; width:100%;">
+                <div style="display: table-cell; vertical-align: middle;">
+
+                    @{
+        using (var image = new System.Drawing.Bitmap(Server.MapPath("~/Files/Gallery/"+Item1.WorkExperiencesId+"/"+Item1.Image)))
+        {
+            if (image.Width >= image.Height)
+            {
+                if (string.IsNullOrEmpty(Item1.alt))
+                {
+                    <img src="/Files/Gallery/@Item1.WorkExperiencesId/@Item1.Image" alt="تصویر گالری" style="margin:0 auto; width:100%; height:auto;">
+                }
+                else
+                {
+                    <img src="/Files/Gallery/@Item1.WorkExperiencesId/@Item1.Image" class="img-responsive" alt="@Item1.alt" style="margin:0 auto; width:100%; height:auto;">
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(Item1.alt))
+                {
+                    <img src="/Files/Gallery/@Item1.WorkExperiencesId/@Item1.Image" class="img-responsive" alt="تصویر گالری" style="margin: 0 auto; height: 100%; max-height: 190px; width: auto; ">
+                }
+                else
+                {
+                    <img src="/Files/Gallery/@Item1.WorkExperiencesId/@Item1.Image" class="img-responsive" alt="@Item1.alt" style="margin: 0 auto; height: 100%; max-height: 190px; width: auto; ">
+                }
+            }
+        }
+}
+                </div>
+                <div class="overlay">
+                    <div class="overlay-links">
+
+                        <a href="/Files/Gallery/@Item1.WorkExperiencesId/@Item1.Image" class="popup-img"><i class="fa fa-search-plus"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+}
+    </div>
+}
+<script>
+    if (($(".popup-img").length > 0) || ($(".popup-iframe").length > 0) || ($(".popup-img-single").length > 0)) {
+        $(".popup-img").magnificPopup({
+            type: "image",
+            gallery: {
+                enabled: true,
+            }
+        });
+        $(".popup-img-single").magnificPopup({
+            type: "image",
+            gallery: {
+                enabled: false,
+            }
+        });
+        $('.popup-iframe').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            preloader: false,
+            fixedContentPos: false
+        });
+    };
+</script>
+
+
+    @*<script>
+        function owlCarousel() {
+            var owl = $(".owl-carousel");
+            //init carousel
+            owl.owlCarousel();
+            owl.data('owlCarousel').reinit({
+                items: 1
+            });
+        }
+    </script>
+
+<div class="row" style="direction: ltr; ">
+    <div class="col-md-12" >
+        @{
+    if (WorkExp != null)
+    {
+        var WorkExpGalleryList = WorkExp.WorkExperiencesGallery;
+        Date = dateFa.DateToPersian(WorkExp.CreationDate);
+        <article class="clearfix blogpost full graycss" >
+            <div class="blogpost-body">
+                <div class="blogpost-content" style="margin-right:0px;">
+                    @if (WorkExpGalleryList != null && WorkExpGalleryList.Count > 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="owl-carousel content-slider-with-controls">
+
+                                    @foreach (var Item1 in WorkExpGalleryList)
+                                    {
+                                        <div class="overlay-container">
+                                            @if (string.IsNullOrEmpty(Item1.alt))
+                                            {
+                                                <img src="/Files/Gallery/@Item1.WorkExperiencesId/@Item1.Image" alt="تصویر گالری">
+                                            }
+                                            else
+                                            {
+                                                <img src="/Files/Gallery/@Item1.WorkExperiencesId/@Item1.Image" alt="@Item1.alt">
+                                            }
+                                            <a href="/Files/Gallery/@Item1.WorkExperiencesId/@Item1.Image" class="popup-img overlay" title="image title"><i class="fa fa-search-plus"></i></a>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                    }
+                    <p>
+                        @Html.Raw(WorkExp.LongDes)
+                    </p>
+                </div>
+            </div>
+        </article>
+    }
+}
+    </div>
+</div>
+    <script>
+        owlCarousel();
+     
+    </script>*@

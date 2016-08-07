@@ -1,0 +1,220 @@
+﻿@model List<Domain.ViewModel.User.ProductLinksViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Domain.Entities.ServiceGroup> ServiceGroupList = ViewBag.ServiceGroup;
+    List<Domain.Entities.ServiceGroup> Categories = new List<Domain.Entities.ServiceGroup>();
+    List<Domain.Entities.ServiceGroup> Parents = new List<Domain.Entities.ServiceGroup>();
+
+    Categories = ViewBag.Categories;
+    Parents = Categories.Where(_ => _.ParentID == null).ToList();
+
+    string dashName = "";
+}
+
+<link href="/Bootstrap/css/othertemplate/skin-0.css" rel="stylesheet" />
+<link href="/Bootstrap/css/othertemplate/style.css" rel="stylesheet" />
+<link href="/Content/Scroll/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<style>
+    .blogpost .blogpost-content {
+        margin-right: 0;
+    }
+
+    .overlay-links {
+        margin-left: -25px;
+    }
+
+    .team-member.option-3 .image-box-body {
+        height: 121px;
+        padding: 15px 10px 15px 3px;
+    }
+
+    .team-member.option-3 .overlay-container {
+        width: 45% !important;
+    }
+
+    .team-member.option-3 .image-box-body {
+        width: 55% !important;
+    }
+</style>
+<div class="main-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <div class="row" style="border: solid 1px #faa814; padding: 10px;">
+                    @foreach (var item in Model)
+                    {
+                        string name = @item.ProductName.Replace(" ", "-");
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <div class="product-box">
+                                <main>
+                                    <a href="/product/@(item.ProductGroupId)/@name">
+                                        @{
+                                            var imagePath = Server.MapPath("~/" + item.ImagePath);
+                                            if (File.Exists(imagePath))
+                                            {
+                                                using (var image = new System.Drawing.Bitmap(Server.MapPath("~/" + item.ImagePath)))
+                                                {
+                                                    if (image.Width > image.Height)
+                                                    {
+                                        <img src=@item.ImagePath alt="@(item.Alt)" style="width: 180px; height:auto; margin:0 auto;">
+                                                    }
+                                                    else
+                                                    {
+                                        <img src=@item.ImagePath alt="@(item.Alt)" style="height: 125px; width: auto; margin: 0 auto;">
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </a>
+                                </main>
+                                <footer>
+                                    <h4 class="title">
+                                        <a style="text-decoration: none;"
+                                           href="/product/@(item.ProductGroupId)/@name"
+                                           title="@(item.ProductName)">
+                                            @(item.ProductName)
+                                        </a>
+                                    </h4>
+                                    <div class="price" style="@(!item.IsExist ? "background: #c2c2c2;" : "")">
+                                        @if (item.IsExist)
+                                        {
+                                            if (item.Discount > 0)
+                                            {
+                                        <h5 style="text-decoration: line-through; color:#146265;">
+                                            @(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", item.Price))
+                                        </h5>
+                                            }
+                                            else
+                                            {
+                                        <div style="line-height: 12px;">&nbsp;</div>
+                                            }
+                                        <h5>
+                                            @(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", item.Price - item.Discount))
+                                        </h5>
+                                        <h5>تومان</h5>
+                                        }
+                                        else
+                                        {
+                                        <div>&nbsp;</div>
+                                        <h5 style="color: #444;">ناموجود</h5>
+                                        <div>&nbsp;</div>
+                                        }
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </footer>
+                            </div>
+                        </div>
+                        }
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="panel-group" id="accordionNo">
+                    <!--Category-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapseCategory" class="collapseWill">
+                                    <span class="pull-left"> </span> دسـته بندی محصولات
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseCategory" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills nav-stacked tree">
+                                    <li class="active dropdown-tree open-tree">
+                                        <ul class="category-level-2 dropdown-menu-tree">
+                                            @foreach (var Item in Parents)
+                                                {
+                                                //    if (Item.GrandsonsCount > 0)
+                                                //    {
+
+                                                dashName = Item.Name.Replace(" ", "-").Replace(" ",":").Replace(" ","/").Replace(" ","\\");
+                                                    @*if (ServiceGroupList.FirstOrDefault(x => x.ParentID == Item.Id) == null && Item.GrandsonsCount > 0)
+                                                    {
+                                                    <li value="@Item.Id">
+                                                        @if (ViewBag.catids == Item.Id)
+                                                        {
+                                                            <a class="stbnodenone" style="color: #355a0b; text-decoration:underline;" href="/Product/@Item.Id/@dashName"> @Item.Name</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="stbnodenone" href="/Product/@Item.Id/@dashName"> @Item.Name</a>
+                                                        }
+                                                    </li>
+                                                }
+                                                else
+                                                {*@
+                                                    <li class="dropdown-tree open-tree">
+                                                        <a class="dropdown-tree-a" href="/category/@(Item.Id)/@dashName" style="font-weight: normal !important;">@Item.Name</a>
+                                                        <ul class="category-level-2 dropdown-menu-tree">
+                                                            @CreateNodes(Item.Id ,Categories)
+                                                        </ul>
+                                                    </li>
+                                                    @*}
+                                                }*@
+                                            }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .card {
+        border: 2px solid #50cfd3;
+    }
+
+        .card .card-block {
+            padding: 1.25rem;
+        }
+
+        .card img {
+            max-width: 256px;
+            margin: 0 auto;
+        }
+</style>
+@helper  CreateNodes(int? ParentID,List<Domain.Entities.ServiceGroup> availableCats)
+{
+
+var childs = availableCats.Where(p => p.ParentID == ParentID).OrderBy(p => p.Priority).ToList();
+int CountServiceGroupList = childs.Count;
+string dashTitle = "";
+if (CountServiceGroupList > 0)
+{
+    for (int i = 0; i < CountServiceGroupList; i++)
+    {
+        if (childs[i].GrandsonsCount > 0)
+        {
+            if (availableCats.FirstOrDefault(x => x.ParentID == childs[i].Id) != null)
+            {
+                    <li class="dropdown-tree open-tree">
+                        <a class="dropdown-tree-a" href="/category/@(childs[i].Id)/@(childs[i].Name)" style="font-weight: normal !important;">@childs[i].Name</a>
+                        <ul class="category-level-2 dropdown-menu-tree">
+                            @CreateNodes(childs[i].Id ,availableCats)
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    dashTitle = childs[i].Name.Replace(" ", "-");
+                    <li value="@childs[i].Id">
+                        @if (ViewBag.catids == childs[i].Id)
+                        {
+                            <a class="stbnodenone" style="color: #355a0b; text-decoration:underline;" href="/Product/@childs[i].Id/@dashTitle"> @childs[i].Name</a>
+                        }
+                        else
+                        {
+                            <a class="stbnodenone" href="/Product/@childs[i].Id/@dashTitle"> @childs[i].Name</a>
+
+                        }
+                    </li>
+                }
+            }
+        }
+    }
+}

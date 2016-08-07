@@ -1,0 +1,118 @@
+﻿@{
+    List<Domain.Entities.ServiceTabFile> ServiceTabFileList = ViewBag.ImageGalleryList;
+}   
+@if (ServiceTabFileList != null && ServiceTabFileList.Count > 0)
+{
+<div class="clearfix"></div>
+
+<div class="row grid-space-20">
+    <div id="gallery" style="display:none;">
+        @foreach (var Item1 in ServiceTabFileList)
+        {
+            <img alt="@(Item1.Alt ?? "تصویر خدمات")"
+                 src="/Images/TabGalleryService/thum/@Item1.File"
+                 data-image="/Images/TabGalleryService/@Item1.File">
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+
+		jQuery(document).ready(function(){
+
+		    jQuery("#gallery").unitegallery({
+		        tile_enable_shadow: false,
+		        tile_enable_border: true,
+		        tiles_space_between_cols: 15,
+		        tiles_justified_space_between: 15,
+		        tiles_col_width: 235,
+		        tile_border_color: "#ffffff",
+		        tile_outline_color: "#c68e2b",
+		        tile_enable_outline: true,
+		    });
+
+		});
+
+</script>
+@*<div  class="row grid-space-20">
+    @foreach (var Item1 in ServiceTabFileList)
+{if (System.IO.File.Exists(Server.MapPath("~/Images/TabGalleryService/" + Item1.File)))
+    {
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 padding-top-20">
+        <div class="image-box  border-1-solid-ccc">
+            <div class="overlay-container" style="display: table; height: 190px; width:100%;">
+                <div style="display: table-cell; vertical-align: middle;">
+
+@{
+    using (var image = new System.Drawing.Bitmap(Server.MapPath("~/Images/TabGalleryService/" + Item1.File)))
+    {
+        if (string.IsNullOrEmpty(Item1.alt))
+        {
+            <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="تصویر خدمات" style="margin:0 auto; width:100%; height:auto;">
+        }
+        else
+        {
+            <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="@Item1.alt" style="margin:0 auto; width:100%; height:auto;">
+        }
+            if (image.Width >= image.Height)
+    {http://localhost:43211/Images/TabGalleryService/thum/636047020318105843_None_Untitled_730111903_126529.jpg
+        if (string.IsNullOrEmpty(Item1.alt))
+        {
+            <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="تصویر خدمات" style="margin:0 auto; width:100%; height:auto;">
+        }
+        else
+        {
+            <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="@Item1.alt" style="margin:0 auto; width:100%; height:auto;">
+        }
+    }
+    else
+    {
+        if (string.IsNullOrEmpty(Item1.alt))
+        {
+            <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="تصویر خدمات" style="margin: 0 auto; height: 100%; max-height: 190px; width: auto; ">
+        }
+        else
+        {
+            <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="@Item1.alt" style="margin: 0 auto; height: 100%; max-height: 190px; width: auto; ">
+        }
+    }
+        }
+}
+                </div>
+                <div class="overlay">
+                    <div class="overlay-links">
+
+                        <a href="/Images/TabGalleryService/@Item1.File" class="popup-img"><i class="fa fa-search-plus"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+}
+</div>*@
+}
+<script>
+    if (($(".popup-img").length > 0) || ($(".popup-iframe").length > 0) || ($(".popup-img-single").length > 0)) {
+        $(".popup-img").magnificPopup({
+            type: "image",
+            gallery: {
+                enabled: true,
+            }
+        });
+        $(".popup-img-single").magnificPopup({
+            type: "image",
+            gallery: {
+                enabled: false,
+            }
+        });
+        $('.popup-iframe').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            preloader: false,
+            fixedContentPos: false
+        });
+    };
+</script>
+

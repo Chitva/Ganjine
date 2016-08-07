@@ -1,0 +1,152 @@
+﻿@{
+    List<Domain.Entities.ServiceGroup> ServiceGroupList = ViewBag.ServiceGroup;
+    List<Domain.Entities.ServiceGroup> Parents = new List<Domain.Entities.ServiceGroup>();
+    Parents = ServiceGroupList.Where(x => x.ParentID == null).OrderBy(p => p.Priority).ToList();
+    string dashName = "";
+ 
+}
+
+<link href="/Bootstrap/css/othertemplate/skin-0.css" rel="stylesheet" />
+<link href="/Bootstrap/css/othertemplate/styleltr.css" rel="stylesheet" />
+<link href="/Content/Scroll/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<style>
+    .title {
+        font-size: 13px;
+    }
+    .blogpost .blogpost-content{
+        margin-right:0;
+    }
+    .overlay-links {
+        margin-left: -25px;
+    }
+    .nav-tabs > li {
+        float: left;
+    }
+    .team-member.option-3 .image-box-body {
+        height: 121px;
+        padding: 15px 10px 15px 3px;
+    }
+
+    .team-member.option-3 .overlay-container {
+        width: 45% !important;
+    }
+
+    .team-member.option-3 .image-box-body {
+        text-align:left;
+        width: 55% !important;
+    }
+   
+</style>
+<div class="page-intro">
+    <div class="container">
+        <div class="row">
+            <div id="navdiv" class="col-md-12">
+                @Html.Partial("_Nav")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 ">
+                <div class="panel-group" id="accordionNo">
+                    <!--Category-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapseCategory" class="collapseWill">
+                                    <span class="pull-left"> </span> Products Category
+                                </a>
+                            </h4>
+                        </div>
+
+                        <div id="collapseCategory" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills nav-stacked tree">
+                                    <li class="active dropdown-tree open-tree">
+                                        <ul class="category-level-2 dropdown-menu-tree">
+                                            @foreach (var Item in Parents)
+                                            {
+                                                dashName = Item.Name.Replace(" ", "-");
+                                                if (ServiceGroupList.FirstOrDefault(x => x.ParentID == Item.Id) == null)
+                                                {
+                                                    <li value="@Item.Id">
+                                                    @if (ViewBag.catids == Item.Id)
+                                                    {
+                                                        <a class="stbnodenone" style="color: #faa814; text-decoration:underline;" href="/EN/Product/@Item.Id/@dashName"> @Item.Name</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="stbnodenone" href="/EN/Product/@Item.Id/@dashName"> @Item.Name</a>
+                                                    }
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="dropdown-tree open-tree">
+                                                        <a class="dropdown-tree-a" href="#" style="font-weight: normal !important;">@Item.Name</a>
+                                                        <ul class="category-level-2 dropdown-menu-tree">
+                                                            @CreateNodes(Item.Id)
+                                                        </ul>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <div id="ServiceDiv">
+                    @Html.Partial("_Service")
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+
+
+@helper  CreateNodes(int? ParentID)
+{
+    List<Domain.Entities.ServiceGroup> ServiceGroupAllList = ViewBag.ServiceGroup;
+    List<Domain.Entities.ServiceGroup> ServiceGroupList = ViewBag.ServiceGroup;
+    ServiceGroupList = ServiceGroupList.Where(p => p.ParentID == ParentID).OrderBy(p => p.Priority).ToList();
+    int CountServiceGroupList = ServiceGroupList.Count;
+    string dashName = "";
+    if (CountServiceGroupList > 0)
+    {
+        for (int i = 0; i < CountServiceGroupList; i++)
+        {
+            if (ServiceGroupAllList.FirstOrDefault(x => x.ParentID == ServiceGroupList[i].Id) != null)
+            {
+                        <li class="dropdown-tree open-tree">
+                            <a class="dropdown-tree-a" href="#">@ServiceGroupList[i].Name</a>
+                            <ul class="category-level-2 dropdown-menu-tree">
+                                @CreateNodes(ServiceGroupList[i].Id)
+                            </ul>
+</li>
+            }
+            else
+            {
+                dashName = ServiceGroupList[i].Name.Replace(" ", "-");
+                <li value="@ServiceGroupList[i].Id">
+                    @if (ViewBag.catids == ServiceGroupList[i].Id)
+                    {
+                        <a class="stbnodenone" style="color: #faa814; text-decoration:underline;" href="/EN/Product/@ServiceGroupList[i].Id/@dashName"> @ServiceGroupList[i].Name</a>
+                    }
+                    else
+                    {
+                        <a class="stbnodenone" href="/EN/Product/@ServiceGroupList[i].Id/@dashName"> @ServiceGroupList[i].Name</a>
+                    }
+                </li>
+            }
+        }
+    }
+}

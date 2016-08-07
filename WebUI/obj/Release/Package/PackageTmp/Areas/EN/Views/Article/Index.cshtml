@@ -1,0 +1,147 @@
+﻿@{
+
+    PersianToolS.PersinToolsClass dateFa = new PersianToolS.PersinToolsClass();
+    PersianToolS.PersinToolsClass.PersianDate PersianDate = new PersianToolS.PersinToolsClass.PersianDate();
+    List<Domain.Entities.Article> ArticleList = ViewBag.Article;
+    int TotalCount = Convert.ToInt32(TempData["Count"]);
+    TempData["Count"] = TotalCount;
+    int EndPage = 0;
+    int StartPage = 0;
+    int TotalPage = 0;
+    int Id = 0;
+    int Page = Convert.ToInt32(ViewBag.PageNumber);
+    if (Page == 0)
+    {
+        Page = 1;
+    }
+    if (TotalCount % 10 == 0)
+    {
+        TotalPage = TotalCount / 10;
+    }
+    else
+    {
+        TotalPage = (TotalCount / 10) + 1;
+    }
+    if (Page + 9 > TotalPage)
+    {
+        EndPage = TotalPage;
+    }
+    else
+    {
+        EndPage = Page + 9;
+    }
+    if (Page <= 9)
+    {
+        StartPage = 1;
+    }
+    else
+    {
+        StartPage = Page - 9;
+    }    
+}
+<style>
+    .blogpost .blogpost-body {
+        max-height: 145px;
+        min-height: 70px;
+    }
+</style>
+<div class="page-intro rtl" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home pr-10"></i>
+                    </li>
+                    <li class="active">Articles</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="main-container">
+    <div class="container">
+        <div class="row">
+            <div class="main col-md-12">
+                @foreach (var item in ArticleList)
+                {
+                    var title = item.Title.Replace(" ", "-");
+                    PersianDate = dateFa.DateToPersian(Convert.ToDateTime(item.CreationDate));
+                       <article class="clearfix blogpost object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="200" style="margin-bottom:20px;">
+                           <footer class="clearfix">
+                               <a class="pull-right" href="/Article/@item.Id/@title"><span>@item.Title</span></a>
+                           </footer>
+                             <div class="blogpost-body">
+                        <div class="blogpost-content" style="margin-right:0;">
+                            <p>@item.ShortDes</p>
+                        </div>
+                    </div>
+                           <footer class="clearfix" style="background-color: #fafafa; border-top: none; ">
+                               <a class="pull-left link1" href="/EN/Article/@item.Id/@title"><span>whole content</span></a>
+
+                               <span class="pull-left" style="padding-left:20px;"> @PersianDate.day , @PersianDate.MonthName ,@PersianDate.year</span>
+                           </footer>
+                </article>
+                }
+                <ul class="pagination">
+                    @{
+                        int Page1 = 0;
+                    }
+                    @if (Page != 1)
+{
+    Page1 = Page - 1;
+    <li>    <a href="/EN/Article/@Page1">Pre</a></li>
+}
+
+                    @for (int i = StartPage; i < Page; i++)
+{
+    Page1 = i;
+    <li>  <a href="/EN/Article/@Page1">@i</a></li>
+}
+                    @if (ArticleList != null && ArticleList.Count() != 0)
+                    {
+                                 <li class="active"><a href="#">@Page <span class="sr-only">(current)</span></a></li>
+                    }
+                    @for (int i = Page + 1; i <= EndPage; i++)
+{
+    Page1 = i;
+    <li>   <a href="/EN/Article/@Page1">@i</a></li>
+}
+                    @if ((Page != TotalPage) && (TotalPage != 0))
+{
+    Page1 = Page + 1;
+    <li> <a href="/EN/Article/@Page1">Next</a></li>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    @*<li><a href="#">قبلی</a></li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">بعدی</a></li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

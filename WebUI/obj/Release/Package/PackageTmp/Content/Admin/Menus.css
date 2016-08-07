@@ -1,0 +1,167 @@
+﻿.TopMenu {
+    background: #F8F8F8 url('../../Images/Admin/AdminImages/top_menu_bkg.gif') repeat-x scroll 0 0;
+    border-top: 1px solid #5593DE;
+    height: 30px;
+    margin: 0 1px;
+    width: 940px;
+    color: #ffffff;
+}
+     ul {
+        list-style-type:none;
+         
+    }
+
+.TopMenu li
+{
+
+    padding: 0;
+    /*margin: 0;
+    display: block; TODO: I am testing them if they can be removed. If can, remove them.*/
+    float: right;
+    height: 36px;
+    position: relative;/*move it into .menuH if you want submenu to be positioned relative to the whole menu instead of this li element*/
+}
+.TopMenu li:hover, .TopMenu li.onhover {
+    cursor: pointer;
+    background: url('../../Images/Admin/AdminImages/top_menu_hover_bkg.gif');
+    background-repeat: repeat-x;
+}
+   
+ul.TopMenu a
+{
+  
+    padding: 0 55px;/*Size Sar Menuha*/
+    line-height: 30px; /*Note: keep this value the same as the height of .menuH and .menuH li */
+border-left: 1px solid #71A9DE;
+    color: #FFFFFF;
+    font-family: Tahoma;
+    font-size: 9pt;
+    text-align: center;
+    text-decoration:none;
+}
+
+.TopMenu a.arrow {
+    background: url('../../Images/Admin/AdminImages/menu_popup.gif') no-repeat left;
+    left: 7px;
+}
+.TopMenu ul a.arrow
+{
+    background: url(right.gif) no-repeat 97% center;
+}
+ 
+        
+/*Used to align a top-level item to the right*/        
+.TopMenu .menuRight
+{
+    float: right;
+    margin-right: 0px;
+}
+        
+/*for the top-level separators*/
+.TopMenu li.separator
+{
+    font-size:0;
+    overflow:hidden;
+    border-left:1px solid #F7F7F7;
+    border-right:1px solid #BBBBBB;
+}
+               
+        
+/*######sub level###########*/
+        
+ul.TopMenu ul
+{
+   
+    width:175px; /*Size Zir Menuha*/
+    position: absolute;
+    left: -9999px;
+    background-color: #FFFFFF;
+    border: 1px solid #3263BD;
+   
+   
+    text-align: right;
+    list-style: none; margin: 0;  
+    /*Following 1px(padding-right) will determine how much it is overlapped by the sub-sub-menu */
+    padding: 0 1px 10px 0;   
+}
+
+.TopMenu li li
+{
+    float: none;
+    white-space:nowrap;
+    height: 26px;
+}
+.TopMenu li li:hover, .menuH li li.onhover
+{
+  background-color: #D1E9FF;
+	background-image: none;
+    cursor:pointer;
+}
+.TopMenu ul a
+{
+  
+    padding: 0 20px;
+    line-height: 26px;
+    font-size: 0.9em;
+    font-weight: normal;
+    color: #0066CC;
+    text-align: left;
+}
+
+.TopMenu ul a:hover
+{
+    color: red;
+}
+
+.TopMenu li:hover ul, .TopMenu li.onhover ul
+{
+    left: -1px;/*taghir makane zir menuha*//*Use this property to change offset of the dropdown*/
+    top: auto;
+}
+
+.TopMenu li:hover .dropToLeft, .TopMenu li.onhover .dropToLeft
+{
+    left: auto;
+    right: -1px;
+    top: auto;
+}
+.TopMenu ul ul
+{
+    border-top: 1px solid #DDD;
+}
+
+.TopMenu li:hover ul ul, .TopMenu li:hover ul ul ul, .TopMenu li:hover ul ul ul ul,
+.TopMenu li.onhover ul ul, .TopMenu li.onhover ul ul ul, .TopMenu li.onhover ul ul ul ul
+{
+    
+    left: -9999px;
+
+    top:0;
+}
+
+.TopMenu li li:hover ul, .TopMenu li li li:hover ul, .TopMenu li li li li:hover ul,
+.TopMenu li li.onhover ul, .TopMenu li li li.onhover ul, .TopMenu li li li li.onhover ul
+{
+    left: -200px;
+}
+        
+/*####### special effects ##########*/
+        
+.decor1 
+{
+    -moz-border-radius: 3px; /* Firefox */
+    -webkit-border-radius: 3px; /* Safari and Chrome */
+    border-radius: 3px; /* Opera 10.5+, future browsers, and now also our behavior htc file */
+
+    -moz-box-shadow: 0px 1px 4px #eee; /* Firefox */
+    -webkit-box-shadow: 0px 1px 4px #eee; /* Safari and Chrome */
+    box-shadow: 0px 1px 4px #eee; /* Opera 10.5+, future browsers and IE6+ using our behavior htc file */
+            
+}
+ul.TopMenu ul li a {
+    border: medium none;
+    color: #000000;
+    margin: 0;
+    padding: 6px 15px;
+    text-align: left;
+}

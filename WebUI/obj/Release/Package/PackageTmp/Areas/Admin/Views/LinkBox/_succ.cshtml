@@ -1,0 +1,16 @@
+﻿<script src="~/Scripts/Admin/CloseSucc.js"></script>
+<div>
+    <div class="DivClass">
+        <div id="SuccessMsg" style="float: right; width: 300px; display: none">
+            @Html.Partial("~/Areas/Admin/Views/Alerts/_Successful.cshtml")
+        </div>
+    </div>
+</div>
+@{
+    if (ViewBag.result == "OK")
+    { 
+    <script type="text/javascript">
+        $('#SuccessMsg').show();
+    </script>
+    }
+}

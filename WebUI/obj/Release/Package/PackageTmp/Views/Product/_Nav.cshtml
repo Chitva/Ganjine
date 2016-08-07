@@ -1,0 +1,15 @@
+﻿@{
+    List<string> NavList = ViewBag.Nav;
+}
+<ol class="breadcrumb">
+    <li><i class="fa fa-home pr-10"></i></li>
+    <li>محصولات</li>
+    @if(NavList != null )
+    {
+        for (int i = NavList.Count - 1; i >= 0; i--)
+        {
+           <li>@NavList[i]</li> 
+        }
+    }
+
+</ol>

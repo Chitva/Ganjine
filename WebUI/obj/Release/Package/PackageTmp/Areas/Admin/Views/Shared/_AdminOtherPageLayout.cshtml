@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @{
+        string Username =Convert.ToString( TempData["username"]);
+        TempData["username"] = Username;
+        string Lang = (Convert.ToInt32(Session["Language"]) == 1) ? "فارسی" : "انگلیسی";
+    }}
+    <meta name="viewport" content="width=device-width" />
+    <title>پنل مدیریت</title>
+    <link rel="Behsim Icon" href="/DaneshNahadIcon.jpg">
+    <link href="~/Content/FontFarsi.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/Admin")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/Menu")
+
+
+    <style>
+        tbody.files tr.template-upload button.cancel {
+            display: none !important;
+        }
+
+        ul.dropdown ul li {
+    white-space: nowrap;
+    min-width: 100px;
+    width: auto;
+}
+
+ul.dropdown ul {
+    width: auto;
+}
+    </style>
+    <style>
+        @@font-face {
+            font-family: "AdobeArabic-Bold";
+            src: url('./Content/fonts/AdobeArabic/AdobeArabic-Bold.otf'); 
+        }
+        @@font-face {
+            font-family: "AdobeArabic-Regular";
+            src: url('./Content/fonts/AdobeArabic/AdobeArabic-Regular.otf');
+        }
+    </style>
+
+    @if (Convert.ToInt32(Session["Language"]) != 1)
+    {
+        <style>
+            #pageTitle,
+            #metaDescription {
+                direction: ltr;
+            }
+
+            ul.tagit li.tagit-choice {
+                float: left !important;
+            }
+
+            ul.tagit li {
+                float: left !important;
+                direction: ltr !important;
+            }
+        </style>
+    }
+</head>
+<body>
+    <div id="SkinOutline">
+        <div id="SkinContent">
+            <div id="Header">
+                <div class="Container">
+                    
+                    <div class="FloatLeft">
+                        <div class="Account">
+                            خوش آمدید
+                            <strong>@Username</strong>
+                            |
+                             @Html.ActionLink("خروج", "Signout", "Home")
+                        </div>
+                        <div class="FloatR">
+                            زبان انتخابی شما
+                           <span>@Lang</span>
+                            می باشد.
+                        </div>
+                        <div class="Search">
+   
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="Top">
+                <div id="Breadcrumb">
+                    <div class="Path">
+                        <div class="FloatR">
+                            <a href="~/admin/home" id="repUsersPath_ctl00_lnkUser">صفحه ی اصلی مدیریت</a>
+                        </div>
+                        <div class="FloatR">
+                            <img style="border-width: 0px; padding-left: 4px; padding-right: 3px;"
+                                  src="~/Images/Admin/AdminImages/path_sep_white2.gif" id="imgSep">
+                        </div>
+                        <div class="FloatR">
+                            <div id="PathMenu"></div>
+                        </div>
+                        <div class="FloatR">
+                            <img style="border-width: 0px; padding-left: 5px; display: none; padding-right: 3px;" src="~/Images/Admin/AdminImages/path_sep_white2.gif" id="imgSep1">
+                        </div>
+                        <div class="FloatR">
+                            <div id="PathSubMenu1">
+                                <a id="LinkPathSubMenu" href="/"></a>
+                            </div>
+                        </div>
+                        <div class="FloatR">
+                            <img style="border-width: 0px; padding-left: 5px; display: none; padding-right: 3px;" src="~/Images/Admin/AdminImages/path_sep_white2.gif" id="imgSep2">
+                        </div>
+                        <div class="FloatR">
+                            <div id="PathSubMenu2"><a id="LinkPathSub2Menu" href="/"></a></div>
+                        </div>
+                    </div>
+                    <div class="CurrentNode">
+                        <div>
+                            <span class="Huge">&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="Right">
+                <div class="MenuHeader">منوی مدیریت </div>
+                <ul id="nav" class="dropdown dropdown-vertical dropdown-vertical-rtl">
+                    <li><a href="/">صفحه ی اصلی سایت</a></li>
+                    <li class="dir">
+                        مدیریت بخش های صفحه ی اصلی
+                        <ul>
+                            @if (Convert.ToInt32(Session["Language"]) == 1)
+                            {
+                                <li><a href="/Admin/Setting/CheckValue/26">اسلاید شو</a></li>
+                                <li><a href="/Admin/Setting/CheckValue/111">معرفی مجموعه</a></li>
+                                <li><a href="/Admin/Home/SeoMng">مدیریت سئو</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/Admin/Setting/CheckValue/26">(اسلایدشو)Slide Show</a></li>
+                                <li><a href="/Admin/Setting/CheckValue/111">(معرفی مجموعه)Company Introduction</a></li>
+                                <li><a href="/Admin/Home/SeoMng">(مدیریت سئو)SEO Management</a></li>
+                            }
+
+                        </ul>
+                    </li>
+
+                    <li class="dir">
+                        مدیریت سایر صفحات
+                        <ul>
+                            @if (Convert.ToInt32(Session["Language"]) == 1)
+                            {
+                                <li><a href="/Admin/Setting/CheckValue/127">محصولات</a></li>
+                                <li><a href="/Admin/SaleAgency/SaleAgencyList">نمایندگی های فروش</a></li>
+                                <li class="dir">
+                                    <a href="./">درباره ی ما</a>
+                                    <ul>
+                                        <li>
+                                            <a href="/Admin/Introduction/History">معرفی مجموعه</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Introduction/Certificates">گواهینامه ها</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Introduction/RajiGazSpecifications">خواص گز راجی</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Setting/CheckValue/133">گالری تصاویر</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dir">
+                                    <a href="./">خواندنی ها</a>
+                                    <ul>
+                                        <li>
+                                            <a href="/Admin/Setting/CheckValue/8">اخبار</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Setting/CheckValue/24">مقالات</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Setting/CheckValue/160">داستان های آموزنده</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Setting/RajiStory">حکایت گز راجی</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                   <li class="dir">
+                                     <a href="./">ارتباط با ما</a>
+                                      <ul>
+                                        <li><a href="/Admin/Setting/CheckValue/122">ارتباط با ما</a></li>
+                                        <li>
+                                            <a href="/Admin/Setting/SeoMng">مدیریت سئو</a>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    }
+                                    else
+                                    {
+                                <li><a href="/Admin/Setting/CheckValue/127">Products(محصولات)</a></li>
+                                <li><a href="/Admin/SaleAgency/SaleAgencyList">SaleAgencies(نمایندگی فروش)</a></li>
+                                <li class="dir">
+                                    <a href="./">AboutUs(درباره ما)</a>
+                                    <ul>
+                                        <li>
+                                            <a href="/Admin/Introduction/History">CompanyIntroduction(معرفی مجموعه)</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Introduction/Certificates">Certificates(گواهینامه ها)</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Introduction/RajiGazSpecifications">RajiGaz Specifications(خواص گز راجی)</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Setting/CheckValue/133">Galleries(گالری)</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Setting/SeoMng">Seo Management(مدیریت سئو)</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dir">
+                                    <a href="./">Charming Texts(خواندنی ها)</a>
+                                    <ul>
+                                        <li>
+                                            <a href="/Admin/Setting/CheckValue/8">News(اخبار)</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Setting/CheckValue/24">Articles(مقالات)</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Setting/CheckValue/160">Instructive Stories(داستانهای آموزنده)</a>
+                                        </li>
+                                        <li>
+                                            <a href="/Admin/Setting/RajiStory">Raji Story(حکایت گز راجی)</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="dir">
+                                    <a href="./">ارتباط با ما</a>
+                                    <ul>
+                                        <li><a href="/Admin/Setting/CheckValue/122">contactUs(ارتباط باما)</a></li>
+                                        <li>
+                                            <a href="/Admin/Setting/SeoMng">(مدیریت سئو)seoManagement</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    <li><a href="/Admin/Setting/CheckValue/140">مدیریت سفارشات</a></li>
+                    <li><a href="/Admin/Setting/CheckValue/131">مدیریت فوتر</a></li>
+                    <li><a href="/Admin/Setting/CheckValue/105">مدیریت فایل ها</a></li>
+                    <li><a href="/Admin/Setting/CheckValue/72">مدیریت پیام ها</a></li>
+                    <li class="dir">
+                        مدیریت ادمین سایت
+                        <ul>
+                            <li><a href="/Admin/Setting/CheckValue/15">تغییر رمز عبور </a></li>
+
+                            <li><a href="/Admin/Setting/CheckValue/29">لیست مدیران</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="Content">
+                <div style="width: 730px" id="Center">
+                    <div class="BrowseContainer">
+                        <div class="Header">
+                            <div class="HeaderLeft"></div>
+                            <div style="width: 710px" class="HeaderTitle">
+                                <div class="HeaderIcon">
+                                    <img id="ImageTit" style="height: 48px; width: 48px; border-width: 0px;" 
+                                         src="~/Images/Admin/AdminImages/sphere_48.png" />
+                                </div>
+                                <span id="HeaderTitleP" class="Head"></span>
+                            </div>
+                            <div class="HeaderRight"></div>
+                        </div>
+                        <div id="MainDivP" class="Content">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

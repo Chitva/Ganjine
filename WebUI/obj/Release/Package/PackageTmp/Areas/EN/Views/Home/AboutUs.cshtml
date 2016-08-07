@@ -1,0 +1,374 @@
+﻿@{
+   
+    Domain.Entities.ContactInfo ContactInfoTbl = ViewBag.Info;
+    string Str1 = "";
+    string type = Convert.ToString(ViewBag.type);
+    
+    string ClassName = "";
+    switch (type)
+    {
+
+        case "Introduce":
+            {
+                ClassName = "Company Introduction";
+                break;
+            }
+        case "Contact":
+            {
+                ClassName = "Contact Information";
+                break;
+            }
+    }
+}
+<script src="~/Scripts/jquery.js"></script>
+<link href="/Content/Scroll/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<style>
+    .title{
+        font-size:13px;
+    }
+     iframe {
+        width: 100% !important;
+    }
+    .form-control-feedback{
+        left:0;
+    }
+    .has-feedback .form-control {
+        padding-left: 42.5px;
+    }
+    .team-member.option-3 .image-box-body {
+        height: 119px;
+        padding: 15px 10px 15px 3px;
+    }
+
+    .team-member.option-3 .overlay-container {
+        width: 45% !important;
+    }
+
+    .team-member.option-3 .image-box-body {
+        text-align: left;
+        width: 55% !important;
+    }
+    small, .small {
+        direction: ltr !important;
+    }
+    .readOnlyTags {
+        margin-left: -22px;
+    }
+</style>
+<div class="page-intro ltr" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                    </li>
+                    <li >About Us</li>
+                    <li id="navdiv" class="active">@ClassName</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="vertical hc-tabs" style="margin-left:0px;direction:rtl;">
+                    <div class="arrow hidden-sm hidden-xs"></div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <ul class="nav nav-tabs" role="tablist">
+                                @{ClassName = "";
+                                if (type == "Introduce")
+                                {
+                                    ClassName = "active";
+                                }
+                                }
+                                <li class="@ClassName"><a class="hrefabout" href="#introduce" role="tab" data-toggle="tab"><i class="fa fa-magic pr-10"></i>Company Introduce</a></li>
+
+                               
+
+                                @{ClassName = "";
+                                if (type == "Contact")
+                                {
+                                    ClassName = " in active";
+                                }
+                                }
+                                <li class="@ClassName">
+                                    <a class="hrefabout" href="#contact" role="tab" data-toggle="tab">
+                                      <i class="fa fa-magic pr-10"></i>Contact Information
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-9 col-sm-9">
+                            <div class="tab-content" style="display:block;">
+                                @{ClassName = "";
+                                if (type == "Introduce")
+                                {
+                                    ClassName = " in active";
+                                }
+                                }
+                                <div class="tab-pane fade @ClassName" id="introduce">
+                                    <div class="row">
+                                        <div style="padding: 5px 5px; text-align: justify; direction: ltr;">
+                                            @Html.Raw(ViewBag.CompanyIntroduce)
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @{ClassName = "";
+                                if (type == "Contact")
+                                {
+                                    ClassName = " in active";
+                                }
+                                }
+                                <div class="tab-pane fade @ClassName" id="contact">
+                                    @if (ContactInfoTbl != null && ContactInfoTbl.Map != null)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                @Html.Raw(ContactInfoTbl.Map);
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="row">
+                                        <div class="col-md-12 pull-left ln-height30" style="padding-top: 20px; text-align: justify; direction: ltr">
+                                            @Html.Raw(ContactInfoTbl.FormTopText)
+                                            @if (!string.IsNullOrEmpty(ContactInfoTbl.Address))
+                                            {
+                                                <div class="padding-top-10"> <strong>Address:</strong> <span>@ContactInfoTbl.Address</span></div>
+                                            }
+                                            @if (!string.IsNullOrEmpty(ContactInfoTbl.Tell))
+                                            {
+                                                <div class="padding-top-10"> <strong>Tel:</strong> <span>  @ContactInfoTbl.Tell</span></div>
+                                            }
+                                            @if (!string.IsNullOrEmpty(ContactInfoTbl.Fax))
+                                            {
+                                                <div class=" padding-top-10">
+                                                    <strong> Fax:</strong> @ContactInfoTbl.Fax
+                                                </div>
+                                            }
+                                            @if (!string.IsNullOrEmpty(ContactInfoTbl.Email))
+                                            {
+                                                <div class="padding-top-10"> <strong>Email:</strong><span>@ContactInfoTbl.Email</span> </div>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="clearfix"></div>
+                                            <div id="divsuccess" class="alert alert-success" style="display: none">
+                                                <strong>Success!</strong> Your message was sent successfully.
+                                            </div>
+                                            <div class="alert alert-error" id="divfailed" style="display: none">
+                                                <strong>Error!</strong> There was an error while sending message.
+                                            </div>
+                                            <div class="contact-form">
+                                                <form id="samplecodeEN" role="form">
+                                                    <div class="row" style="direction: ltr;">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group has-feedback">
+                                                                <label for="name">Name</label>
+                                                                <input type="text" class="form-control" id="name" name="name" placeholder="">
+                                                                <i class="fa fa-user form-control-feedback"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group has-feedback">
+                                                                <label for="lastname">Last Name</label>
+                                                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
+                                                                <i class="fa fa-user form-control-feedback"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group has-feedback">
+                                                                <label for="mobile">Mobile</label>
+                                                                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="">
+                                                                <i class="fa fa-mobile form-control-feedback"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group has-feedback">
+                                                                <label for="tell">Tell</label>
+                                                                <input type="text" class="form-control" id="tell" name="tell" placeholder="">
+                                                                <i class="fa fa-phone form-control-feedback"></i>
+                                                            </div>
+                                                     
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group has-feedback">
+                                                                <label for="email">Email</label>
+                                                                <input type="email" class="form-control" id="email" name="email" placeholder="">
+                                                                <i class="fa fa-envelope form-control-feedback"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group has-feedback">
+                                                                <label for="officeAddress">Address</label>
+                                                                <input type="text" class="form-control" id="officeAddress" name="officeAddress" placeholder="">
+                                                                <i class="fa fa-dot-circle-o form-control-feedback"></i>
+                                                            </div>
+                                                        </div>
+                                                     
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group has-feedback">
+                                                                <label for="subject">Subject*</label>
+                                                                <input type="text" class="form-control" id="subject" name="subject" placeholder="">
+                                                                <i class="fa fa-navicon form-control-feedback"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group has-feedback">
+                                                                <label for="message">Message*</label>
+                                                                <textarea class="form-control" rows="6" id="message" name="message" placeholder=""></textarea>
+                                                                <i class="fa fa-pencil form-control-feedback"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group has-feedback">
+                                                                <script src='http://www.google.com/recaptcha/api.js' async defer></script>
+                                                                <div class="g-recaptcha" data-sitekey="6LdQpCYTAAAAAL8dJ4l3eaKsKooNE2KklCg3kR-Z"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12">
+                                                            <input id="btnsave" type="submit" value="Send" class="btn btn-default pull-right">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        if ($("#samplecodeEN").length > 0) {
+            $("#samplecodeEN").validate({
+                submitHandler: function (form) {
+
+                    $.ajax({
+                        url: "/EN/Home/SaveMsg",
+                        data: {
+                            name: $("#name").val(),
+                            lastname: $("#lastname").val(),
+                            tell: $("#tell").val(),
+                            email: $("#email").val(),
+                            mobile: $("#mobile").val(),
+                            companyName: $("#companyName").val(),
+                            businessAreas: $("#businessAreas").val(),
+                            companyAddress: $("#companyAddress").val(),
+                            officeAdress: $("#officeAdress").val(),
+                            subject: $("#subject").val(),
+                            message: $("#message").val(),
+                            "g-recaptcha-response": grecaptcha.getResponse()
+                        },
+                        method: "post",
+
+                        success: function (result) {
+
+                            $("#btnsave").attr("disabled", false);
+
+                            if (result.IsOk == "Ok") {
+
+                                $("#divsuccess").show();
+                                setTimeout(function () {
+                                    $("#divsuccess").fadeOut(2000, function () {
+                                        $("#divsuccess").hide();
+                                        grecaptcha.reset();
+                                    });
+                                }, 5000);
+
+                                $("#name").val('');
+                                $("#lastname").val('');
+                                $("#tell").val('');
+                                $("#email").val('');
+                                $("#subject").val('');
+                                $("#message").val('');
+                                $("#mobile").val('');
+                                $("#officeAddress").val('');
+                                $("#companyAddress").val('');
+                                $("#companyName").val('');
+                                $("#businessAreas").val('');
+                            }
+                            else if (result.IsOk == "false") {
+
+                                $("#divfailed").show();
+                                setTimeout(function () {
+                                    $("#divfailed").fadeOut(2000, function () {
+                                        $("#divfailed").hide();
+                                        grecaptcha.reset();
+                                    });
+                                }, 5000);
+                            }
+                        },
+                        error: function () {
+
+                            $("#btnsave").attr("disabled", false);
+
+                            $("#divfailed").show();
+                            setTimeout(function () {
+                                $("#divfailed").fadeOut(2000, function () {
+                                    $("#divfailed").hide();
+                                    grecaptcha.reset();
+                                });
+                            }, 5000);
+                        }
+                    });
+
+                },
+                // debug: true,
+                errorPlacement: function (error, element) {
+                    error.insertBefore(element);
+                },
+                onkeyup: false,
+                onclick: false,
+                rules: {
+
+                    subject: {
+                        required: true
+                    },
+                    message: {
+                        required: true,
+                        minlength: 10
+                    }
+                },
+                messages: {
+
+                    email: {
+                        email: "Please Enter Correct Email For Example :  name@domain.com"
+                    },
+                    subject: {
+                        required: "Please Enter Your Title."
+                    },
+                    message: {
+                        required: "Please Enter Your Message.",
+                        minlength: "Your Message Be At Least 10 Character."
+                    }
+                },
+                errorElement: "span",
+                highlight: function (element) {
+                    $(element).parent().removeClass("has-success").addClass("has-error");
+                    $(element).siblings("label").addClass("hide");
+                },
+                success: function (element) {
+                    $(element).parent().removeClass("has-error").addClass("has-success");
+                    $(element).siblings("label").removeClass("hide");
+                }
+            });
+        };
+    });
+</script>
+

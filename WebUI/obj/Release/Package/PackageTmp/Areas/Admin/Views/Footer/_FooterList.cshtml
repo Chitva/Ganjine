@@ -1,0 +1,233 @@
+﻿<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Admin/Paging.css")" />
+<link href="~/Content/Admin/Grid.css" rel="stylesheet" />
+<link href="~/Content/Admin/alert.css" rel="stylesheet" />
+<script src="~/Scripts/Admin/CloseSucc.js"></script>
+@{
+    string Result = Convert.ToString(TempData["result"]);
+    int GroupID = Convert.ToInt32(TempData["Columns"]);
+    bool IsAdmin = false;
+    int Page = 0;
+    int TotalCount = Convert.ToInt32(TempData["Count"]);
+    TempData["Count"] = TotalCount;
+    try
+    {
+        IsAdmin = ViewBag.IsAdmin;
+        Page = ViewBag.PageNumber;
+    }
+    catch
+    {
+        TotalCount = 0;
+        IsAdmin = false;
+        Page = 0;
+    }
+    TempData["Columns"] = GroupID;
+    IList<Domain.Entities.Footer> FooterList = ViewBag.Footer;
+    int EndPage = 0;
+    int StartPage = 0;
+    int TotalPage = 0;
+    int? Id = 0;
+    if (FooterList != null)
+    {
+        if (FooterList.Count() > 0)
+        {
+            Id = Convert.ToInt32(FooterList.FirstOrDefault().FooterColumnNameId);
+        }
+    }
+   
+    if (Page == 0)
+    {
+        Page = 1;
+    }
+    if (TotalCount % 5 == 0)
+    {
+        TotalPage = TotalCount / 5;
+    }
+    else
+    {
+        TotalPage = (TotalCount / 5) + 1;
+    }
+    if (Page + 4 > TotalPage)
+    {
+        EndPage = TotalPage;
+    }
+    else
+    {
+        EndPage = Page + 4;
+    }
+    if (Page <= 4)
+    {
+        StartPage = 1;
+    }
+    else
+    {
+        StartPage = Page - 4;
+    }
+    int Countergrid = 0;   
+}
+<script src="~/Scripts/Admin/ConfirmDelete.js"></script>
+@if (Result != "")
+{
+    <div class="divCss" style="padding-right: 0;">
+        @if (Result == "OK")
+        {
+            <div id="SuccessMsg" style="float: right; width: 300px;">
+                @Html.Partial("~/Areas/Admin/Views/Alerts/_Successful.cshtml")
+            </div>
+        }
+        else
+        {
+            <div id="AlertMsg" style="float: right; width: 300px;">
+                @Html.Partial("~/Areas/Admin/Views/Alerts/_Error.cshtml")
+            </div>
+        }
+    </div>
+}
+<div id="BoxDelete">
+    <div id="PopUp-Content">
+        <div class="TB_title">
+            <div class="TB_ajaxWindowTitle">حذف</div>
+            <div class="TB_closeAjaxWindow">
+                <a title="بستن" class="TB_closeWindowButton" href="#">
+                    <img src="/Images/Admin/AdminImages/CloseBox.gif" alt="faqImage"></a>
+            </div>
+        </div>
+        <div id="TB_ajaxContent">
+            <div>آیا از حذف مطمئن هستید؟</div>
+            <div class="BoxBtn">
+                <div class="Btn">
+                    <div>
+                        <input id="OkBtn" type="submit" value="بله" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+                <div class="Btn" style="float: left;">
+                    <div>
+                        <input id="cancelBtn" type="submit" value="خیر" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="divCss" style="padding-top: 1px;">
+    <div id="Table">
+        @{
+            if (FooterList != null && FooterList.Count > 0)
+            {
+                foreach (var item in FooterList)
+                {
+                    if (Countergrid == 0)
+                    { 
+            <div>
+                <div class="RowTop">
+                    <div style="float: right; width: 76px">
+                        &nbsp;
+                    </div>
+                    <div style="float: right; width: 200px">
+                        عنوان
+                    </div>
+                    <div style="float: right; width: 150px">
+                        تاریخ ایجاد
+                    </div>
+                </div>
+            </div>
+                    }
+                    Countergrid++;
+            <div class="Row" style="float: right;">
+                <div class="Column" style="float: right; width: 76px;">
+                    <div style="width: 24px; float: right">
+                        @using (Ajax.BeginForm(actionName: "DeleteFooter", routeValues: new { Id = item.Id, Page = Page }, ajaxOptions: new AjaxOptions
+                          {
+                              HttpMethod = "POST",
+                              UpdateTargetId = "BoxContent",
+                              InsertionMode = InsertionMode.Replace
+                          }, htmlAttributes: new { @class = "webUserLink" }))
+                        {
+                            <input type="button" class="IconDelete" value=" " onclick="return ShowPopup('#PopUp-Content', this);" />  
+                        }
+                    </div>
+                    <div style="width: 24px; float: right">
+                       
+                        @using (Html.BeginForm(actionName: "EditFooter", controllerName: "Footer", routeValues: new { Id = item.Id, Extparam = Page + "/" + GroupID }, method: FormMethod.Get, htmlAttributes: new { }))
+                        {
+                            <input type="submit" value=" " class="IconEdit" />  
+                        }
+                    </div>
+                    <div style="width: 24px; float: right">
+                        @using (Html.BeginForm(actionName: "DetailFooter", controllerName: "Footer", routeValues: new { Id = item.Id, Extparam = Page + "/" + GroupID }, method: FormMethod.Get))
+                        {
+                            <input type="submit" value=" " class="IconPreview" /> 
+                        }
+                    </div>
+                </div>
+                <div class="Column" style="float: right; width: 200px">
+                    @Html.Raw( item.FooterText)
+                </div>
+                <div class="Column" style="float: right; width: 150px">
+                    @{
+                        PersianToolS.PersinToolsClass dateFa = new PersianToolS.PersinToolsClass();
+                        string dtfa = dateFa.DateToPersian(Convert.ToDateTime(item.CreationDate)).year +
+                            "،" + dateFa.DateToPersian(Convert.ToDateTime(item.CreationDate)).DayOfweak +
+                            " ، " + dateFa.DateToPersian(Convert.ToDateTime(item.CreationDate)).day.ToString() +
+                            " " + dateFa.DateToPersian(Convert.ToDateTime(item.CreationDate)).MonthName;
+                    }
+                    @dtfa
+                </div>
+            </div>
+                }
+            <div class="Row" style="background-color: transparent; height: 29px; float: right; width: 698px">
+            </div>
+            <div class="RowBottom" style="margin-bottom: 80px;">
+                <div class="Column" style="float: right; width: 380px;">
+                    <div class="IconDelDes" style="width: 19px; margin-right: 10px;">
+                    </div>
+                    <div class="Item" style="width: 40px;">
+                        حذف
+                    </div>
+                    <div class="IconEditDes" style="width: 19px; margin-right: 10px;">
+                    </div>
+                    <div class="Item" style="width: 40px;">
+                        ویرایش
+                    </div>
+                    <div class="IconPrevDes" style="width: 19px; margin-right: 10px;">
+                    </div>
+                    <div class="Item" style="width: 60px;">
+                         جزئیات
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    </div>
+</div>
+<p>
+    &nbsp;
+</p>
+<div id="pagination">
+    <ul class="page-numbers">
+        @if (Page != 1)
+        {
+            <li>@Ajax.ActionLink(".", "RefreshFooter", new { Page = Page - 1 }, new AjaxOptions
+           { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers prev" })</li>
+        }
+        @for (int i = StartPage; i < Page; i++)
+        {
+            <li>@Ajax.ActionLink(i.ToString(), "RefreshFooter", new { Page = i }, new AjaxOptions
+           { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers" })</li>
+        }
+        @if (FooterList != null && FooterList.Count() != 0)
+        {
+            <li><span class="page-numbers current">@Page</span></li>
+        }
+        @for (int i = Page + 1; i <= EndPage; i++)
+        {
+            <li>@Ajax.ActionLink(i.ToString(), "RefreshFooter", new { Page = i }, new AjaxOptions
+           { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers" })</li>
+        }
+        @if ((Page != TotalPage) && (TotalPage != 0))
+        {
+            <li>@Ajax.ActionLink(".", "RefreshFooter", new { Page = Page + 1 }, new AjaxOptions
+           { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers next" })</li>
+        }
+    </ul>
+</div>
+

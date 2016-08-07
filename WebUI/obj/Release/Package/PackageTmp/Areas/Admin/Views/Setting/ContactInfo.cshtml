@@ -1,0 +1,104 @@
+﻿@model  Domain.Entities.ContactInfo
+@{
+    ViewBag.Title = "ContactUs";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    string Text =Model.FormTopText;
+}
+<link href="~/Content/Admin/validation.css" rel="stylesheet" />
+@Html.Hidden("MenuItems", "1429708919_Text-Documents.png" + ":-" + "مدیریت سایر صفحات" + ":-" + "درباره ی ما / ارتباط با ما")
+
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+  <script src="~/Scripts/Admin/NumberTextBox.js"></script>
+@section scripts{
+
+    <script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript" src="~/Scripts/Admin/InitializeFckfinder.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+<script>
+    Page();
+    Initializes('#ckEditor');
+</script>
+
+    }
+<div class="divCssWh">
+    <div class="divCss" id="thisis" style="width: 700px;">
+     @Html.Partial("~/Areas/Admin/Views/Setting/_SuccWrittenBy.cshtml")
+    </div>
+    <div>
+        @using (Ajax.BeginForm(actionName: "ContactInfo", controllerName: "Setting", ajaxOptions: new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "thisis", InsertionMode = InsertionMode.Replace }))
+        {
+            @Html.ValidationSummary(true)
+             <div class="divCss">
+                 <div class="FloatRight" style="width: 700px;">
+                     @Html.TextArea("ckEditor", Text)
+                 </div>
+            </div>
+          <div class="divCss">
+                <div class="DivCss2" style="width: 40px">
+                    @Html.Label("آدرس", new { @class = "WebUserLabel", @style = "width:120px;" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextAreaFor(x => x.Address, new { @class = "webUserTextBox", @style = "width:658px" })
+                </div>
+            </div>
+               <div class="divCss">
+                <div class="DivCss2" style="width: 40px">
+                    @Html.Label("تلفن", new { @class = "WebUserLabel", @style = "width:40px;" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.Tell, "", new { @class = "webUserTextBox", @style = "width:658px" })
+                </div>
+            </div>
+             <div class="divCss">
+                <div class="DivCss2" style="width: 40px">
+                    @Html.Label("فکس", new { @class = "WebUserLabel", @style = "width:40px;" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.Fax, "", new { @class = "webUserTextBox", @style = "width:658px" })
+                </div>
+            </div>
+               <div class="divCss">
+                <div class="DivCss2" style="width: 40px">
+                    @Html.Label("ایمیل", new { @class = "WebUserLabel", @style = "width:40px;" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.Email, "", new { @class = "webUserTextBox", @style = "width:658px" })
+                </div>
+            </div>
+               <div class="divCss" style="padding-top: 15px">
+                <div class="DivCss2" style="width: 40px">
+                    @Html.Label("نقشه", new { @class = "WebUserLabel", @style = "width:40px;" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextAreaFor(x => x.Map, new { @class = "webUserTextBox", @style = "width:658px" })
+                </div>
+                
+            </div>
+           if (Model.Map!=null)
+            { 
+              <div class="divCss" style="padding-top: 15px">
+                <div class="DivCss2" style="width: 40px">
+                    @Html.Label("نقشه", new { @class = "WebUserLabel", @style = "width:40px;" })
+                </div>
+                <div class="FloatRight">
+                    @Html.Raw(Model.Map)
+                </div>
+                 
+            </div>
+            }
+            <div class="divCss" style="padding-top: 15px;">
+                <div class="DivCss1" style="width: 79px">
+                    &nbsp;
+                </div>
+                <div  style="float:left;margin-left:25px;">
+                    <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

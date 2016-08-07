@@ -1,0 +1,81 @@
+﻿@model Domain.Validation.Admin.EditUserModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    int Id = ViewBag.EditId;
+    string EdPass = ViewBag.EditPass;
+}
+@Html.Hidden("MenuItems", "1361366943_preferences-contact-list.png" + ":-" + " مدیریت ادمین سایت" + ":-" +"لیست مدیران")
+
+<script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/NumberTextBox.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script>
+        Page();
+        PageList('ویرایش مدیر', '/Admin/UserAdmin/UserList');
+    </script>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+}
+<div class="divCssWh">
+    <div>
+        <div class="DivClass">
+            <div style="float: left; padding-left: 31px; padding-top: 3px; height: 35px;">
+                @Html.ActionLink("بازگشت", actionName: "BackList", controllerName: "UserAdmin", routeValues: new { Page = ViewBag.Pg }, htmlAttributes: new { @class = "LinkBackPage" })
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm(actionName: "EditUser", controllerName: "UserAdmin", routeValues: new { Page = ViewBag.Pg }, method: FormMethod.Post,
+                       htmlAttributes: new { enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("EditId", Id)
+        @Html.Hidden("EditPass", EdPass)
+        <div class="divCss">
+          
+            <div class="divCss">
+                <div class="DivCss2" style="width: 80px">
+                    @Html.Label("نام", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.Name, new { @class = "webUserTextBox", @style = "width:160px" })
+                </div>
+            </div>
+            <div class="divCss">
+                <div class="DivCss2" style="width: 80px">
+                    @Html.Label("نام خانوادگی", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.Famil, new { @class = "webUserTextBox", @style = "width:160px" })
+                </div>
+            </div>
+            <div class="divCss">
+                <div class="DivCss2" style="width: 80px">
+                    @Html.Label("ایمیل", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.Email, new { @class = "webUserTextBox", @style = "width:160px" })
+                </div>
+                <div class="FloatRight">
+                    @Html.ValidationMessageFor(x => x.Email, "ایمیل را به درستی وارد کنید.", new { @class = "field-validation-left" })
+                </div>
+            </div>
+            <div class="divCss">
+                <div class="DivCss2" style="width: 80px">
+                    @Html.Label("شماره تماس", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.TelNumber, new { @class = "webUserTextBox", maxlength = 11, @onkeypress = "return isNum(event)", @style = "width:160px" })
+                </div>
+            </div>
+            <div class="divCss" style="padding-top: 15px; padding-right: 29px">
+                <div class="DivCss1">
+                    &nbsp;
+                </div>
+                <div class="FloatRight">
+                    <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+                </div>
+            </div>
+        </div>
+    }
+</div>

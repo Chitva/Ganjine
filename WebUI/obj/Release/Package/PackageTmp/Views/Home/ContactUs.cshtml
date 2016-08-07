@@ -1,0 +1,430 @@
+﻿@{
+
+    Domain.Entities.ContactInfo ContactInfoTbl = ViewBag.Info;
+
+    string type = Convert.ToString(ViewBag.type);
+
+
+}
+<script src="~/Scripts/jquery.js"></script>
+<link href="/Content/Scroll/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<style>
+    /* for google captcha*/
+    [class*="rc-anchor-"], .rc-anchor-error-message, .rc-anchor-checkbox-label,
+    .rc-anchor-error-msg-container, .rc-anchor-logo-text, .rc-anchor-pt, .rc-button-default,
+    .rc-footer, .rc-challenge-help, .apps-toast-content, .rc-audiochallenge-error-message,
+    .rc-audiochallenge-instructions, .rc-defaultchallenge-payload, .rc-defaultchallenge-incorrect-response,
+    #rc-imageselect, .rc-ima .rc-response-input-field {
+        font-family: Tahoma !important;
+    }
+
+    iframe {
+        width: 100% !important;
+    }
+
+    .team-member.option-3 .image-box-body {
+        /*height: 131px;*/
+        height: 116px;
+        padding: 15px 10px 15px 3px;
+    }
+
+    .team-member.option-3 .overlay-container {
+        width: 45% !important;
+    }
+
+    .team-member.option-3 .image-box-body {
+        width: 55% !important;
+    }
+
+    p {
+        text-align: justify !important;
+    }
+
+    #navbs .nav > li {
+        text-align: center;
+    }
+
+    .vertical .nav-tabs, .vertical .tab-content {
+        display: block;
+    }
+
+    .nav-pills > li > a {
+        text-align: right;
+    }
+
+    .nav-pills.nav-stacked > li + li {
+        text-align: right;
+    }
+</style>
+<div class="page-intro rtl" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home pr-10"></i>
+                    </li>
+                    <li>تماس با ما</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="vertical hc-tabs" style="margin:0;direction:rtl;">
+                    <div class="arrow hidden-sm hidden-xs"></div>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+                            @if (ContactInfoTbl != null && ContactInfoTbl.Map != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @Html.Raw(ContactInfoTbl.Map);
+                                    </div>
+                                </div>
+                            }
+                            <div class="row">
+                                <div class="col-md-12 pull-right ln-height30" style="padding-top: 20px; text-align: justify;">
+                                    @Html.Raw(ContactInfoTbl.FormTopText)
+                                @if (!string.IsNullOrEmpty(ContactInfoTbl.Address))
+                                {
+                                    <div class="padding-top-10"><strong> آدرس:</strong><span>@ContactInfoTbl.Address</span></div>
+                                }
+                                @if (!string.IsNullOrEmpty(ContactInfoTbl.Tell))
+                                {
+                                    <div class="padding-top-10"> <strong> شماره تماس:</strong> @ContactInfoTbl.Tell</div>
+                                }
+                                @if (!string.IsNullOrEmpty(ContactInfoTbl.Fax))
+                                {
+                                    <div class="padding-top-10"> <strong> فکس:</strong> @ContactInfoTbl.Fax</div>
+                                }
+                                @if (!string.IsNullOrEmpty(ContactInfoTbl.Email))
+                                {
+                                    <div class="padding-top-10"><strong> ایمیل:</strong>@ContactInfoTbl.Email</div>
+                                }
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="clearfix"></div>
+                                <div id="divsuccess" class="alert alert-success" style="display: none">
+                                    <strong>ارسال!</strong> اطلاعات شما با موفقیت ثبت شد.
+                                </div>
+                                <div class="alert alert-danger" id="divfailed" style="display: none">
+                                    <strong>خطا!</strong> خطا در ارسال اطلاعات.
+                                </div>
+                                <div class="contact-form">
+                                    <form id="samplecode" role="form">
+                                        <div class="row">
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group has-feedback">
+                                                    <label for="lastname">نام خانوادگی</label>
+                                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
+                                                    <i class="fa fa-user form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group has-feedback">
+                                                    <label for="name">نام</label>
+                                                    <input type="text" class="form-control" id="name" name="name" placeholder="">
+                                                    <i class="fa fa-user form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group has-feedback">
+                                                    <label for="mobile">موبایل</label>
+                                                    <input type="number" class="form-control" id="mobile" name="mobile" placeholder="">
+                                                    <i class="fa fa-mobile form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group has-feedback">
+                                                    <label for="tell">تلفن</label>
+                                                    <input type="number" class="form-control" id="tell" name="tell" placeholder="">
+                                                    <i class="fa fa-phone form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group has-feedback">
+                                                    <label for="companyName">نام شرکت</label>
+                                                    <input type="text" class="form-control" id="companyName" name="companyName" placeholder="">
+                                                    <i class="fa fa-institution form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group has-feedback">
+                                                    <label for="businessAreas">حیطه کسب و کار</label>
+                                                    <input type="text" class="form-control" id="businessAreas" name="businessAreas" placeholder="">
+                                                    <i class="fa fa-group form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback">
+                                                    <label for="email">ایمیل</label>
+                                                    <input type="email" class="form-control" id="email" name="email" placeholder="">
+                                                    <i class="fa fa-envelope form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback">
+                                                    <label for="officeAddress">آدرس </label>
+                                                    <input type="text" class="form-control" id="officeAddress" name="officeAddress" placeholder="">
+                                                    <i class="fa fa-dot-circle-o form-control-feedback"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback">
+                                                    <label for="subject">موضوع پیام*</label>
+                                                    <input type="text" class="form-control" id="subject" name="subject" required placeholder="">
+                                                    <i class="fa fa-navicon form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback">
+                                                    <label for="message">متن پیام*</label>
+                                                    <textarea class="form-control" rows="6" id="message" name="message" required placeholder=""></textarea>
+                                                    <i class="fa fa-pencil form-control-feedback"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group has-feedback">
+                                                    <script src='https://www.google.com/recaptcha/api.js?hl=fa' async defer></script>
+                                                    <div class="g-recaptcha" data-sitekey="6LdQpCYTAAAAAL8dJ4l3eaKsKooNE2KklCg3kR-Z"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <input id="btnsave" type="submit" value="ارسال" class="btn btn-default pull-left">
+                                            </div>
+                                        </div>
+                                     </form>
+                               </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        if ($("#samplecode").length > 0) {
+            $("#samplecode").validate({
+               
+                submitHandler: function (form) {
+                    debugger;
+                    $("#btnsave").attr("disabled", true);
+                    debugger;
+                    $.ajax({
+                        url: "/Home/SaveMsg",
+                        data: {
+                            name: $("#name").val(),
+                            lastname: $("#lastname").val(),
+                            tell: $("#tell").val(),
+                            mobile: $("#mobile").val(),
+                            companyName: $("#companyName").val(),
+                            //companyAddress: $("#companyAddress").val(),
+                            businessAreas: $("#businessAreas").val(),
+                            officeAddress: $("#officeAddress").val(),
+                            email: $("#email").val(),
+                            subject: $("#subject").val(),
+                            message: $("#message").val(),
+                            "g-recaptcha-response": grecaptcha.getResponse()
+                        },
+                        type: "POST",
+
+                        success: function (result) {
+                            debugger;
+                            $("#btnsave").attr("disabled", false);
+
+                            if (result.IsOk == "Ok") {
+
+                                $("#divsuccess").show();
+                                setTimeout(function () {
+                                    $("#divsuccess").fadeOut(2000, function () {
+                                        $("#divsuccess").hide();
+                                        grecaptcha.reset();
+                                    });
+                                }, 5000);
+
+                                $("#name").val('');
+                                $("#lastname").val('');
+                                $("#tell").val('');
+                                $("#email").val('');
+                                $("#subject").val('');
+                                $("#message").val('');
+                                $("#mobile").val('');
+                                $("#officeAddress").val('');
+                                $("#companyAddress").val('');
+                                $("#companyName").val('');
+                                $("#businessAreas").val('');
+
+                            }
+                            else if (result.IsOk == "false") {
+
+                                $("#divfailed").show();
+                                setTimeout(function () {
+                                    $("#divfailed").fadeOut(2000, function () {
+                                        $("#divfailed").hide();
+                                        grecaptcha.reset();
+                                    });
+                                }, 5000);
+                            }
+                        },
+                        error: function () {
+
+                            $("#btnsave").attr("disabled", false);
+
+                            $("#divfailed").show();
+                            setTimeout(function () {
+                                $("#divfailed").fadeOut(2000, function () {
+                                    $("#divfailed").hide();
+                                    grecaptcha.reset();
+                                });
+                            }, 5000);
+                        }
+                    });
+
+                },
+                // debug: true,
+                errorPlacement: function (error, element) {
+                    error.insertBefore(element);
+                },
+                onkeyup: false,
+                onclick: false,
+                rules: {
+                    name: {
+                        required: true,
+                    },
+                    lastname: {
+                        required: true,
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    subject: {
+                        required: true
+                    },
+                    message: {
+                        required: true,
+                        minlength: 10
+                    }
+                },
+                messages: {
+
+                    email: {
+
+                        email: "ایمیل خود را بدرستی وارد نمایید به عنوان مثال name@domain.com"
+                    },
+                    subject: {
+                        required: "عنوان پیام را وارد نمایید."
+                    },
+                    message: {
+                        required: "متن پیام را وارد نمایید.",
+                        minlength: "متن پیام شما باید حداقل شامل 10 کاراکتر باشد."
+                    }
+                },
+                errorElement: "span",
+                highlight: function (element) {
+                    $(element).parent().removeClass("has-success").addClass("has-error");
+                    $(element).siblings("label").addClass("hide");
+                },
+                success: function (element) {
+                    $(element).parent().removeClass("has-error").addClass("has-success");
+                    $(element).siblings("label").removeClass("hide");
+                }
+            });
+        };
+
+    //    $("#btnsave").click(function () {
+           
+    //        $("#btnSave").attr("disabled", "disabled");
+
+    //        $.ajax({
+    //            url: "/Home/SaveMsg",
+    //            data: {
+    //                name: $("#name").val(),
+    //                lastname: $("#lastname").val(),
+    //                tell: $("#tell").val(),
+    //                mobile: $("#mobile").val(),
+    //                companyName: $("#companyName").val(),
+    //                companyAddress: $("#companyAddress").val(),
+    //                businessAreas: $("#businessAreas").val(),
+    //                officeAddress: $("#officeAddress").val(),
+    //                email: $("#email").val(),
+    //                subject: $("#subject").val(),
+    //                message: $("#message").val(),
+    //                "g-recaptcha-response": grecaptcha.getResponse()
+    //            },
+              
+    //            type: "POST",
+    //            success: function (result) {
+
+    //                $("#btnsave").attr("disabled", false);
+
+    //                if (result.IsOk == "Ok") {
+
+    //                    $("#divsuccess").show();
+    //                    setTimeout(function () {
+    //                        $("#divsuccess").fadeOut(2000, function () {
+    //                            $("#divsuccess").hide();
+    //                            grecaptcha.reset();
+    //                        });
+    //                    }, 5000);
+
+    //                    $("#name").val('');
+    //                    $("#lastname").val('');
+    //                    $("#tell").val('');
+    //                    $("#email").val('');
+    //                    $("#subject").val('');
+    //                    $("#message").val('');
+    //                    $("#mobile").val('');
+    //                    $("#officeAddress").val('');
+    //                    $("#companyAddress").val('');
+    //                    $("#companyName").val('');
+    //                    $("#businessAreas").val('');
+
+
+    //                }
+    //                else if (result.IsOk == "false") {
+
+    //                    $("#divfailed").show();
+    //                    setTimeout(function () {
+    //                        $("#divfailed").fadeOut(2000, function () {
+    //                            $("#divfailed").hide();
+    //                            grecaptcha.reset();
+    //                        });
+    //                    }, 5000);
+    //                }
+    //            },
+    //            error: function () {
+
+    //                $("#btnsave").attr("disabled", false);
+
+    //                $("#divfailed").show();
+    //                setTimeout(function () {
+    //                    $("#divfailed").fadeOut(2000, function () {
+    //                        $("#divfailed").hide();
+    //                        grecaptcha.reset();
+    //                    });
+    //                }, 5000);
+    //            }
+    //        });
+    //    });
+    });
+					
+</script>
+

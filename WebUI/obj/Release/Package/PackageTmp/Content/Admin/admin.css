@@ -1,0 +1,698 @@
+﻿body {
+  font-size:9pt;
+}
+#Contents {
+    width: 700px;
+    margin: 40px auto;
+    min-height:500px;
+}
+.w530 {
+    width: 530px !important;
+}
+.DivCss3 {
+    float: right;
+    width: 100px;
+}
+#Contents .Box {
+    border: 1px solid #e3e3e3;
+    -moz-border-radius-topleft: 7px;
+    -moz-border-radius-topright: 7px;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-radius: 7px 7px 0 0;
+    border-radius: 7px 7px 0 0;
+}
+#Contents .Box .Title {
+    font-size:9pt;
+     border-bottom: 1px solid #e3e3e3;
+     padding:7px 10px 7px 5px;
+     color:#000000;
+}
+#Contents .Box .Contents {
+    font-size:8pt;
+    text-align:justify;
+    line-height:150%;
+    padding:10px 20px;
+    color:#757070;
+}
+.DesColumn {
+    border: 1px solid #e3e3e3;
+    color: #000000;
+    font-weight: bold;
+    font-size: 9pt;
+    padding: 5px;
+    background-color: #eeecec;
+    text-align: center;
+    min-height:25px;
+}
+.Column0 {
+    margin-top:5px;
+    width:45px;
+    margin-left:5px;
+    min-height:20px;
+}
+.Column1 {
+    margin-top:5px;
+    width:103.3px;
+    margin-left:5px;
+    float:right;
+    min-height:20px;
+}
+.Column2 {
+    margin-top: 5px;
+    float: right;
+    width: 211.6px;
+    margin-left:5px;
+    min-height: 20px;
+}
+.Column3 {
+    margin-top: 5px;
+    float: right;
+    width: 320px;
+    margin-left: 5px;
+    min-height: 20px;
+}
+.Column4 {
+    margin-top: 5px;
+    float: right;
+    width:428.3px;
+    margin-left: 5px;
+    min-height: 20px;
+}
+.Column5 {
+    margin-top: 5px;
+    float: right;
+    width: 536.1px;
+    margin-left: 5px;
+    min-height: 20px;
+}
+.Column6 {
+    float:right;
+    margin-top: 5px;
+    width: 645px;
+    min-height: 20px;
+}
+.DataPicker {
+        width: 156px;
+        height: 21px;
+        border: 1px solid #000;
+        -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+        text-align: center;
+        float: right;
+    }
+      .DataPicker img {
+            padding: 0px;
+            padding-top: 2px;
+            margin: 0px;
+        }
+         .DataPicker input[type=text] {
+            margin: 0px;
+            padding: 0px;
+            padding-top: 0px;
+            width: 130px;
+            height: 15px;
+            border: 1px solid #fff;
+        }
+         .hasDataPicker {
+    border:none;
+}
+.ui-datepicker-trigger {
+    background-position: 0px 3px;
+    background-image: url('../../../Images/Admin/AdminImages/Calendar.gif');
+    background-repeat: no-repeat;
+    cursor:pointer;
+}
+.MarginWithIcon {
+padding-right:10px;
+}
+.divCssWh {
+    width:726px;
+  padding-right:10px;
+    padding-left:10px;
+}
+.divCss {
+    padding-top:9px;
+ padding-right:5px;
+    width:100%;
+    float:right;
+}
+.DivCss1 {
+    width: 50px; 
+    float: right;
+}
+.DivCssFormBookProduct {
+    width: 90px; 
+    float: right;
+}
+
+.DivCss2 {
+    width: 75px; 
+    float: right;
+}
+.FloatRight {
+    float:right;
+}
+.FloatL1 {
+    float:left;
+}
+.DivBorderPreview {
+    border: 1px solid #808080;
+    background-color: #ffffff;
+}
+.webUserErrorText
+{
+	font-family: tahoma;
+	font-size: 12px;
+	color: #C60000;
+}
+
+.webUserErrorTextTop
+{
+    font-family: tahoma;
+    font-size: 12px;
+    color: #FFFF00;
+}
+.ClassTdTable {
+       background: none repeat scroll 0 0 White;
+    border-left: 1px solid #CCCCCC;
+    color: #333333;
+    font-family: Tahoma;
+    font-size: 8pt;
+    
+    height:50px;
+    text-align: right;
+}
+.ClassHeaderTdTable {
+       background: none repeat scroll 0 0 White;
+    border-left: 1px solid #CCCCCC;
+    color: #333333;
+    font-family: Tahoma;
+    font-size: 8pt;
+     font-weight:bold;
+    height:30px;
+    text-align: right;
+   
+}
+.ClassHeaderTrTable {
+       background: none repeat scroll 0 0 White;
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    font-family: Tahoma;
+    font-size: 8pt;
+    width:100%;
+    float:right;
+    line-height:30px;
+    text-align: right;
+}
+.ClassTrTable {
+        background: none repeat scroll 0 0 White;
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    font-family: Tahoma;
+    font-size: 8pt;
+   
+    line-height:20px;
+    text-align: right;
+}
+
+.webUserTableWithBorder
+{
+	
+	
+	font-family: tahoma;
+	font-size: 12px;
+	color: #000000;
+}
+.WebUserPanelStyle
+{ 
+	
+ border-style: solid; border-width: thin; border-color:#EEECF1 ; padding:10px;  }
+
+.webUserTitleRows
+{
+    text-align:right;
+   
+	border-style: none none dashed none;
+	border-width: 1px;
+	border-color: #999;
+	font-family: tahoma;
+	font-size: 12px;
+	color: #000000;
+	font-style: normal;
+	font-weight: bold;
+	height: 25px;
+	padding-right: 10px;
+	background-color: #EAEAEA;
+    
+}
+.LinkDiv {
+    font-family: Tahoma;
+    font-size: small;
+    font-style: normal;
+    color: #0683FF;
+    text-decoration: underline;
+    cursor:pointer;
+}
+.bg_image_title {
+    background-position: right center;
+    text-align: right;
+    font-family: tahoma;
+    font-size: 12px;
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: bold;
+    padding-top: 5px;
+    height: 39px;
+    padding-right: 10px;
+    background-image: url('../../Images/Admin/Design/horizontalBack.jpg');
+    background-repeat: repeat-y;
+}
+.bg_image_subTitle
+{
+    
+    height:39px; 
+    border-style: outset;
+    padding-top: 5px;
+    background-color: #E2E2E2;
+}
+.webUserTextBox
+{
+	border: 1px solid #909090;
+	font-family: tahoma;
+	font-size: 13px;
+	color: #000000;
+	font-style: normal;
+	background-color: #FFF;
+  
+   width:220px;
+ 
+     -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+
+    .webUserTextBox:focus {
+         outline: none;  
+    border: 1px solid #4d90fe;  
+    }
+.webUserLabelTop
+{
+
+ font-family:Tahoma ;
+  color: #000000;
+  font-size:12px; 
+  padding-right:4px; 
+
+    }
+.webUserLink
+{
+	font-family: tahoma;
+	font-size: 13px;
+	color: #000000;
+	font-style: normal;
+    text-decoration:none;
+	}
+.webUserLink:hover
+{
+	font-family: tahoma;
+	font-size: 13px;
+	color:#000000;
+    font-weight:bold;
+	font-style:normal;
+    text-decoration:none;
+}
+
+.webUserLinkTop
+{
+	font-family: tahoma;
+	font-size: 13px;
+	color: #cccccc;
+	font-style: normal;
+	}
+.webUserLinkTop:hover
+{
+	font-family: tahoma;
+	font-size: 16px;
+	color: #cccccc;
+	font-style: normal;
+}
+
+
+
+
+.webUserButton {
+    background: #FFFFFF url('../../Images/Admin/AdminImages/button_bkg2.png') repeat-x scroll left center;
+    border: 1px solid #8E8F8F;
+    font-family: Tahoma;
+    font-size: 8pt;
+    padding: 3px;
+    height: 23px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin: 1px;
+    width: 100px;
+}
+.webUserButton:hover {
+    background-image: url('../../Images/Admin/AdminImages/button_hover_bkg2.png');
+    border: 1px solid #3C7FB1;
+    height: 23px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin: 1px;
+    width: 100px;
+}
+
+
+
+.webUserEmptyListText
+{
+	font-family: tahoma;
+	font-size: 12px;
+	color: #ff0000;
+	 font-weight :bold ; 
+	
+}
+.WebUserGridViewHeader
+{
+    float:right;
+    width:100%;
+	font-family: tahoma;
+	color: #C2C0C1;
+	font-size: 12px;
+	font-weight: bold;
+}
+.WebUserGridViewRowStyle
+{
+	font-family: tahoma;
+	line-height: 20px;
+	font-size: 12px;
+	text-align: center;
+	color: #000000;
+	background-color: #D2D2D2;
+	
+}
+.WebUserGridViewRowStyle:hover
+{
+	font-family: tahoma;
+	color: #000000;
+	line-height: 20px;
+	width:30px;
+	background-color: #D9A66E;
+	text-align: center;
+}
+
+
+.WebUserGridViewAlterRowStyle
+{
+	font-family: tahoma;
+	color: #000000;
+	background-color: #BDBDBD;
+	line-height:20px;
+	text-align: center;
+	font-size: 12px;
+	width:30px;
+	
+}
+
+
+.webUserDropDown
+{
+    background:#FFF;
+     color: black; 
+     text-decoration: none; 
+      border: 1px solid #909090;
+    border-radius: 4px 4px 4px 4px;
+  width:223px;
+     font-family :Tahoma ;
+}
+
+
+
+
+.WebUserGridViewAlterRowStyle:hover
+{
+	font-family: tahoma;
+	color: #000000;
+	line-height: 20px;
+	background-color: #D9A66E;
+	text-align: center;
+	width:50px;
+	
+}
+
+
+.WebUserGridViewEmptyDataText
+{
+ font-family:Tahoma ;
+  color: #ff0000;
+  font-size:12px; 
+	 font-weight :bold ; 
+	}
+.WebUserLabel
+{
+ font-family:Tahoma ;
+  color: #000000;
+  font-size:12px;
+  
+	
+	}
+.WebUserLabelDate
+{
+    width:100%;
+ font-family:Tahoma ;
+  color: #000000;
+  font-size:7pt;
+ 
+  
+	
+	}
+.WebUserLabelPremission {
+     font-family:Tahoma ;
+  color: #000000;
+  font-size:11px;
+}
+.WebUserLabelGray
+{
+ font-family:Tahoma ;
+  color: #848080;
+  font-size:12px;
+  
+	
+	}
+	.webUserRadioButton
+	{
+	     font-family:Tahoma ;
+  color: #000000;
+  font-size:12px;
+	    
+	    }
+.WebUserCheckBox
+{
+ font-family:Tahoma ;
+  color: #000000;
+  font-size:10px; 
+	
+	}
+.WebUserLinkButton
+{
+	font-family: Tahoma;
+	font-size: 12px;
+	color: #282828;
+}
+.WebUserLinkButton:hover
+{
+	font-family: Tahoma;
+	font-size: 12px;
+	color: #282828;
+}
+
+
+	
+#Successful {
+    clear:both;
+     background-color: #DFF0D8;
+    color: #468847;
+    border:1px solid #D6E9C6;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height:30px;
+    width:698px;
+    
+  
+
+}
+    #Successful span {
+        font-family:Tahoma;
+        font-size:10pt;
+        margin:6px;
+        margin-right:10px;
+        float:right;
+    }
+    #Successful .imgClose {
+        margin:11px;
+        float:left;
+    }
+
+
+    
+    
+    #Alert {
+        
+         background-color: #F2DEDE;
+  
+    color: #B94A48;
+        
+        
+        
+        font-family:Tahoma;
+         
+    
+    border:1px solid  #EED3D7;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    height:30px;
+   width:698px;
+
+}
+.LinkBackPage {
+    font-family:Tahoma;
+    font-size:12px;
+    cursor:pointer;
+}
+    #Alert span {
+         font-family:Tahoma;
+         
+        font-size:9pt;
+        margin:6px;
+        margin-right:10px;
+        float:right;
+    }
+    #Alert .imgClose {
+        margin:11px;
+        float:left;
+    }
+
+ .DivFrame {
+    width: 100%;
+    padding-bottom: 15px;
+    padding-right: 5px;
+    float: right;
+}
+.DivHalf {
+    width: 48%;
+    float: right;
+}
+.DicContentChkb {
+    padding-right: 15px;
+}
+.DivItemChkb {
+    float: right;
+    width: 100%;
+}
+.DivImage {
+    float: right;
+    padding-right: 10px;
+}
+.PremissionImage {
+cursor:pointer;
+}
+.IsShowPremissions {
+    float: right;
+    display: none;
+}
+.ChangePremissionPic {
+    border-width: 0px;
+    background-image: url('../../Images/Admin/AdminImages/EditPage.png');
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.LinkForCreateItems {
+    font-family: Tahoma;
+    font-size: small;
+    font-style: normal;
+    color: #0683FF;
+    text-decoration: underline;
+    cursor:pointer;
+    padding-left:30px;
+    text-align:left;
+}
+.DivMenuInfoDetailHide {
+display:none;
+}
+.DivMenuInfoDetailShow {
+display:block;
+}
+#MenuOperation img {
+    margin-right:10px;
+width:40px;
+height:40px;
+cursor:pointer;
+}
+.DivRowSitePart {
+    width: 90px;
+    float: right;
+}
+
+.OkIcon {
+    background-position: 48px center;
+    border: 1px solid #c5c5c5;    
+    padding-right:15px;
+    background-image: url('../../Images/Admin/AdminImages/OkIcon.png');
+    background-repeat: no-repeat;
+    background-color: #f2f2f2;
+    width: 65px;
+    color: #2e2e2e;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;  
+    font-family:Tahoma;
+    font-size:13px;
+}
+    .OkIcon:hover {
+        background-color:#c4bdba;
+        border-color:#aaa09b;
+    }
+.CancelIcon {
+    background-position: 48px center;
+    text-align:left;
+    border: 1px solid #c5c5c5;
+    background-image: url('../../Images/Admin/AdminImages/CancelIcon.png');
+    background-repeat: no-repeat;
+    background-color: #f2f2f2;
+    padding-right:2px;
+    width: 65px;
+    color: #2e2e2e;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;  
+    font-family:Tahoma;
+    font-size:13px;
+}
+    .CancelIcon:hover {
+        background-color: #c4bdba;
+        border-color: #aaa09b;
+    }
+.Column img {
+border:1px solid #c7c7c7;
+}
+
+.DivCss6-1 {
+    float: right;
+    width: 143px;
+}
+.ShowElement{
+    display:block;
+}
+.w600{
+    width:600px;
+}
+.w590
+{
+    width:590px !important;
+}

@@ -1,0 +1,284 @@
+﻿@model List<Domain.ViewModel.User.viewModelNews>
+    @{
+        List<Domain.Entities.Banner> Banners = ViewBag.Banners;
+        string IntroduceText = Convert.ToString(ViewBag.Introduce);
+        List<Domain.ViewModel.User.ProductViewModel> images = ViewBag.ProductImages;
+        string AllProductLink = ViewBag.AllProductLink;
+        string CompanyIntroductionImage = ViewBag.ImagePath;
+
+    }
+
+    <style scoped>
+        .text-center {
+            font-size: 13px;
+        }
+
+        p {
+            text-align: justify !important;
+        }
+
+        .separator {
+            border: none;
+            background-color: #50cfd3;
+        }
+
+            .separator::after {
+                top: 0px;
+                border: none;
+                background-color: #50cfd3;
+            }
+
+        .btn.btn-lg {
+            font-size: 15px;
+            min-width: 110px;
+            padding: 10px 12px;
+        }
+    </style>
+    <div class="banner">
+        <div class="slideshow">
+            <div class="slider-banner-container">
+                <div class="slider-banner">
+                    <ul>
+                        @if (Banners != null && Banners.Count > 0)
+                        {
+                            foreach (var Item in Banners)
+                            {
+                                <li data-transition="slideleft" data-slotamount="7" data-masterspeed="1000" data-saveperformance="on">
+                                    <img src="/Images/Banner/Large/@Item.Image" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat" alt="@Item.alt">
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container">
+
+        @if (!string.IsNullOrEmpty(IntroduceText))
+        {
+            <div class="card">
+                @if (ViewBag.CompanyIntroductionImage != null)
+                {
+                    <div class="hidden-xs col-lg-3 col-md-4 col-sm-5" style="margin: 75px 20px 10px 10px; padding: 10px; border: solid 1px #ccc;">
+                        <img class="" src="@ViewBag.CompanyIntroductionImage" />
+                    </div>
+                }
+                <div class="widthborder">
+                    <div>
+                        <span class="icon"></span>
+                        <h3>
+                            <span>@ViewBag.CompanyIntroductionTitle</span>
+                        </h3>
+                    </div>
+                </div>
+                <div class="lead text-center" style="padding: 20px 20px 0 20px; margin: 0;">
+                    @Html.Raw(IntroduceText)
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <a href='/EN/AboutUs/Introduce'
+                               class='btn btn-lg btn-default ttlma special'>
+                                <div>&nbsp;</div>
+                                <div class="content">Read More</div>
+                                <div>&nbsp;</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="menu" style="text-align: center;margin-top: 25px;padding: 0;margin: 0;margin-top: 25px; background: #42b7bb;">
+        <div class="container">
+            <a href="@ViewBag.Menu1Link">
+                <div>
+                    <img src="/Images/Menu/Menu1.png">
+                </div>
+            </a>
+            <a href="@ViewBag.Menu2Link">
+                <div>
+                    <img src="/Images/Menu/Menu2.png">
+                </div>
+            </a>
+            <a href="@ViewBag.Menu3Link">
+                <div>
+                    <img src="/Images/Menu/Menu3.png">
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        @if (images != null && images.Count > 0)
+        {
+            <div class="section clearfix  ">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="widthborder">
+                                <div>
+                                    <span class="icon"></span>
+                                    <h3>
+                                        <span>Products</span>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <br />
+                            <div class="ltr">
+                                @{
+                                    var i = 0;
+                                }
+                                @foreach (var item in images)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="product-box">
+                                            <main>
+                                                <a href="/product/@(item.GroupId)/@(item.Title.Replace(" ", "-"))">
+                                                    @{
+                                                        var imagePath = Server.MapPath("~/" + item.ImagePath);
+                                                        if (File.Exists(imagePath))
+                                                        {
+                                                            using (var image = new System.Drawing.Bitmap(Server.MapPath("~/" + item.ImagePath)))
+                                                            {
+                                                                if (image.Width > image.Height)
+                                                                {
+                                                                    <img src=@item.ImagePath alt="" style="width: 180px; height:auto; margin:0 auto;">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src=@item.ImagePath alt="" style="height: 125px; width: auto; margin: 0 auto;">
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                </a>
+                                            </main>
+                                            <footer>
+                                                <h4 class="title">
+                                                    <a style="text-decoration: none;"
+                                                       href="/product/@(item.GroupId)/@(item.Title.Replace(" ", "-"))"
+                                                       title="@(item.Title)">
+                                                        @(item.Title)
+                                                    </a>
+                                                </h4>
+                                                <div class="price" style="@(!item.IsExist ? "background: #c2c2c2;" : "")">
+                                                    @if (item.IsExist)
+                                                    {
+                                                        if (item.Discount > 0)
+                                                        {
+                                                            <h5 style="text-decoration: line-through; color:#146265;">
+                                                                @(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", item.Price))
+                                                            </h5>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div style="line-height: 12px;">&nbsp;</div>
+                                                        }
+                                                        <h5>
+                                                            @(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", item.Price - item.Discount))
+                                                        </h5>
+                                                        <h5>Toman</h5>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div>&nbsp;</div>
+                                                        <h5 style="color: #444;">None</h5>
+                                                        <div>&nbsp;</div>
+                                                    }
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                                        }
+                            </div>
+                            <br />
+                            <div style='width:205px !important; margin: 0 auto;'>
+                                <a href='@AllProductLink'
+                                   class='btn btn-lg btn-default ttlma special'>
+                                    <div>&nbsp;</div>
+                                    <div class="content">Product List</div>
+                                    <div>&nbsp;</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                                                        }
+
+        <style>
+            @@media screen and (max-width: 767px) {
+
+                .image-box {
+                    max-width: 420px;
+                    float: none;
+                    margin: 0 auto;
+                }
+            }
+
+            .menu a {
+                width: 33.3333333%;
+                display: inline-block;
+                margin-right: -4px;
+            }
+
+                .menu a div {
+                    padding: 26px 13px 20px 13px;
+                }
+
+                    .menu a div img {
+                        padding: 3px;
+                        border: solid 1px #ff6a00;
+                        background: #fff;
+                    }
+
+            .radio label, .checkbox label {
+                padding-left: unset;
+                padding-right: 20px;
+            }
+
+            .radio input[type="radio"],
+            .radio-inline input[type="radio"],
+            .checkbox input[type="checkbox"],
+            .checkbox-inline input[type="checkbox"] {
+                margin-left: auto;
+                margin-right: -20px;
+            }
+
+            marquee > * {
+                display: inline-block;
+            }
+        </style>
+
+
+        <div class="clearfix"></div>
+        <br />
+        @section ScriptIndex{
+            <script>
+                $(document).ready(function () {
+                    setTimeout(function () {
+                        $('#newsDiv').owlCarousel({
+                            items: 2,
+                            autoPlay: 3000,
+                            pagination: false,
+                            navigation: true,
+                            navigationText: false,
+                            //itemsDesktop: [1199, 2],
+                            itemsDesktopSmall: [1199, 1],
+                            itemsTablet: [768, 1],
+                            itemsTabletSmall: [640, 1],
+                            itemsMobile: [479, 1],
+                        });
+                    }, 500);
+                });
+            </script>
+        }
+    </div>

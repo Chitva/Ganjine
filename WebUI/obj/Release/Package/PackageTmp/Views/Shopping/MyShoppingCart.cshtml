@@ -1,0 +1,816 @@
+﻿@{
+    ViewBag.Title = "سبد خرید";
+}
+
+<div class="page-intro rtl" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home pr-10"></i>
+                        تندیس طلایی
+                    </li>
+                    <li>سبد خرید</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <div class="container card">
+        <div class="row">
+            <div class="header">
+                <div class="steps">
+                    <div class="step">
+                        <div class="preview">
+                            <div class="icon-body">
+                                <i class="fa icon"></i>
+                            </div>
+                            <hr class="line right-line" />
+                            <hr class="line left-line" />
+                        </div>
+                        <div class="title">
+                            سبد خرید
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="preview">
+                            <div class="icon-body">
+                                <i class="fa icon"></i>
+                            </div>
+                            <hr class="line right-line" />
+                            <hr class="line left-line" />
+                        </div>
+                        <div class="title">
+                            اطلاعات ارسال سفارش
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="preview">
+                            <div class="icon-body">
+                                <i class="fa icon"></i>
+                            </div>
+                            <hr class="line right-line" />
+                            <hr class="line left-line" />
+                        </div>
+                        <div class="title">
+                            بازبینی سفارش
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="preview">
+                            <div class="icon-body">
+                                <i class="fa icon"></i>
+                            </div>
+                            <hr class="line right-line" />
+                            <hr class="line left-line" />
+                        </div>
+                        <div class="title">
+                            پرداخت
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <table class="basket">
+                    <tr>
+                        <th>شرح محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت واحد</th>
+                        <th>قیمت کل</th>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            <div class="thumbnail-img">
+                                <img src="http://www.tandistalaei.com/Files/ServiceGallery/5/636058255495593650.jpg" />
+                            </div>
+                            &nbsp;&nbsp;&nbsp;
+                            <h4 class="title">سوهان مخصوص</h4>
+                        </td>
+                        <td>
+                            <input type="number" placeholder="تعداد" min="1" class="form-control" />
+                        </td>
+                        <td>
+                            <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 18500))</span>
+                            <small>تومان</small>
+                        </td>
+                        <td>
+                            <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 18500))</span>
+                            <small>تومان</small>
+                            <div class="action">
+                                <a href="#" class="error">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            <div class="thumbnail-img">
+                                <img src="http://www.tandistalaei.com/Files/ServiceGallery/15/636050577454334105.png" />
+                            </div>
+                            &nbsp;&nbsp;&nbsp;
+                            <h4 class="title">عسل طبیعی انگبین - ۱۵۰ گرمی	</h4>
+                        </td>
+                        <td>
+                            <input type="number" placeholder="تعداد" min="1" class="form-control" />
+                        </td>
+                        <td>
+                            <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 28000))</span>
+                            <small>تومان</small>
+                        </td>
+                        <td>
+                            <div class="dis">
+                                <div class="top">
+                                    <span class="right">قیمت کل:</span>
+                                    <span class="left">
+                                        <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 28000))</span>
+                                        <small>تومان</small>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="bottom">
+                                    <span class="right">تخفیف:</span>
+                                    <span class="left">
+                                        <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 3000))</span><small>تومان</small>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="result">
+                                <b>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 25000))</b>
+                                <small>تومان</small>
+                            </div>
+                            <div class="action">
+                                <a href="#" class="error">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-lg-7 col-lg-pull-5 col-md-8 col-md-pull-4 col-sm-12 col-xs-12">
+                        <table class="info">
+                            <tr>
+                                <td class="text-center">
+                                    <label class="product-lable dis">
+                                        <i class="fa fa-caret-left"></i>
+                                        <span class="right text">
+                                            مجموع تخفیف
+                                        </span>
+                                        <span class="left number">
+                                            @(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 3000))
+                                            <small>تومان</small>
+                                        </span>
+                                    </label>
+                                </td>
+                                <td class="text-right">
+                                    جمع کل خرید شما:
+                                </td>
+                                <td class="text-left">
+                                    <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 46500))</span>
+                                    <small>تومان</small>
+                                </td>
+                            </tr>
+                            <tr class="result-color">
+                                <td class="text-right result-bg"></td>
+                                <td class="text-right result-bg">
+                                    مبلغ قابل پرداخت:
+                                </td>
+                                <td class="text-left result-bg">
+                                    <b>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 43500))</b>
+                                    <small>تومان</small>
+                                </td>
+                            </tr>
+                        </table>
+                        <h6 class="pull-right notice">
+                            بر اساس مکان تحویل سفارش، امکان افزوده شدن هزینه ارسال به این مبلغ وجود دارد.
+                        </h6>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="card-action">
+                    <button class="btn btn-primary btn-sm pull-left next-btn">
+                        مرحله بعد
+                        &nbsp;&nbsp;
+                        <i class="fa fa-angle-left"></i>
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+                <div>
+                    <h6 class="pull-left notice">
+                        مرحله بعد: اطلاعات ارسال سفارش
+                    </h6>
+                </div>
+            </div>
+            <div class="body">
+                <div class="card-action">
+                    <span class="topic pull-right">
+                        <i class="fa fa-caret-left result-color" aria-hidden="true"></i>
+                        انتخاب آدرس
+                    </span>
+                    <button class="btn btn-gray btn-sm pull-left">
+                        افزودن آدرس جدید
+                    </button>
+                </div>
+                <table class="address active">
+                    <tr>
+                        <td rowspan="3" class="selector">
+                            <input type="radio" name="address" />
+                        </td>
+                        <td colspan="3" class="text-right">
+                            حسن اسفندیاری
+                        </td>
+                        <td rowspan="3" class="actions">
+                            <div class="action x2">
+                                <a href="#" class="info">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="#" class="error">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            استان:
+                            <span>اصفهان</span>
+                        </td>
+                        <td rowspan="2" class="text-right" style="width: 40%;">
+                            آدرس
+                        </td>
+                        <td>
+                            شماره تماس اضطراری:
+                            <span>0913</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            شهر:
+                            <span>اصفهان</span>
+                        </td>
+                        <td>
+                            شماره تماس ثابت:
+                            <span>031</span>
+                        </td>
+                    </tr>
+                </table>
+                <table class="address">
+                    <tr>
+                        <td rowspan="3" class="selector">
+                            <input type="radio" name="address" />
+                        </td>
+                        <td colspan="3" class="text-right">
+                            حسن اسفندیاری
+                        </td>
+                        <td rowspan="3" class="actions">
+                            <div class="action x2">
+                                <a href="#" class="info">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="#" class="error">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            استان:
+                            <span>اصفهان</span>
+                        </td>
+                        <td rowspan="2" class="text-right" style="width: 40%;">
+                            آدرس
+                        </td>
+                        <td>
+                            شماره تماس اضطراری:
+                            <span>0913</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            شهر:
+                            <span>اصفهان</span>
+                        </td>
+                        <td>
+                            شماره تماس ثابت:
+                            <span>031</span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="card-action">
+                    <span class="topic pull-right">
+                        <i class="fa fa-caret-left result-color" aria-hidden="true"></i>
+                        شیوه ارسال
+                    </span>
+                </div>
+                <table class="sendType">
+                    <tr>
+                        <td class="selector">
+                            <input type="radio" name="sendType" />
+                        </td>
+                        <td class="text-right" style="width: 70%;">
+                            <b>پست پیشتاز</b>
+                            <br />
+                            <span>تحویل ...</span>
+                        </td>
+                        <td>
+                            <span>هزینه ارسال</span>
+                            <br />
+                            <span class="result-color">
+                                @(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 650000))
+                                <small>تومان</small>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <table class="sendType active">
+                    <tr>
+                        <td class="selector">
+                            <input type="radio" name="sendType" />
+                        </td>
+                        <td class="text-right" style="width: 70%;">
+                            <b>پست پیشتاز</b>
+                            <br />
+                            <span>تحویل ...</span>
+                        </td>
+                        <td>
+                            <span>هزینه ارسال</span>
+                            <br />
+                            <span class="result-color">
+                                @(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 650000))
+                                <small>تومان</small>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="card-action">
+                    <span class="topic pull-right">
+                        <i class="fa fa-caret-left result-color" aria-hidden="true"></i>
+                        آیا مایل هستید به همراه این سفارش فاکتور ارسال شود؟
+                        <input type="radio" name="factor" value="true" />&nbsp;بله
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="factor" value="false" />&nbsp;خیر
+                    </span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="card-action">
+                    <a href="/Shopping/MyShoppingCart" class="btn btn-gray btn-sm pull-right">
+                        بازگشت
+                    </a>
+                    <button class="btn btn-primary btn-sm pull-left next-btn">
+                        ثبت اطلاعات و ادامه خرید
+                        &nbsp;&nbsp;
+                        <i class="fa fa-angle-left"></i>
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+                <div>
+                    <h6 class="pull-left notice">
+                        مرحله بعد: بازبینی سفارش
+                    </h6>
+                </div>
+            </div>
+            <div class="body basket">
+                <table class="basket">
+                    <tr>
+                        <th>شرح محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت واحد</th>
+                        <th>قیمت کل</th>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            <div class="thumbnail-img">
+                                <img src="http://www.tandistalaei.com/Files/ServiceGallery/5/636058255495593650.jpg" />
+                            </div>
+                            &nbsp;&nbsp;&nbsp;
+                            <h4 class="title">سوهان مخصوص</h4>
+                        </td>
+                        <td>
+                            <input type="number" placeholder="تعداد" min="1" class="form-control" />
+                        </td>
+                        <td>
+                            <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 18500))</span>
+                            <small>تومان</small>
+                        </td>
+                        <td>
+                            <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 18500))</span>
+                            <small>تومان</small>
+                            <div class="action">
+                                <a href="#" class="success">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right">
+                            <div class="thumbnail-img">
+                                <img src="http://www.tandistalaei.com/Files/ServiceGallery/15/636050577454334105.png" />
+                            </div>
+                            &nbsp;&nbsp;&nbsp;
+                            <h4 class="title">عسل طبیعی انگبین - ۱۵۰ گرمی	</h4>
+                        </td>
+                        <td>
+                            <input type="number" placeholder="تعداد" min="1" class="form-control" />
+                        </td>
+                        <td>
+                            <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 28000))</span>
+                            <small>تومان</small>
+                        </td>
+                        <td>
+                            <div class="dis">
+                                <div class="top">
+                                    <span class="right">قیمت کل:</span>
+                                    <span class="left">
+                                        <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 28000))</span>
+                                        <small>تومان</small>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="bottom">
+                                    <span class="right">تخفیف:</span>
+                                    <span class="left">
+                                        <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 3000))</span><small>تومان</small>
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="result">
+                                <b>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 25000))</b>
+                                <small>تومان</small>
+                            </div>
+                            <div class="action">
+                                <a href="#" class="success">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="info">
+                            <tr>
+                                <td class="text-right">
+                                    جمع کل خرید:
+                                </td>
+                                <td class="text-left">
+                                    <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 46500))</span>
+                                    <small>تومان</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">
+                                    هزینه ارسال، بیمه و بسته بندی سفارش:
+                                </td>
+                                <td class="text-left">
+                                    <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 5000))</span>
+                                    <small>تومان</small>
+                                </td>
+                            </tr>
+                            <tr class="dis-color">
+                                <td class="text-right">
+                                    تخفیف:
+                                </td>
+                                <td class="text-left">
+                                    <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 3000))</span>
+                                    <small>تومان</small>
+                                </td>
+                            </tr>
+                            <tr class="result-color">
+                                <td class="text-right result-bg">
+                                    <b>
+                                        جمع کل قابل پرداخت:
+                                    </b>
+                                </td>
+                                <td class="text-left result-bg">
+                                    <b>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", 48500))</b>
+                                    <small>تومان</small>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <br />
+                <div class="card-action">
+                    <span class="topic pull-right">
+                        <i class="fa fa-caret-left result-color" aria-hidden="true"></i>
+                        اطلاعات ارسال سفارش
+                    </span>
+                </div>
+                <table class="sendInformation">
+                    <tr>
+                        <td>
+                            <i class="fa fa-map-marker"></i>
+                        </td>
+                        <td class="text-right">
+                            <p>
+                                این سفارش به <span>حسن اسفندیاری</span> به آدرس <span>خیابان جی</span> و شماره تماس ۰۹۱۳ تحویل میگردد
+                            </p>
+                            <div class="action">
+                                <a href="#" class="success text-center">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa fa-car"></i>
+                        </td>
+                        <td class="text-right">
+                            <p>
+                                این سفارش از طریق <span>باربری</span> با هزینه <span> 0 </span> تومان به شما تحویل داده خواهد شد
+                            </p>
+                            <div class="action">
+                                <a href="#" class="success text-center">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                <div class="card-action">
+                    <a href="/Shopping/MyShoppingCart" class="btn btn-gray btn-sm pull-right">
+                        بازگشت
+                    </a>
+                    <button class="btn btn-primary btn-sm pull-left next-btn">
+                        ثبت اطلاعات و ادامه خرید
+                        &nbsp;&nbsp;
+                        <i class="fa fa-angle-left"></i>
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+                <div>
+                    <h6 class="pull-left notice">
+                        مرحله بعد: تکمیل اطلاعات پرداخت
+                    </h6>
+                </div>
+            </div>
+            <div class="body">
+                <div class="card-action">
+                    <span class="topic pull-right">
+                        <i class="fa fa-caret-left result-color" aria-hidden="true"></i>
+                        شیوه پرداخت
+                    </span>
+                </div>
+                <table class="paymentType active">
+                    <tr>
+                        <td class="selector">
+                            <input type="radio" name="paymentType" />
+                        </td>
+                        <td class="text-right">
+                            <b>پرداخت اینترنتی</b>
+                            <br />
+                            <input type="radio" name="gateway" value="true" />&nbsp;درگاه پرداخت اینترنتی بانک سامان
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="gateway" value="false" />&nbsp;درگاه پرداخت اینترنتی بانک ملت
+                        </td>
+                    </tr>
+                </table>
+                <table class="paymentType">
+                    <tr>
+                        <td class="selector">
+                            <input type="radio" name="paymentType" />
+                        </td>
+                        <td class="text-right">
+                            <b>پرداخت در محل</b>
+                            <br />
+                            <span>چنانچه محل تحویل شما در شهر اصفهان باشد، امکان پرداخت در محل برای سفارش های بالاتر از 100،000 تومان وجود خواهد داشت. در غیر اینصورت پرداخت از نوع دیگری را انتخاب کنید</span>
+                        </td>
+                    </tr>
+                </table>
+                <table class="paymentType">
+                    <tr>
+                        <td class="selector">
+                            <input type="radio" name="paymentType" />
+                        </td>
+                        <td class="text-right">
+                            <b>کارت به کارت</b>
+                            <br />
+                            <span>شما میتوانید مبلغ قابل پرداخت فاکتور را به شماره کارت ؟؟؟ بانک ملت به نام شرکت ؟؟؟ واریز و اطلاعات زیر را تکمیل نمایید</span>
+                            <br />
+                            <br />
+                            <div class="row">
+                                <div class="col-lg-6 col-lg-pull-3 col-md-8 col-md-pull-2 col-sm-10 col-sm-pull-1 col-xs-12">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="c2cNumber">
+                                                چهار رقم پایانی کارت شما
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="c2cNumber">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="c2cCode">
+                                                شماره پیگیری
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="c2cCode">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="c2cPrice">
+                                                مبلغ واریز شده(تومان)
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control" id="c2cPrice">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="c2cDate">
+                                                تاریخ واریز
+                                            </label>
+                                            <div class="col-sm-8 date">
+                                                <select class="form-control" style="width:20%">
+                                                    @for (var i = 1; i <= 31; i++)
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+                                                <select class="form-control" style="width:50%">
+                                                    @foreach (var i in new string[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" })
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+                                                <select class="form-control" style="width:30%">
+                                                    @for (var i = 1395; i <= 1405; i++)
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="c2cDate">
+                                                ساعت واریز
+                                            </label>
+                                            <div class="col-sm-8 date">
+                                                <select class="form-control" style="width:33.333333%">
+                                                    <option value="0">صبح</option>
+                                                    <option value="1">عصر</option>
+                                                </select>
+                                                <select class="form-control" style="width:33.333333%">
+                                                    @for (var i = 1; i <= 59; i++)
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+                                                <select class="form-control" style="width:33.333333%">
+                                                    @for (var i = 1; i <= 12; i++)
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table class="paymentType">
+                    <tr>
+                        <td class="selector">
+                            <input type="radio" name="paymentType" />
+                        </td>
+                        <td class="text-right">
+                            <b>واریز به حساب</b>
+                            <br />
+                            <span>شما میتوانید مبلغ قابل پرداخت فاکتور را به شماره حساب ؟؟؟ بانک ملت به نام شرکت ؟؟؟ واریز و اطلاعات زیر را تکمیل نمایید</span>
+                            <br />
+                            <br />
+                            <div class="row">
+                                <div class="col-lg-6 col-lg-pull-3 col-md-8 col-md-pull-2 col-sm-10 col-sm-pull-1 col-xs-12">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="d2aCode">
+                                                شماره پیگیری
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="d2aCode">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="d2aPrice">
+                                                مبلغ واریز شده(تومان)
+                                            </label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control" id="d2aPrice">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="d2aDate">
+                                                تاریخ واریز
+                                            </label>
+                                            <div class="col-sm-8 date">
+                                                <select class="form-control" style="width:20%">
+                                                    @for (var i = 1; i <= 31; i++)
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+                                                <select class="form-control" style="width:50%">
+                                                    @foreach (var i in new string[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" })
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+                                                <select class="form-control" style="width:30%">
+                                                    @for (var i = 1395; i <= 1405; i++)
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="d2aDate">
+                                                ساعت واریز
+                                            </label>
+                                            <div class="col-sm-8 date">
+                                                <select class="form-control" style="width:33.333333%">
+                                                    <option value="0">صبح</option>
+                                                    <option value="1">عصر</option>
+                                                </select>
+                                                <select class="form-control" style="width:33.333333%">
+                                                    @for (var i = 1; i <= 59; i++)
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+                                                <select class="form-control" style="width:33.333333%">
+                                                    @for (var i = 1; i <= 12; i++)
+                                                    {
+                                                    <option value="@(i)">@(i)</option>
+                                                    }
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="clearfix"></div>
+                <div class="card-action">
+                    <a href="/Shopping/MyShoppingCart" class="btn btn-gray btn-sm pull-right">
+                        بازگشت
+                    </a>
+                    <button class="btn btn-primary btn-sm pull-left next-btn">
+                        پرداخت و تکمیل خرید
+                        &nbsp;&nbsp;
+                        <i class="fa fa-angle-left"></i>
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<style>
+    .card .body {
+        display: none;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+        $(".card .body").first().show();
+
+        $(".steps .step").first().addClass("active");
+
+        var index = -1;
+        $(".next-btn").click(function () {
+            $(".card .body").each(function (i) {
+                $(this).hide();
+            });
+            $(".steps .step").each(function (i) {
+                if ($(this).hasClass("active")) {
+                    index = i;
+                    $(this).removeClass("active");
+                }
+            });
+            $($(".card .body")[index + 1]).show();
+            $($(".steps .step")[index + 1]).addClass("active");
+            if (index >= 3) {
+                index = -1;
+            }
+        });
+    });
+</script>

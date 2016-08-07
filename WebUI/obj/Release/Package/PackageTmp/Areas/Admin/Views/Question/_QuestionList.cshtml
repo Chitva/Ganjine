@@ -1,0 +1,252 @@
+﻿<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Admin/Paging.css")" />
+<link href="~/Content/Admin/Grid.css" rel="stylesheet" />
+<link href="~/Content/Admin/alert.css" rel="stylesheet" />
+<script src="~/Scripts/Admin/CloseSucc.js"></script>
+@{
+    string Result = Convert.ToString(TempData["result"]);
+    IList<Domain.Entities.Question> QuestionList = ViewBag.QuestionList;
+    int TotalCount = Convert.ToInt32(TempData["Count"]);
+    TempData["Count"] = TotalCount;
+    int EndPage = 0;
+    int StartPage = 0;
+    int TotalPage = 0;
+    int? Id = 0;
+    int Page = 0;
+    Page = Convert.ToInt32(Request.QueryString["Page"]);
+    if (Page == 0)
+    {
+        Page = 1;
+    }
+    if (TotalCount % 10 == 0)
+    {
+        TotalPage = TotalCount / 10;
+    }
+    else
+    {
+        TotalPage = (TotalCount / 10) + 1;
+    }
+    if (Page + 9 > TotalPage)
+    {
+        EndPage = TotalPage;
+    }
+    else
+    {
+        EndPage = Page + 9;
+    }
+    if (Page <= 9)
+    {
+        StartPage = 1;
+    }
+    else
+    {
+        StartPage = Page - 9;
+    }
+    int Countergrid = 0;     
+}
+<script src="~/Scripts/Admin/ConfirmDelete.js"></script>
+
+<div class="divCss" style="padding-right: 0;">
+
+    <div class="divCss">
+        <div id="SuccessMsg" style="float: right; width: 300px; padding-bottom: 10px; display: none">
+            @Html.Partial("~/Areas/Admin/Views/Alerts/_Successful.cshtml")
+        </div>
+    </div>
+</div>
+@{
+    if (Result != null)
+    {
+        if (Result == "OK")
+        { 
+    <script type="text/javascript">
+        $('#SuccessMsg').show();
+    </script>
+        }
+    }
+}
+<div id="BoxDelete">
+    <div id="PopUp-Content">
+        <div class="TB_title">
+            <div class="TB_ajaxWindowTitle">حذف</div>
+            <div class="TB_closeAjaxWindow">
+                <a title="بستن" class="TB_closeWindowButton" href="#">
+                    <img src="/Images/Admin/AdminImages/CloseBox.gif" alt="questionImage"></a>
+            </div>
+        </div>
+        <div id="TB_ajaxContent">
+            <div>آیا از حذف مطمئن هستید؟</div>
+            <div class="BoxBtn">
+                <div class="Btn">
+                    <div>
+                        <input id="OkBtn" type="submit" value="بله" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+                <div class="Btn" style="float: left;">
+                    <div>
+                        <input id="cancelBtn" type="submit" value="خیر" class="webUserButton" style="width: 85px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="Table">
+    @foreach (var item in QuestionList)
+    {
+        if (Countergrid == 0)
+        { 
+        <div class="RowTop">
+            <div style="float: right; width: 76px;">
+                &nbsp;
+            </div>
+
+            <div style="float: right; width: 100px">
+                فرستنده
+            </div>
+            @*<div style="float: right; width: 150px">
+                عنوان پیام
+            </div>*@
+            <div style="float: right; width: 150px">
+           متن پیام
+            </div>
+            <div style="float: right; width: 100px">
+                تاریخ ارسال
+            </div>
+            <div style="float: right; width: 120px">
+                وضعیت
+            </div>
+        </div>
+        }
+        Countergrid++;
+        string CellColor = "";
+        string CellText = "";
+        //if (item.IsRead)
+        //{
+        //    ClassRowName = "Row";
+        //}
+        //else
+        //{
+        //    ClassRowName = "RowFalse";
+        //}
+        <div class="Row" style="float: right;">
+            <div class="Column" style="float: right; width: 76px;">
+                <div style="width: 24px; float: right">
+
+
+                    @using (Ajax.BeginForm(actionName: "DeleteQuestion", routeValues: new { Id = item.Id, Page = Page }, ajaxOptions: new AjaxOptions
+                   {
+                       HttpMethod = "POST",
+                       UpdateTargetId = "BoxContent",
+                       InsertionMode = InsertionMode.Replace,
+                   }, htmlAttributes: new { @class = "webUserLink" }))
+                    {
+                        <input type="button" class="IconDelete" value=" " onclick="return ShowPopup('#PopUp-Content', this);" />
+                    }
+                </div>
+                <div style="width: 24px; margin-right: 3px; float: right">
+                    @using (Html.BeginForm(actionName: "DetailQuestion", controllerName: "Question", routeValues: new { Id = item.Id, Extparam = Page }, method: FormMethod.Get))
+                    {
+                        <input type="submit" value=" " class="IconPreview" />
+                    }
+                </div>
+            </div>
+            <div class="Column" style="float: right; width: 100px">
+                @item.Name
+            </div>
+            @*<div class="Column" style="float: right; width: 150px">
+                @item.Subject
+            </div>*@
+            <div class="Column" style="float: right; width: 150px">
+                @{
+                    string Msg = item.Message;
+                    Msg = (item.Message.Length > 15) ? Msg.Substring(0, 15) + "..." : Msg;
+                }
+                @Msg
+            </div>
+            <div class="Column" style="float: right; width: 100px">
+                @{
+                    PersianToolS.PersinToolsClass dateFa = new PersianToolS.PersinToolsClass();
+                    string dtfa = "";
+                    if (item.SaveMessageDate != null)
+                    {
+                        dtfa = dateFa.DateToPersian(Convert.ToDateTime(item.SaveMessageDate)).year + "،" + dateFa.DateToPersian(Convert.ToDateTime(item.SaveMessageDate)).DayOfweak + " ، " + dateFa.DateToPersian(Convert.ToDateTime(item.SaveMessageDate)).day.ToString() + " " + dateFa.DateToPersian(Convert.ToDateTime(item.SaveMessageDate)).MonthName;
+                    }
+                }
+                <div class="WebUserLabelDate">@dtfa</div>
+            </div>
+@if (item.StatusMSG == 1)
+{
+    CellColor = "RedCell";
+    CellText = "جدید";
+}
+else if (item.StatusMSG == 2)
+{
+    CellColor = "BlueCell";
+    CellText = "خوانده شده <br> توسط " + @item.Reader + " </br> در تاریخ : " + @item.ReadDate;
+}
+else if (item.StatusMSG == 3)
+{
+    CellColor = "GreenCell";
+    CellText = "پاسخ داده شد <br> توسط " + @item.Reader + " </br> در تاریخ : " + @item.ReadDate;
+}
+            <div class="Column @CellColor" style="float: right; width: 120px">
+             
+           @Html.Raw(CellText)
+            </div>
+        </div>
+    }
+    @{
+        if (Countergrid != 0)
+        {
+        <div class="Row" style="background-color: transparent; height: 29px; float: right; width: 698px">
+        </div>
+        <div class="RowBottom" style="margin-bottom: 80px;">
+            <div class="Column" style="float: right; width: 380px;">
+                <div class="IconDelDes" style="width: 19px; margin-right: 10px;">
+                </div>
+                <div class="Item" style="width: 40px;">
+                    حذف
+                </div>
+
+                <div class="IconPrevDes" style="width: 19px; margin-right: 10px;">
+                </div>
+                <div class="Item" style="width: 60px;">
+                    جزئیات
+                </div>
+            </div>
+        </div>
+        }
+    }
+</div>
+<p>
+    &nbsp;
+</p>
+<div id="pagination">
+    <ul class="page-numbers">
+        @if (Page != 1)
+        {
+            <li>@Ajax.ActionLink(".", "RefreshQuestion", new { Page = Page - 1 }, new AjaxOptions { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers prev" })</li>
+        }
+        @for (int i = StartPage; i < Page; i++)
+        {
+            <li>@Ajax.ActionLink(i.ToString(), "RefreshQuestion", new { Page = i }, new AjaxOptions { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers" })</li>
+        }
+        @if (QuestionList.Count() != 0)
+        {
+            <li><span class="page-numbers current">@Page</span></li>
+        }
+        @for (int i = Page + 1; i <= EndPage; i++)
+        {
+            <li>@Ajax.ActionLink(i.ToString(), "RefreshQuestion", new { Page = i }, new AjaxOptions { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers" })</li>
+        }
+        @if ((Page != TotalPage) && (TotalPage != 0))
+        {
+            <li>@Ajax.ActionLink(".", "RefreshQuestion", new { Page = Page + 1 }, new AjaxOptions { UpdateTargetId = "BoxContent", InsertionMode = InsertionMode.Replace }, new { @class = "page-numbers next" })</li>
+        }
+    </ul>
+</div>
+
+
+
+
+

@@ -1,0 +1,24 @@
+﻿@{
+      Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+}
+<script src="~/Scripts/jquery.js"></script>
+ @Html.Hidden("MenuItems", "1383997298_banner_design.png" + ":-" + "مدیریت بخش های صفحه ی اصلی" + ":-" + "اسلایدشو")
+
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script>
+    Page();
+</script>
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+  <div class="divCssWh" >
+      <div class="FloatL">
+          <a href="~/Admin/Banner/CreateBanner" class="LinkForCreateItems">افزودن اسلایدشو</a>
+    </div>
+<div id="BoxSitePart">
+    @Html.Partial("_BannerList")
+</div>
+      </div>
+
+
+

@@ -1,0 +1,112 @@
+﻿@model   Domain.Validation.Admin.LoginModel
+@{
+    ViewBag.Title = "ورود به پنل مدیریت";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Admin/AdminDesign.css" rel="stylesheet" />
+<link href="~/Content/Admin/validation.css" rel="stylesheet" />
+     <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+@section scripts {
+     <script src="~/Scripts/jquery.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+}
+<div id="LoginSkinOutline">
+    <div id="LoginSkinContent">
+        <div id="HeaderLogin">
+            
+        </div>
+        <div id="ContentLogin">
+            <div class="LoginContainer">
+                <div class="Header">
+                    <div class="HeaderLeft"></div>
+                    <div class="HeaderTitle">
+                        <div class="HeaderIcon">
+                            <img src="~/Images/Admin/AdminImages/admin_48.png" style="height: 48px; width: 48px; border-width: 0px;" alt="faqImage" />
+                        </div>
+                        <span class="Head" id="lblModuleTitle">ورود به پنل مدیریت</span>
+                    </div>
+                    <div class="HeaderRight"></div>
+                </div>
+                <div class="Content">
+                    <div style="height: 3px;"></div>
+                    <div style="display: none; padding-top: 40px;" id="WrongPass">
+                        <div class="MessageBox Yellow" style="">
+                            <div class="Set">
+                                <b>خطا!!!</b>
+                                <br>
+                                <span class="description">نام کاربری یا رمز عبور را اشتباه وارد کرده اید .</span>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        if (ViewBag.res == "Error")
+                        {
+                        <script>
+                            $('#WrongPass').show();
+                        </script>
+                        }
+                        else
+                        {
+                        <script>
+                            $('#WrongPass').hide();
+                        </script>
+                        }
+                    }
+                    @using (Html.BeginForm(actionName: "Login", controllerName: "Home"))
+                    {
+                        <div class="FormBody">
+                            <div class="Width100">
+                                <div class="ClassUserName">
+                                    @Html.Label("نام کاربری", new { @class = "LoginLabel" })
+                                </div>
+                                <div class="FloatR">
+                                    @Html.TextBoxFor(x => x.UserName, new { @class = "LoginTextBox" })
+                                </div>
+                                <div class="FloatR" style="padding-top: 7px; width: 10px; padding-right: 2px">
+                                    @Html.ValidationMessageFor(x => x.UserName, "نام کاربری الزامی است.", new { @class = "field-validation-left" })
+                                </div>
+                            </div>
+                            <div class="Width100">
+                                <div class="ClassUserName">
+                                    @Html.Label("گذر واژه", new { @class = "LoginLabel" })
+                                </div>
+                                <div class="FloatR">
+                                    @Html.PasswordFor(x => x.Password, new { @class = "LoginTextBox" })
+                                </div>
+                                <div class="FloatR" style="padding-top: 7px; width: 10px; padding-right: 2px">
+                                    @Html.ValidationMessageFor(x => x.Password, "گذر واژه الزامی است.", new { @class = "field-validation-left" })
+                                </div>
+                            </div>
+                            <div class="Width100">
+                                <div class="ClassUserName">
+                                    @Html.Label("زبان", new { @class = "LoginLabel" })
+                                </div>
+                                <div class="FloatR">
+                                    <select name="dplanguage" class="webUserDropDown">
+                                    <option value="1">فارسی</option>
+                                    <option value="2">English</option>
+                                    </select></div>
+                            </div>
+                            <div class="Width100">
+                                <div class="ClassUserName">
+                                </div>
+                                <div class="FloatR">
+                                    @Html.CheckBoxFor(x => x.RememberMe)
+                                    @Html.Label("مرا به خاطر بسپار", new { @class = "Normal" })
+                                </div>
+                            </div>
+                            <div class="Width100">
+                                <div class="ClassUserName">
+                                </div>
+                                <div class="FloatR">
+                                    <input type="submit" class="LoginButton" id="btnLogin" value="ورود">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

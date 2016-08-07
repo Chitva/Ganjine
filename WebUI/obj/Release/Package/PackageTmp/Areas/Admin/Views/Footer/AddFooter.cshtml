@@ -1,0 +1,98 @@
+﻿@model  Domain.Entities.Footer
+@{
+    ViewBag.Title = "ContactUs";
+    string Text = Convert.ToString(ViewBag.ContactUs);
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+<link href="~/Content/Admin/validation.css" rel="stylesheet" />
+@Html.Hidden("MenuItems", "1429956437_upload.png" + ":-" + "مدیریت فوتر" + ":-" + "ایجاد فوتر")
+
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script>
+        Page();
+        PageList('افزودن فوتر', '/Admin/Footer/FooterList');
+      
+        $(document).ready(function () {
+            $("#chkLink").click(function () {
+                if ($(this).is(':checked')) {
+                    $("#FooterLinkDiv").removeClass("DivMenuInfoDetailHide");
+                    $("#FooterLinkDiv").addClass("DivMenuInfoDetailShow");
+                }
+                else {
+                    $("#FooterLinkDiv").removeClass("DivMenuInfoDetailShow");
+                    $("#FooterLinkDiv").addClass("DivMenuInfoDetailHide");
+                }
+            });
+
+        });
+    </script>
+<script src="~/Scripts/Admin/AddFooter.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+<div class="divCssWh">
+
+    <div class="divCss" id="thisis" style="width: 300px;">
+    </div>
+    <div>
+        @using (Ajax.BeginForm(actionName: "AddFooter", controllerName: "Footer", ajaxOptions:
+            new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "thisis", InsertionMode = InsertionMode.Replace, OnComplete = "$('input.webUserTextBox').val('');$('#chkLink').attr('checked', false);$('#FooterText2').val('');" }))
+        {
+            @Html.ValidationSummary(true)
+             <div class="divCss" style="padding-top: 15px">
+                <div class="DivCss2" style="width: 50px">
+                    @Html.Label("ستون", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                     @Html.DropDownList("FooterColumnNameId", new SelectList(ViewBag.FooterColNameList, "Id", "Name"),
+                    new { @class = "webUserDropDown"  , @id="dpColumns" , @style="width:162px;"})
+                </div>
+               
+            </div>
+            <div id="Col12" class="divCss " style="padding-top: 15px">
+                <div class="DivCss2" style="width: 50px">
+                    @Html.Label("متن", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x=>x.FooterText, new { @class = "webUserTextBox", @style = "width:160px",@id="FooterText1" })
+                </div>
+                <div id="FooterTextVal" class="FloatRight DivMenuInfoDetailHide" >
+                    <span class = "field-validation-left">متن الزامی است.</span>
+            </div>
+                <div class="FloatRight">
+                 @Html.CheckBox("chkLink", new { @id="chkLink"})
+                    <span class="WebUserLabel">لینک</span>
+                
+                </div>
+                 <div  id="FooterLinkDiv"  class="FloatRight DivMenuInfoDetailHide">
+                    @Html.TextBoxFor(x=>x.FooterLink, new { @class = "webUserTextBox", @style = "width:160px" , @id="FooterLink1" })
+                </div>
+                 <div id="FooterLinkVal" class="FloatRight DivMenuInfoDetailHide">
+                    <span class = "field-validation-left">لینک الزامی است.</span>
+            </div>
+            </div>
+                <div id="Col3" class="divCss DivMenuInfoDetailHide" style="padding-top: 15px;">
+                <div class="DivCss2" style="width: 50px">
+                    @Html.Label("متن", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextArea("FooterText2", new { @class = "webUserTextBox", @style = "width:160px",@id="FooterText2" })
+                </div>
+                <div id="FooterTextValArea" class="FloatRight DivMenuInfoDetailHide">
+                    <span class = "field-validation-left">متن الزامی است.</span>
+            </div>
+                
+            </div>
+            <div class="divCss" style="padding-top: 15px;">
+                <div class="DivCss1" style="width: 50px">
+                    &nbsp;
+                </div>
+                <div class="FloatRight">
+                    <input id="btnSave" type="submit" onclick="return CheckValidation($('#dpColumns').val())" class="webUserButton" value="ثبت" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

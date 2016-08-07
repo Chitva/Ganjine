@@ -1,0 +1,27 @@
+﻿@model Domain.Validation.Admin.LinkBoxVM
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+@Html.Hidden("MenuItems", "1429956437_upload.png" + ":-" + "مدیریت بخشهای صفحه اصلی" + ":-" + "جزئیات پیوند")
+
+<script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script>
+        Page();
+    </script>
+  
+<div class="divCssWh">
+    <div>
+        <div class="DivClass">
+            <div style="float: left; padding-left: 31px; padding-top: 3px">
+                @Html.ActionLink("بازگشت", actionName: "LinkBoxList", controllerName: "LinkBox", 
+               routeValues: new { Page = @ViewBag.Page }, htmlAttributes: new { @class = "LinkBackPage" })
+            </div>
+        </div>
+    </div>
+ 
+     
+</div>
+
+

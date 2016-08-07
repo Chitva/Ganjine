@@ -1,0 +1,1 @@
+﻿function moneyCommaSep(e) { var t = ","; var n = e.value.replace(new RegExp(t, "g"), ""); var r = new RegExp("\\B(\\d{3})(" + t + "|$)"); do { n = n.replace(r, t + "$1") } while (n.search(r) >= 0); e.value = n } function removeComma(e) { var t = ","; e.value = e.value.replace(new RegExp(t, "g"), "") }

@@ -1,0 +1,172 @@
+﻿@model List<Domain.ViewModel.User.ProductLinksViewModel>
+    @{
+        Layout = "~Areas/EN/Views/Shared/_Layout.cshtml";
+        List<Domain.Entities.ServiceGroup> ServiceGroupList = ViewBag.ServiceGroup;
+        List<Domain.Entities.ServiceGroup> Categories = new List<Domain.Entities.ServiceGroup>();
+        List<Domain.Entities.ServiceGroup> Parents = new List<Domain.Entities.ServiceGroup>();
+
+        Categories = ViewBag.Categories;
+        Parents = Categories.Where(_ => _.ParentID == null).ToList();
+
+        string dashName = "";
+    }
+
+    <link href="/Bootstrap/css/othertemplate/skin-0.css" rel="stylesheet" />
+    <link href="/Bootstrap/css/othertemplate/style.css" rel="stylesheet" />
+    <link href="/Content/Scroll/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <style>
+        .blogpost .blogpost-content {
+            margin-right: 0;
+        }
+
+        .overlay-links {
+            margin-left: -25px;
+        }
+
+        .team-member.option-3 .image-box-body {
+            height: 121px;
+            padding: 15px 10px 15px 3px;
+        }
+
+        .team-member.option-3 .overlay-container {
+            width: 45% !important;
+        }
+
+        .team-member.option-3 .image-box-body {
+            width: 55% !important;
+        }
+    </style>
+    <div class="main-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-12">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <a href="/EN/product/@(item.ProductGroupId)/@(item.ProductName)">
+                                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                                        {
+                                            <img class="card-img-top" src="@(item.ImagePath)" alt="@(item.Alt)">
+                                        }
+                                        else
+                                        {
+                                            <img class="card-img-top" src="~/Images/noimage.png" alt="@(item.Alt)">
+                                        }
+                                    </a>
+                                    <div class="card-block">
+                                        <h4 class="card-title">
+                                            <a href="/EN/product/@(item.ProductGroupId)/@(item.ProductName)">@(item.ProductName)</a>
+                                        </h4>
+                                        <p>
+                                            Price :
+                                            <span style='@(item.Discount == null ? "" : "text-decoration: line-through;")'>
+                                                @(item.Price)
+                                            </span>
+                                            <span style="color: red;">
+                                                @(item.Price - item.Discount)
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <div class="panel-group" id="accordionNo">
+                        <!--Category-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" href="#collapseCategory" class="collapseWill">
+                                        <span class="pull-left"> </span> Product Categories
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseCategory" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <ul class="nav nav-pills nav-stacked tree">
+                                        <li class="active dropdown-tree open-tree">
+                                            <ul class="category-level-2 dropdown-menu-tree">
+                                                @foreach (var Item in Parents)
+                                                {
+                                                    dashName = Item.Name.Replace(" ", "-").Replace(" ", ":").Replace(" ", "/").Replace(" ", "\\");
+                                                  
+                                                    <li class="dropdown-tree open-tree">
+                                                        <a class="dropdown-tree-a" href="/EN/category/@(Item.Id)/@dashName" style="font-weight: normal !important;">@Item.Name</a>
+                                                        <ul class="category-level-2 dropdown-menu-tree">
+                                                            @CreateNodes(Item.Id, Categories)
+                                                        </ul>
+                                                    </li>
+                                                    @*}
+                                                        }*@
+                                                }
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .card {
+            border: 2px solid #faa814;
+        }
+
+            .card .card-block {
+                padding: 1.25rem;
+            }
+
+            .card img {
+                max-width: 256px;
+                margin: 0 auto;
+            }
+    </style>
+
+
+@helper  CreateNodes(int? ParentID, List<Domain.Entities.ServiceGroup> availableCats)
+{
+
+var childs = availableCats.Where(p => p.ParentID == ParentID).OrderBy(p => p.Priority).ToList();
+int CountServiceGroupList = childs.Count;
+string dashTitle = "";
+if (CountServiceGroupList > 0)
+{
+    for (int i = 0; i < CountServiceGroupList; i++)
+    {
+        if (childs[i].GrandsonsCount > 0)
+        {
+            if (availableCats.FirstOrDefault(x => x.ParentID == childs[i].Id) != null)
+            {
+                    <li class="dropdown-tree open-tree">
+                        <a class="dropdown-tree-a" href="/EN/category/@(childs[i].Id)/@(childs[i].Name)" style="font-weight: normal !important;">@childs[i].Name</a>
+                        <ul class="category-level-2 dropdown-menu-tree">
+                            @CreateNodes(childs[i].Id, availableCats)
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    dashTitle = childs[i].Name.Replace(" ", "-");
+                    <li value="@childs[i].Id">
+                        @if (ViewBag.catids == childs[i].Id)
+                        {
+                            <a class="stbnodenone" style="color: #355a0b; text-decoration:underline;" href="/EN/Product/@childs[i].Id/@dashTitle"> @childs[i].Name</a>
+                        }
+                        else
+                        {
+                            <a class="stbnodenone" href="/EN/Product/@childs[i].Id/@dashTitle"> @childs[i].Name</a>
+
+                        }
+                    </li>
+            }
+        }
+    }
+}
+}

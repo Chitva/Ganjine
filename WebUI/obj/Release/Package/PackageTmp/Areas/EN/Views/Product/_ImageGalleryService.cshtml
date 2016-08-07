@@ -1,0 +1,83 @@
+﻿
+@{
+    List<Domain.Entities.ServiceTabFile> ServiceTabFileList = ViewBag.ImageGalleryList;
+}   
+
+@if (ServiceTabFileList != null && ServiceTabFileList.Count > 0)
+                            {
+<div class="clearfix"></div>
+<div  class="row grid-space-20">
+    @foreach (var Item1 in ServiceTabFileList)
+{if (System.IO.File.Exists(Server.MapPath("~/Images/TabGalleryService/" + Item1.File)))
+    {
+    <div class="col-xs-6 col-sm-6 col-md-3 padding-top-20">
+        <div class="image-box  border-1-solid-ccc">
+            <div class="overlay-container" style="display: table; height: 190px; width:100%;">
+                <div style="display: table-cell; vertical-align: middle;">
+
+                    @{
+        using (var image = new System.Drawing.Bitmap(Server.MapPath("~/Images/TabGalleryService/" + Item1.File)))
+        {
+            if (image.Width >= image.Height)
+            {
+                if (string.IsNullOrEmpty(Item1.alt))
+                {
+                    <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="services image" style="margin:0 auto; width:100%; height:auto;">
+                }
+                else
+                {
+                    <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="@Item1.alt" style="margin:0 auto; width:100%; height:auto;">
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(Item1.alt))
+                {
+                    <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="services image" style="margin: 0 auto; height: 100%; max-height: 190px; width: auto; ">
+                }
+                else
+                {
+                    <img src="/Images/TabGalleryService/thum/@Item1.File" class="img-responsive" alt="@Item1.alt" style="margin: 0 auto; height: 100%; max-height: 190px; width: auto; ">
+                }
+            }
+        }
+}
+                </div>
+                <div class="overlay">
+                    <div class="overlay-links">
+
+                        <a href="/Images/TabGalleryService/@Item1.File" class="popup-img"><i class="fa fa-search-plus"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+}
+</div>
+}
+
+<script>
+   
+    if (($(".popup-img").length > 0) || ($(".popup-iframe").length > 0) || ($(".popup-img-single").length > 0)) {
+        $(".popup-img").magnificPopup({
+            type: "image",
+            gallery: {
+                enabled: true,
+            }
+        });
+        $(".popup-img-single").magnificPopup({
+            type: "image",
+            gallery: {
+                enabled: false,
+            }
+        });
+        $('.popup-iframe').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            preloader: false,
+            fixedContentPos: false
+        });
+    };
+</script>

@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "ContactUs";
+    string Text = ViewBag.RajiStory;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="~/Scripts/Admin/CloseSucc.js"></script>
+
+@Html.Hidden("MenuItems", "1429708919_Text-Documents.png" + ":-" + "مدیریت سایر صفحات" + ":-" + "حکایت گز راجی")
+
+
+@section scripts{
+
+    <script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript" src="~/Scripts/Admin/InitializeFckfinder.js"></script>
+    <script>
+        Page();
+        Initializes('#ckEditor');
+    </script>
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+<div class="divCssWh">
+    <div class="divCss" id="thisis">
+        @Html.Partial("_succWrittenBy")
+    </div>
+    <div style="padding-top: 15px">
+        @using (Ajax.BeginForm(actionName: "RajiStory", controllerName: "Setting",
+                routeValues: new {  }, ajaxOptions: new AjaxOptions
+                { HttpMethod = "POST", UpdateTargetId = "thisis", InsertionMode = InsertionMode.Replace },
+                           htmlAttributes: new { enctype = "multipart/form-data" }))
+        {
+            <div class="divCss">
+                <div style="width: 700px; float: right">
+                    @Html.TextArea("ckEditor", Text)
+                </div>
+            </div>
+            <div class="divCss" style="padding-top: 15px">
+                <div class="DivCss1">
+                    <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+                </div>
+                <div class="FloatRight">
+                </div>
+            </div>
+        }
+    </div>
+</div>

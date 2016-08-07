@@ -1,0 +1,243 @@
+﻿@{
+    List<Domain.Entities.Menu> objt = new List<Domain.Entities.Menu>();
+    List<Domain.Entities.RoleDetail> WhichRole = new List<Domain.Entities.RoleDetail>();
+    int RoleId = Convert.ToInt32(TempData["RoleCode"]);
+    TempData["RoleCode"] = RoleId;
+}
+<link href="~/Content/Admin/alert.css" rel="stylesheet" />
+<script src="~/Scripts/Admin/SelectAllCheckBoxes.js"></script>
+<script src="~/Scripts/Admin/ConfirmDelete.js"></script>
+<script>
+    function IsActivePremission(objt)
+    {
+        if ($(objt).attr('checked'))
+        {$(objt).parent().parent().find('.ChangePremissionPic').removeAttr('disabled');}
+        else
+        {
+            $(objt).parent().parent().find('.ChangePremissionPic').attr('disabled','disabled');
+        }
+    }
+    function ShowPremission(obj1, obj2, obj3) {
+        $.ajax({
+            url: "/UserAdmin/SettingPremission/",
+            type: 'POST',
+            data: { MenuId: obj1, StatusId: obj2, RoleId: obj3 },
+            cache: 'false',
+            success: function (result) {
+                var MenuId = 0;
+                var StatusId = 0;
+                var Premission = "";
+                $.each(result, function (Index, ShowPremissionList) {
+                    MenuId = ShowPremissionList.MenuId;
+                    StatusId = ShowPremissionList.StatusId;
+                    Premission = ShowPremissionList.Premission
+                });
+                $('#MenuId').val(MenuId);
+                if (Premission != "" && Premission.indexOf("Add", 0) > -1) {
+                    $('#chkbAdd').attr("checked", true);
+                }
+                else {
+                    $('#chkbAdd').attr("checked", false);
+                }
+                if (Premission != "" && Premission.indexOf("Edit", 0) > -1) {
+                    $('#chkbEdit').attr("checked", true);
+                }
+                else {
+                    $('#chkbEdit').attr("checked", false);
+                }
+                if (Premission != "" && Premission.indexOf("Delete", 0) > -1) {
+                    $('#chkbDelete').attr("checked", true);
+                }
+                else {
+                    $('#chkbDelete').attr("checked", false);
+                }
+                if (Premission != "" && Premission.indexOf("ShowGroups", 0) > -1) {
+                    $('#chkbShowGroups').attr("checked", true);
+                }
+                else {
+                    $('#chkbShowGroups').attr("checked", false);
+                }
+                if (Premission != "" && Premission.indexOf("Active", 0) > -1) {
+                    $('#chkbActive').attr("checked", true);
+                }
+                else {
+                    $('#chkbActive').attr("checked", false);
+                }
+                if (StatusId != 0) {
+                    $('#Add').hide();
+                    $('#Edit').hide();
+                    $('#Delete').hide();
+                    $('#ShowGroups').hide();
+                    $('#Actives').hide();
+                    switch (StatusId) {
+                        case 1:
+                            {
+                                $('#Add').show();
+                                $('#Edit').show();
+                                $('#Delete').show();
+                                break;
+                            }
+                        case 2:
+                            {
+                                $('#Add').show();
+                                $('#Edit').show();
+                                $('#Delete').show();
+                                $('#ShowGroups').show();
+                                break;
+                            }
+                        case 3:
+                            {
+                                $('#Add').show();
+                                $('#Delete').show();
+                                break;
+                            }
+                        case 4:
+                            {
+                                $('#Actives').show();
+                                $('#Delete').show();
+                                break;
+                            }
+                    }
+                }
+                return ShowPopup('#PopUp-Content', this);
+            }
+             ,
+            error: function (result) {
+                alert('An Error has occurred');
+            }
+        });
+    }
+</script>
+<div id="BoxDelete">
+    <div id="PopUp-Content">
+        <div class="TB_title">
+            <div class="TB_ajaxWindowTitle">سطح دسترسی</div>
+            <div class="TB_closeAjaxWindow">
+                <a title="بستن" class="TB_closeWindowButton" href="#">
+                    <img src="/Images/Admin/AdminImages/CloseBox.gif" alt="RoleImage"></a>
+            </div>
+        </div>
+        @using (Ajax.BeginForm("SavePremission", ajaxOptions: new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "PremissionItems" }))
+        {
+            <div id="TB_ajaxContent">
+                <div id="PremissionItems">
+                    @Html.Partial("_PremissionAccess")
+                </div>
+                <div class="BoxBtn" style="width: 100%; float: right; margin-top: 16px;">
+                    <div class="Btn">
+                        <div>
+                            <input id="OkBtn" type="submit" value="ثبت" class="webUserButton" style="width: 85px;" />
+                        </div>
+                    </div>
+                    <div class="Btn" style="float: left;">
+                        <div>
+                            <input id="cancelBtn" type="button" value="انصراف" class="webUserButton" style="width: 85px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    $('#RoleId').val(@RoleId);
+</script>
+@using (Ajax.BeginForm(actionName: "DefineRole", controllerName: "UserAdmin", routeValues: new { }, ajaxOptions: new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "thisis1", InsertionMode = InsertionMode.Replace }, htmlAttributes: new { @id = "formss0" }))
+{
+    <div id="MainDivRole" dir="rtl">
+        @{
+    WhichRole = ViewBag.Roles;
+    if (WhichRole != null)
+    {
+        List<Domain.Entities.Menu> menuList = ViewBag.Menu;
+        objt = menuList.Where(p => p.ParentID == 0 && p.Action != 106).ToList();
+        string Divs = "";
+        for (int h = 0; h < objt.Count; h++)
+        {
+            if (h % 2 == 0)
+            {
+                Divs = "<div class=DivFrame>";
+            @Html.Raw(Server.HtmlDecode(Divs));
+            }
+            string NameChb = "SelectAllCheckBoxes" + objt[h].Id;
+            Divs = "<div id=" + NameChb + "div" + " class=DivHalf>";
+            @Html.Raw(Server.HtmlDecode(Divs));
+            <hr color="#E5E5E5" />
+            <input type="checkbox" onclick="SelectAllCheckboxes(this);" id='@NameChb'  name='@NameChb' value='@objt[h].Id' /> <b> @Html.Label(@objt[h].Name, new { @class = "WebUserLabel" })</b>   
+            <br />
+            @RenderMenuItem(menuList, objt[h].Id, h, RoleId)  
+        }
+    }
+        }
+    </div>
+    <div style="float: right; padding-right: 10px; width: 100%;">
+        <input id="btnSave1" type="submit" class="webUserButton" value="ثبت" />
+    </div>
+}
+@helper RenderMenuItem(List<Domain.Entities.Menu> menuList, int mi, int h, int RoleId)
+{
+    List<Domain.Entities.Menu> objt = new List<Domain.Entities.Menu>();
+    List<Domain.Entities.RoleDetail> WhichRole = new List<Domain.Entities.RoleDetail>();
+    objt = menuList.Where(p => p.ParentID == mi).ToList();
+    WhichRole = ViewBag.Roles;
+    string Divs = "";
+    int counter = 0;
+    for (int g = 0; g < objt.Count; g++)
+    {
+        if (g == 0)
+        {
+            Divs = "<div id=chkb class=DicContentChkb>";
+    @Html.Raw(Server.HtmlDecode(Divs));
+        }
+        var IsExist = WhichRole.Where(p => p.MenuID == objt[g].Id);
+    <div id="@objt[g].Id" class="DivItemChkb">
+        @{
+            <div class="FloatRight">
+                @if (IsExist.Count() > 0)
+                {
+                    counter++;
+                    <input type="checkbox" checked="checked" onchange="IsActivePremission(this);"  name="Roles"   value="@objt[g].Id"/> @Html.Label(@objt[g].Name, new { @class = "WebUserLabel" })
+                }
+                else
+                {
+                    counter = 0;
+                    <input type="checkbox" onchange="IsActivePremission(this);"   name="Roles" value="@objt[g].Id"   />  @Html.Label(@objt[g].Name, new { @class = "WebUserLabel" })
+                }
+            </div>
+                if (objt[g].StatusId != null)
+                {
+            <div class="DivImage">
+                <input type="button"  disabled="disabled"   onclick="ShowPremission(@objt[g].Id,@objt[g].StatusId,@RoleId);" class="ChangePremissionPic" />
+                <script>
+                  @{
+                    string Nameaa = "#" + objt[g].Id;
+                      }
+                    $('@Nameaa').find("input:checked").each(function() {
+                        $('@Nameaa').find(".ChangePremissionPic").removeAttr('disabled');
+                    });
+                </script>
+            </div>
+                }
+        }
+    </div>
+                if (counter == objt.Count)
+                {
+                    HtmlString ScriptsOnPage = new HtmlString("<script type=text/javascript > " + "$('#SelectAllCheckBoxes" + mi.ToString() + "').attr('checked', true);</script>");
+    @ScriptsOnPage
+                }
+                if (g + 1 == objt.Count)
+                {
+                    Divs = "</div>";
+    @Html.Raw(Server.HtmlDecode(Divs));
+                                      Divs = "</div>";
+    @Html.Raw(Server.HtmlDecode(Divs));
+                }
+                if (h % 2 != 0 && g + 1 == objt.Count)
+                {
+                    Divs = "</div>";
+    @Html.Raw(Server.HtmlDecode(Divs));
+                                      h = 0;
+                }
+    @RenderMenuItem(menuList, objt[g].Id, h, RoleId)
+    }
+}

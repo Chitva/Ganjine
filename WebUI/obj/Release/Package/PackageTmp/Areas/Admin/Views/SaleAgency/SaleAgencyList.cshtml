@@ -1,0 +1,23 @@
+﻿@{
+      Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+}
+<script src="~/Scripts/jquery.js"></script>
+@Html.Hidden("MenuItems", "1366112940_List.png" + ":-" + "مدیریت سایر صفحات" + ":-" + "نمایندگی فروش")
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script>
+ 
+    Page();
+</script>
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+  <div class="divCssWh" >
+      <div class="FloatL">
+          <a href="~/Admin/SaleAgency/CreateSaleAgency" class="LinkForCreateItems">افزودن نمایندگی فروش جدید</a>
+    </div>
+<div id="BoxSitePart">
+    @Html.Partial("_SaleAgencyList")
+</div>
+      </div>
+
+

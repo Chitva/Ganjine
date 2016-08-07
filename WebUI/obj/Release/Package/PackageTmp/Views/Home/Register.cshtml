@@ -1,0 +1,225 @@
+﻿@model Domain.ViewModel.User.UserAccountViewmodel
+
+@{
+    ViewBag.Title = "ثبت نام";
+}
+
+<div class="page-intro rtl" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home pr-10"></i>
+                        تندیس طلایی
+                    </li>
+                    <li>ثبت نام</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <div class="container card account">
+        <div class="row">
+            <div class="header">
+                <i class="fa fa-user-plus"
+                   style="font-size: 45px;"></i>
+                <br />
+                <h4 style="margin: 8px;"><b>به تندیس طلائی بپیوندید</b></h4>
+            </div>
+            <div class="col-lg-6 col-lg-push-3 col-md-8 col-md-push-2 col-sm-10 col-sm-push-1 col-xs-12 col-xs-push-0">
+                <form id="RegistrationForm" role="form">
+                    <div class="messages">
+                        <div class="alert alert-success" id="success" style="display: none">
+                            <strong>ارسال!</strong> اطلاعات شما با موفقیت ثبت شد.
+                        </div>
+                        <div class="alert alert-danger" id="failed" style="display: none">
+                            <strong>خطا!</strong> خطا در ارسال اطلاعات.
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Name" class="col-sm-3 form-control-label visible-xs">نام</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Name" name="Name">
+                        </div>
+                        <label for="Name" class="col-sm-3 form-control-label hidden-xs">نام</label>
+                    </div>
+                    <div class="form-group row">
+                        <label for="LastName" class="col-sm-3 form-control-label visible-xs">نام خانوادگی</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="LastName" name="LastName">
+                        </div>
+                        <label for="LastName" class="col-sm-3 form-control-label hidden-xs">نام خانوادگی</label>
+                    </div>
+                    <div class="form-group row">
+                        <label for="IsMale" class="col-sm-3 form-control-label visible-xs">جنسیت</label>
+                        <div class="col-sm-9">
+                            <div class="form-control select">
+                                <select id="IsMale" name="IsMale">
+                                    <option value="true" selected>مرد</option>
+                                    <option value="false">زن</option>
+                                </select>
+                            </div>
+                        </div>
+                        <label for="IsMale" class="col-sm-3 form-control-label hidden-xs">جنسیت</label>
+                    </div>
+                    <div class="form-group row">
+                        <label for="RegEmail" class="col-sm-3 form-control-label visible-xs">ایمیل</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" id="RegEmail" name="RegEmail">
+                        </div>
+                        <label for="RegEmail" class="col-sm-3 form-control-label hidden-xs">ایمیل</label>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Password" class="col-sm-3 form-control-label visible-xs">رمز عبور</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="Password" name="Password">
+                        </div>
+                        <label for="Password" class="col-sm-3 form-control-label hidden-xs">رمز عبور</label>
+                    </div>
+                    <div class="form-group row">
+                        <label for="ConfirmPassword" class="col-sm-3 form-control-label visible-xs">تکرار رمز عبور</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword">
+                        </div>
+                        <label for="ConfirmPassword" class="col-sm-3 form-control-label hidden-xs">تکرار رمز عبور</label>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="pull-right">
+                                <script src='https://www.google.com/recaptcha/api.js?hl=fa' async defer></script>
+                                <div class="g-recaptcha" data-sitekey="6LdQpCYTAAAAAL8dJ4l3eaKsKooNE2KklCg3kR-Z"></div>
+                            </div>
+                            <input id="btnsave"
+                                   type="submit"
+                                   value="ثبت نام"
+                                   style="margin: 36px 0 0 0;"
+                                   class="btn btn-primary pull-left">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<script>
+    $(document).ready(function () {
+        if ($("#RegistrationForm").length > 0) {
+            var Validator = $("#RegistrationForm").validate({
+                submitHandler: function (form) {
+                    $("#btnsave").attr("disabled", true);
+                    $.ajax({
+                        url: "/Home/Register",
+                        data: {
+                            Name: $("#Name").val(),
+                            LastName: $("#LastName").val(),
+                            Email: $("#RegEmail").val(),
+                            mobile: $("#IsMale").val(),
+                            Password: $("#Password").val(),
+                            ConfirmPassword: $("#ConfirmPassword").val(),
+                            "g-recaptcha-response": grecaptcha.getResponse()
+                        },
+                        //dataType: "json",
+                        //contentType: "application/json; charset=utf-8",
+                        type: 'POST',
+                        beforeSend: function () {
+                            $(".messages > *").each(function () {
+                                $(this).hide();
+                            });
+                        },
+                        complete: function () {
+                            $("#btnsave").attr("disabled", false);
+                            Validator.resetForm();
+                        },
+                        statusCode: {
+                            200: function (result) {
+                                debugger;
+                                $("#btnsave").attr("disabled", false);
+                                $("#success").show();
+                                $("#Name").val('');
+                                $("#LastName").val('');
+                                $("#RegEmail").val('');
+                                $("#IsMale").val('');
+                                $("#Password").val('');
+                                $("#ConfirmPassword").val('');
+                            },
+                            500: function (result) {
+                                debugger;
+                                $("#failed").show();
+                            },
+                            400: function (result) {
+                                debugger;
+                                $("#failed").html('خطا در ثبت  تصویر امنیتی').show();
+
+                            }
+                        }
+                    });
+
+                },
+                // debug: true,
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element);
+                },
+                onkeyup: false,
+                onclick: false,
+                rules: {
+                    Name: {
+                        required: true,
+                    },
+                    LastName: {
+                        required: true,
+                    },
+                    RegEmail: {
+                        required: true,
+                        email: true
+                    },
+                    IsMale: {
+                        required: true
+                    },
+                    Password: {
+                        required: true
+                    },
+                    ConfirmPassword: {
+                        required: true,
+                        equalTo: '#Password'
+                    }
+                },
+                messages: {
+                    Name: {
+                        required: "نام خود را وارد کنید"
+                    },
+                    LastName: {
+                        required: "نام خانوادگی را وارد کنید"
+                    },
+                    RegEmail: {
+                        required: "ایمیل خود را وارد کنید",
+                        email: "ایمیل خود را بدرستی وارد نمایید به عنوان مثال name@domain.com"
+                    },
+                    IsMale: {
+                        required: "عنوان پیام را وارد نمایید."
+                    },
+                    Password: {
+                        required: "کلمه عبور خود را وارد کنید"
+                    },
+                    ConfirmPassword: {
+                        required: "تکرار کلمه عبور را وارد کنید",
+                        equalTo: "تکرارکلمه عبور صحیح نمیباشد"
+                    }
+                },
+                highlight: function (element) {
+                    //$(element).parent().removeClass("has-success").addClass("has-error");
+                    //$(element).siblings("label").addClass("hide");
+                },
+                success: function (element) {
+                    //$(element).parent().removeClass("has-error").addClass("has-success");
+                    //$(element).siblings("label").removeClass("hide");
+                }
+            });
+        };
+    });
+
+</script>
+

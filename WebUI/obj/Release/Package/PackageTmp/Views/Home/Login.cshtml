@@ -1,0 +1,171 @@
+﻿@model Domain.Validation.User.UserLoginViewmodel
+
+@{
+    ViewBag.Title = "ورود";
+    string email = "";
+    string pass = "";
+    if (ViewBag.Email != null && ViewBag.Pass != null)
+    {
+        email = ViewBag.Email;
+        pass = ViewBag.Pass;
+    }
+
+
+
+}
+
+<div class="page-intro rtl" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home pr-10"></i>
+                        تندیس طلایی
+                    </li>
+                    <li>ثبت نام</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix">
+    <div class="container card account">
+        <div class="row">
+            <div class="header">
+                <i class="fa fa-lock"
+                   style="font-size: 45px;"></i>
+                <br />
+                <h4 style="margin: 8px;"><b>ورود به تندیس طلایی</b></h4>
+            </div>
+            <br />
+            <div class="col-lg-6 col-lg-push-3 col-md-8 col-md-push-2 col-sm-10 col-sm-push-1 col-xs-12 col-xs-push-0">
+                <form id="LoginForm" role="form">
+                    <div class="messages">
+                        <div class="alert alert-success" id="success" style="display: none">
+                            <strong>ارسال!</strong> ورود موفقیت آمیز
+                        </div>
+                        <div class="alert alert-danger" id="failed" style="display: none">
+                            <strong>خطا!</strong> نام کاربری یا رمز عبور اشتباه است.
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="LoginEmail" class="col-sm-3 form-control-label visible-xs">ایمیل</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" id="LoginEmail" name="LoginEmail" value="@email">
+                        </div>
+                        <label for="LoginEmail" class="col-sm-3 form-control-label hidden-xs">ایمیل</label>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Password" class="col-sm-3 form-control-label visible-xs">رمز عبور</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="Password" name="Password" value="@pass">
+                        </div>
+                        <label for="Password" class="col-sm-3 form-control-label hidden-xs">رمز عبور</label>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <input class="theme" id="RememberMe" name="RememberMe" type="checkbox" />
+                            <label for="RememberMe">مرا بخاطر بسپار</label>
+                            <input id="btnsave"
+                                   type="submit"
+                                   value="ورود"
+                                   style="margin: 0;"
+                                   class="btn btn-primary pull-left">
+                        </div>
+                        <div class="col-sm-3">&nbsp;</div>
+                    </div>
+                 </form>
+           </div>
+            <br />
+        </div>
+    </div>
+</div>
+<br />
+<script>
+    $(document).ready(function () {
+        if ($("#LoginForm").length > 0) {
+            var Validator = $("#LoginForm").validate({
+                submitHandler: function (form) {
+                    debugger;
+                    $("#btnsave").attr("disabled", true);
+                    $.ajax({
+                        url: "/Home/Login",
+                        data: JSON.stringify({
+                            Email: $("#LoginEmail").val(),
+                            Password: $("#Password").val(),
+                            RememberMe :$("#RememberMe").is(':checked')
+                        }),
+                        dataType: "json", contentType: "application/json; charset=utf-8",
+                        type :'POST' ,
+                        beforeSend: function () {
+                            $(".messages > *").each(function () {
+                                $(this).hide();
+                            });
+                        },
+                        complete: function () {
+                            debugger;
+                            $("#btnsave").attr("disabled", false);
+                            Validator.resetForm();
+                        },
+                        statusCode: {
+                            200: function (result) {
+                                debugger;
+                                $("#btnsave").attr("disabled", false);
+                                $("#success").show();
+                                setTimeout(function () {
+                                    $("#success").fadeOut(2000, function () {
+                                        $("#success").hide();
+                                        grecaptcha.reset();
+                                    });
+                                }, 5000);
+
+                                window.location.href = '/home';
+                                //$("#LoginEmail").val('');
+                                //$("#Password").val('');
+                                //$("#RememberMe").attr('checked', false);
+                            },
+                            400: function (result) {
+                                debugger;
+                                $("#failed").show();
+                            }
+                        }
+                    });
+
+                },
+                // debug: true,
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element);
+                },
+                onkeyup: false,
+                onclick: false,
+                rules: {
+                    LoginEmail: {
+                        required: true,
+                    },
+                    Password: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    LoginEmail: {
+                        required: "نام کاربری خود را وارد کنید"
+                    },
+                    Password: {
+                        required: "کلمه عبور خود را وارد کنید"
+                    }
+                },
+                highlight: function (element) {
+                 
+                },
+                success: function (element) {
+                  
+                }
+            });
+        };
+    });
+
+</script>
+

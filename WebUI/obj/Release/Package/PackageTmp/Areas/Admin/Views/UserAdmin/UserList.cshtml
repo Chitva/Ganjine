@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+}
+@Html.Hidden("MenuItems", "1361366943_preferences-contact-list.png" + ":-" + " مدیریت ادمین سایت" + ":-" + "لیست کاربران")
+
+      <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script>
+        Page();
+    </script>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+<div class="divCssWh">
+    <div class="FloatL">
+        <a href="~/Admin/UserAdmin/CreateUser" class="LinkForCreateItems">ایجاد کاربر</a>
+    </div>
+    <div id="BoxContent">
+        @Html.Partial("_UserList")
+    </div>
+</div>

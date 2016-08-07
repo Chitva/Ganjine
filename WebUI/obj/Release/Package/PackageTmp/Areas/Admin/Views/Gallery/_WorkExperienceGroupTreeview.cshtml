@@ -1,0 +1,55 @@
+﻿<script src="~/Scripts/Admin/TreeView/WorkExperience/GetList.js"></script>
+<script>
+    $(function () {
+        $("#red").treeview({
+            animated: "fast",
+            expanded: true,
+
+        })
+    });
+  
+    $(document).ready(function () {
+        $('#red span').click(function () {
+            debugger;
+            $('#MenuInfoDetail').removeClass('DivMenuInfoDetailShow');
+            $('#MenuInfoDetail').addClass('DivMenuInfoDetailHide');
+           $('#HiddenMenuId').val($(this).parent().val());
+            $('#IsSelected').val("1");
+            $('#HiddenNodeAfterBeforCurrent').val($(this).parent().prev().val());
+            $('span').filter(function () {
+                return this.className;
+            }).removeClass('SelectedLi');
+            $(this).addClass('SelectedLi');
+        });
+    });
+</script>
+
+ <div id="red" class="treeview-red" style="overflow: auto;overflow-y: hidden;"  >
+        @CreateNodes(null)
+    </div>
+  
+
+ @helper  CreateNodes(int? ParentID)
+{
+List<Domain.Entities.WorkExperienceGroup> UserMenuList = ViewBag.MenuList;
+UserMenuList = UserMenuList.Where(p => p.ParentID == ParentID).OrderBy(p=>p.Priority).ToList();
+int CountUserMenuList = UserMenuList.Count;
+if (CountUserMenuList > 0)
+{
+    HtmlString StartUL = new HtmlString("<ul>");
+    @StartUL 
+    for (int i = 0; i < CountUserMenuList; i++)
+    {
+        HtmlString StartLi = new HtmlString("<li  value=" + UserMenuList[i].Id + ">");
+    @StartLi
+<span>
+@UserMenuList[i].Name
+    </span>
+    @CreateNodes(UserMenuList[i].Id);
+    }
+    HtmlString EndLi = new HtmlString("</li>");
+    @EndLi
+    HtmlString EndUL = new HtmlString("</ul>");
+    @EndUL 
+}
+}

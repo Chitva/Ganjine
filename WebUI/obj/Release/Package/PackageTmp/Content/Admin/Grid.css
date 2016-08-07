@@ -1,0 +1,227 @@
+﻿#Table {
+    clear: both;
+    padding-top: 10px;
+}
+    #Table .RowTop {
+        border: 1px solid #e5e5e5;
+        width: 696px;
+        height: 25px;
+        text-align: right;
+        color: #a2a1a1;
+        padding-top: 7px;
+        background-color: #f5f5f5;
+        margin-bottom: 2px;
+        vertical-align: middle;
+        font-size: 9pt;
+        font-weight: bold;
+    }
+      #Table .RowFalse {
+           height:auto;
+      
+        width: 698px;
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: #f58a8a;
+        background-color: #f7abab;
+    
+    }
+    #Table .Row {
+       height:auto;
+      
+        width: 698px;
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: #e5e5e5;
+        background-color: #f5f5f5;
+    }
+        #Table .Row .Column {
+            padding-top: 5px;
+            color: #464646;
+            font-size: 9pt;
+            float: right;
+        }
+    #Table .RowBottom {
+        padding-top: 0px;
+        color: #1d1e1f;
+        font-size: 9pt;
+        height: 28px;
+    }
+        #Table .RowBottom .Column {
+            height: 29px;
+            color: #000000;
+        }
+            #Table .RowBottom .Column .Item {
+                padding-top: 5px;
+                color: #464646;
+                font-size: 9pt;
+                float: right;
+            }
+        #Table .RowBottom .Des {
+            float: left;
+            padding-top: 0px;
+            color: #1d1e1f;
+            font-size: 9pt;
+            width: 209px;
+            font-weight: bold;
+            height: 28px;
+        }
+            #Table .RowBottom .Des .Item {
+                color: #464646;
+                font-size: 9pt;
+                float: right;
+            }
+.IconEdit {
+    background-image: url('../../Images/Admin/AdminImages/EditPage.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    float: right;
+    height: 23px;
+    border: none;
+    border-width: 0px;
+    background-color: transparent;
+    width:15px;
+}
+.IconEdit:hover {
+    cursor: pointer;
+    background-image: url('../../Images/Admin/AdminImages/EditPageHover.png');
+}
+.IconPreview {
+    background-image: url('../../Images/Admin/AdminImages/Preview.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    float: right;
+    height: 23px;
+    border: none;
+    background-color: transparent;
+    width:16px;
+}
+.IconPreview:hover {
+    cursor: pointer;
+    background-image: url('../../Images/Admin/AdminImages/PreviewHover.png');
+}
+.IconDelete {
+    background-image: url('../../Images/Admin/AdminImages/delete1.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    float: right;
+    height: 23px;
+    border: none;
+    background-color: transparent;
+    width:15px;
+}
+.IconDelete:hover {
+    cursor: pointer;
+    background-image: url('../../Images/Admin/AdminImages/delete2.png');
+}
+.IconGallery {
+    background-image: url('../../Images/Admin/AdminImages/galleryn.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    float: right;
+    height: 23px;
+    border: none;
+    width:16px;
+    background-color: transparent;
+}
+.IconGallery:hover {
+    cursor: pointer;
+    background-image: url('../../Images/Admin/AdminImages/galleryh.png');
+}
+.IconActive {
+    background-image: url('../../Images/Admin/AdminImages/Active.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    float: right;
+    height: 23px;
+    border: none;
+    background-color: transparent;
+}
+.IconActive:hover {
+    cursor: pointer;
+    background-image: url('../../Images/Admin/AdminImages/Active1.png');
+}
+
+.IconPrevDes {
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-image: url('../../Images/Admin/AdminImages/Preview.png');
+    float: right;
+    height: 23px;
+}
+
+.IconEditDes {
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-image: url('../../Images/Admin/AdminImages/EditPage.png');
+    float: right;
+    height: 23px;
+}
+
+.IconDelDes {
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-image: url('../../Images/Admin/AdminImages/delete1.png');
+    float: right;
+    height: 23px;
+}
+.IconActiveDes {
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-image: url('../../Images/Admin/AdminImages/Active.png');
+    float: right;
+    height: 23px;
+}
+
+.IconDelDeActive {
+    background-image: url('../../Images/Admin/AdminImages/delete-UnActive.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    float: right;
+    height: 23px;
+    border: none;
+    width:14px;
+    background-color: transparent;
+}
+.IconDelDeAC {
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-image: url('../../Images/Admin/AdminImages/delete-UnActive.png');
+    float: right;
+    height: 23px;
+}
+.IconActive {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("../../Images/Admin/AdminImages/Active.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    border: medium none;
+    float: right;
+    height: 23px;
+}
+.RedCell {
+background-color:#f36868;
+height:24px;
+text-align:center;
+}
+.GreenCell {
+background-color:#8bff8a;
+text-align:center;
+}
+.BlueCell {
+background-color:#3a9bdc;
+text-align:center;
+}
+.IconActive {
+    background-image: url('../../Images/Admin/AdminImages/Active.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    float: right;
+    height: 23px;
+    border: none;
+    background-color: transparent;
+    width:15px;
+}
+.IconActive:hover {
+    cursor: pointer;
+    background-image: url('../../Images/Admin/AdminImages/Active1.png');
+}

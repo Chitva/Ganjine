@@ -1,0 +1,97 @@
+﻿@{
+    string rajiStory = ViewBag.RajiStory;
+}
+
+@*<script src="~/Scripts/jquery.js"></script>*@
+<link href="/Content/Scroll/jquery.mCustomScrollbar.css" rel="stylesheet" />
+<style>
+    /* for google captcha*/
+    [class*="rc-anchor-"], .rc-anchor-error-message, .rc-anchor-checkbox-label,
+    .rc-anchor-error-msg-container, .rc-anchor-logo-text, .rc-anchor-pt, .rc-button-default,
+    .rc-footer, .rc-challenge-help, .apps-toast-content, .rc-audiochallenge-error-message,
+    .rc-audiochallenge-instructions, .rc-defaultchallenge-payload, .rc-defaultchallenge-incorrect-response,
+    #rc-imageselect, .rc-ima .rc-response-input-field {
+        font-family: Tahoma !important;
+    }
+
+    iframe {
+        width: 100% !important;
+    }
+
+    .team-member.option-3 .image-box-body {
+        /*height: 131px;*/
+        height: 116px;
+        padding: 15px 10px 15px 3px;
+    }
+
+    .team-member.option-3 .overlay-container {
+        width: 45% !important;
+    }
+
+    .team-member.option-3 .image-box-body {
+        width: 55% !important;
+    }
+
+    p {
+        text-align: justify !important;
+    }
+
+    #navbs .nav > li {
+        text-align: center;
+    }
+
+    .vertical .nav-tabs, .vertical .tab-content {
+        display: block;
+    }
+
+    .nav-pills > li > a {
+        text-align: right;
+    }
+
+    .nav-pills.nav-stacked > li + li {
+        text-align: right;
+    }
+</style>
+<div class="page-intro rtl" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home pr-10"></i>
+                    </li>
+                    <li>حکایت گز راجی</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="vertical hc-tabs" style="margin:0;direction:rtl;">
+                    <div class="arrow hidden-sm hidden-xs"></div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="tab-content" style="display: block;">
+                                <div class="tab-pane fade " id="rajiStory">
+                                    <div class="row">
+                                        <div style="padding: 5px 5px; text-align: justify;">
+                                            @Html.Raw(rajiStory)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+

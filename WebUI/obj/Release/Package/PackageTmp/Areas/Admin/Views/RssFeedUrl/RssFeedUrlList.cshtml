@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#dpColumns").change(function () {
+            $(this).parents("form").submit();
+            $('#SuccessMsg').hide();
+        });
+      
+    </script>
+}
+@Html.Hidden("MenuItems", "1429956437_upload.png" + ":-" + "مدیریت لینک های rss")
+<script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script>
+        Page();
+</script>
+<div class="divCssWh">
+    <div class="FloatL">
+        <a href="~/Admin/RssFeedUrl/AddRssFeedUrl" class="LinkForCreateItems">ایجاد لینک جدید</a>
+    </div>
+    <div id="BoxContent">
+        @Html.Partial("_RssFeedUrlList")
+    </div>
+</div>
+

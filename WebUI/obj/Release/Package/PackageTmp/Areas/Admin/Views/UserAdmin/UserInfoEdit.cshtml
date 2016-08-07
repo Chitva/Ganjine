@@ -1,0 +1,73 @@
+﻿@model Domain.Validation.Admin.EditUserModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+@Html.Hidden("MenuItems", MenuItems.Icon + ":-" + " مدیریت ادمین سایت" + ":-" + MenuItems.SubMenuName)
+
+      <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/NumberTextBox.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script src="~/Scripts/Admin/CloseSucc.js"></script>
+    <script>
+        Page();
+    </script>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+<div class="divCssWh">
+    <div class="divCss" id="thisis" style="width: 300px;">
+    </div>
+    <div class="divCss">
+        @using (Ajax.BeginForm(actionName: "UserInfoEdit", controllerName: "UserAdmin", routeValues: new { }, ajaxOptions: new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "thisis", InsertionMode = InsertionMode.Replace }, htmlAttributes: new { @id = "register-form" }))
+        {
+            @Html.HiddenFor(x => x.Id);
+            <div class="divCss">
+                <div class="DivCss2">
+                    @Html.Label("نام", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.Name, new { @class = "webUserTextBox", @style = "width:160px" })
+                </div>
+            </div>
+            <div class="divCss">
+                <div class="DivCss2">
+                    @Html.Label("نام خانوادگی", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.Famil, new { @class = "webUserTextBox", @style = "width:160px" })
+                </div>
+            </div>
+            <div class="divCss">
+                <div class="DivCss2">
+                    @Html.Label("ایمیل", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.Email, new { @class = "webUserTextBox", @style = "width:160px" })
+                </div>
+                <div class="FloatRight">
+                    @Html.ValidationMessageFor(x => x.Email, "ایمیل را به درستی وارد کنید.", new { @class = "field-validation-left" })
+                </div>
+            </div>
+            <div class="divCss">
+                <div class="DivCss2">
+                    @Html.Label("شماره تماس", new { @class = "WebUserLabel", })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x => x.TelNumber, new { @class = "webUserTextBox", maxlength = 11, @onkeypress = "return isNum(event)", @style = "width:160px" })
+                </div>
+            </div>
+            <div class="divCss" style="padding-top: 15px; padding-right: 29px">
+                <div class="DivCss1">
+                    &nbsp;
+                </div>
+                <div class="FloatRight">
+                    <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

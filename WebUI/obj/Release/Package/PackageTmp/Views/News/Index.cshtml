@@ -1,0 +1,144 @@
+﻿@{
+
+    PersianToolS.PersinToolsClass dateFa = new PersianToolS.PersinToolsClass();
+    PersianToolS.PersinToolsClass.PersianDate PersianDate = new PersianToolS.PersinToolsClass.PersianDate();
+    List<Domain.Validation.User.NewsRssViewModel> NewsList = ViewBag.News;
+    int TotalCount = Convert.ToInt32(TempData["Count"]);
+    TempData["Count"] = TotalCount;
+    int EndPage = 0;
+    int StartPage = 0;
+    int TotalPage = 0;
+    string IdName = "";
+    int Page = Convert.ToInt32(ViewBag.PageNumber);
+    if (Page == 0)
+    {
+        Page = 1;
+    }
+    if (TotalCount % 10 == 0)
+    {
+        TotalPage = TotalCount / 10;
+    }
+    else
+    {
+        TotalPage = (TotalCount / 10) + 1;
+    }
+    if (Page + 9 > TotalPage)
+    {
+        EndPage = TotalPage;
+    }
+    else
+    {
+        EndPage = Page + 9;
+    }
+    if (Page <= 9)
+    {
+        StartPage = 1;
+    }
+    else
+    {
+        StartPage = Page - 9;
+    }    
+}
+    
+<style>
+    .blogpost .blogpost-body {
+        /*max-height: 145px;*/
+        min-height: 70px;
+    }
+    a{
+        color: #3b3420;
+    }
+</style>
+
+<div class="page-intro rtl" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home pr-10"></i>
+                    </li>
+                    <li class="active">اخبار</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="main-container">
+    <div class="container">
+        <div class="row">
+            <div class="main col-md-12">
+                @foreach(var item in NewsList)
+                {
+                    var title = @item.Title.Replace(" ", "-");
+                    PersianDate = dateFa.DateToPersian(Convert.ToDateTime(item.CreationDate));
+                       <article class="clearfix blogpost object-non-visible" data-animation-effect="fadeInUpSmall" data-effect-delay="200" style="margin-bottom:20px;">
+                           <footer class="clearfix">
+                               @if (item.Id != 0)
+                               {
+                                <a class="pull-right" href="/News/@item.Id/@title"><span>@item.Title</span></a>
+                                @*<img src="~/Images/rss-icon.png" style="float: left; float: left; width: 28px;" />*@
+                               }
+                               else
+                               {
+                                <a class="pull-right" href="@item.BaseUri"><span>@item.Title</span></a>
+                                <img src="~/Images/rss-icon.png" style="float: left; float: left; width: 28px;" />
+                               }
+                               
+                           </footer>
+                           <div class="blogpost-body clearfix">
+                               <div class="blogpost-content" style="margin-right:0;">
+                                   <p>
+                                       @item.ShortDes
+                                   </p>
+                               </div>
+                           </div>
+                    <footer class="clearfix" style="background-color: #fafafa; border-top: none;">
+                        @if (item.Id != 0)
+                        {
+                            <a class="pull-left link1" href="/News/@item.Id/@title"><span>متن کامـل</span></a>
+                        }
+                        else
+                        {
+                            <a class="pull-left link1" href="@item.BaseUri"><span>متن کامـل</span></a>
+                        }
+
+                        <span class="pull-left" style="padding-left:20px;"> @PersianDate.day , @PersianDate.MonthName ,@PersianDate.year</span>
+                    </footer>
+                </article>
+                    
+                }
+                <ul class="pagination">
+                    @{
+                        int Page1 = 0;
+                    }
+                    @if (Page != 1)
+                    {
+                        Page1 = Page - 1;
+                        <li>    <a href="/News/@Page1">قبلی</a></li>
+                    }
+
+                    @for (int i = StartPage; i < Page; i++)
+                    {
+                        Page1 = i;
+                        <li>  <a href="/News/@Page1">@i</a></li>
+                    }
+                    @if (NewsList != null && NewsList.Count() != 0)
+                    {
+                                 <li class="active"><a href="#">@Page <span class="sr-only">(current)</span></a></li>
+                    }
+                    @for (int i = Page + 1; i <= EndPage; i++)
+                    {
+                        Page1 = i;
+                        <li>   <a href="/News/@Page1">@i</a></li>
+                    }
+                    @if ((Page != TotalPage) && (TotalPage != 0))
+                    {
+                        Page1 = Page + 1;
+                        <li> <a href="/News/@Page1">بعدی</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

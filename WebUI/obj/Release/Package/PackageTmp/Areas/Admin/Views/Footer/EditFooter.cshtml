@@ -1,0 +1,138 @@
+﻿@model Domain.ViewModel.Admin.EditFooter
+@{
+    ViewBag.Title = "ContactUs";
+    string FooterText = "";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+@Html.HiddenFor(x=>x.FooterColumnNameId , new {@id="hfCol"})
+<link href="~/Content/Admin/validation.css" rel="stylesheet" />
+@Html.Hidden("MenuItems", "1429956437_upload.png" + ":-" + "مدیریت فوتر" + ":-" + "ویرایش فوتر")
+
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+    <script>
+        Page();
+        $(document).ready(function () {
+            $("#chkLink").click(function () {
+                if ($(this).is(':checked')) {
+                    $("#FooterLinkDiv").removeClass("DivMenuInfoDetailHide");
+                    $("#FooterLinkDiv").addClass("DivMenuInfoDetailShow");
+                }
+                else {
+                    $("#FooterLinkDiv").removeClass("DivMenuInfoDetailShow");
+                    $("#FooterLinkDiv").addClass("DivMenuInfoDetailHide");
+                }
+            });
+
+        });
+    </script>
+<script src="~/Scripts/Admin/AddFooter.js"></script>
+ @if ((Model.FooterColumnNameId == 1 || Model.FooterColumnNameId == 2 ||
+     Model.FooterColumnNameId == 1002 || Model.FooterColumnNameId == 1003) && (Model.FooterLink != null))
+ {
+        <script>
+            $(document).ready(function () {
+                $("#chkLink").attr("checked", true);
+                $("#FooterLinkDiv").removeClass("DivMenuInfoDetailHide");
+                $("#FooterLinkDiv").addClass("DivMenuInfoDetailShow");
+            });
+            </script>
+
+    }
+ @if ((Model.FooterColumnNameId == 1 || Model.FooterColumnNameId == 2 ||
+     Model.FooterColumnNameId == 1002 || Model.FooterColumnNameId == 1003) && (Model.FooterLink == null))
+ {
+        <script>
+            $(document).ready(function () {
+                $("#chkLink").attr("checked", false);
+                $("#FooterLinkDiv").removeClass("DivMenuInfoDetailShow");
+                $("#FooterLinkDiv").addClass("DivMenuInfoDetailHide");
+            });
+            </script>
+
+    }
+@if (Model.FooterColumnNameId == 1 || Model.FooterColumnNameId == 2 || Model.FooterColumnNameId == 1002 || Model.FooterColumnNameId == 1003)
+{
+   
+<script>
+    $(document).ready(function () {
+        $('#Col12').addClass("DivMenuInfoDetailShow");
+        $('#Col3').removeClass("DivMenuInfoDetailShow");
+        $('#Col3').addClass("DivMenuInfoDetailHide");
+    });
+</script>
+}
+else
+{
+    FooterText=Model.FooterText;
+<script>
+    $(document).ready(function () {
+        $('#Col12').removeClass("DivMenuInfoDetailShow");
+        $('#Col12').addClass("DivMenuInfoDetailHide");
+        $('#Col3').addClass("DivMenuInfoDetailShow");
+    });
+</script>
+
+}
+
+<div class="divCssWh">
+    <div class="divCss" id="thisis" style="width: 300px;">
+    </div>
+    <div>
+        @using (Html.BeginForm(actionName: "EditFooter", controllerName: "Footer", routeValues: new { Page = @ViewBag.Page }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(x=>x.Id)
+             <div class="DivClass">
+                <div style="float: left; padding-left: 31px; padding-top: 3px; height: 35px;">
+                    @Html.ActionLink("بازگشت", actionName: "BackFooterList", controllerName: "Footer",
+                   routeValues: new { Page = @ViewBag.Page }, htmlAttributes: new { @class = "LinkBackPage" })
+                </div>
+                 </div>
+            <div id="Col12" class="divCss " style="padding-top: 15px">
+                <div class="DivCss2" style="width: 50px">
+                    @Html.Label("متن", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextBoxFor(x=>x.FooterText, new { @class = "webUserTextBox", @style = "width:160px",@id="FooterText1" })
+                </div>
+                <div id="FooterTextVal" class="FloatRight DivMenuInfoDetailHide" >
+                    <span class = "field-validation-left">متن الزامی است.</span>
+            </div>
+                <div class="FloatRight">
+                 @Html.CheckBox("chkLink", new { @id="chkLink"})
+                    <span class="WebUserLabel">لینک</span>
+                
+                </div>
+                 <div id="FooterLinkDiv"  class="FloatRight">
+                    @Html.TextBoxFor(x=>x.FooterLink, new { @class = "webUserTextBox", @style = "width:160px" , @id="FooterLink1" })
+                </div>
+                 <div id="FooterLinkVal" class="FloatRight DivMenuInfoDetailHide">
+                    <span class = "field-validation-left">لینک الزامی است.</span>
+            </div>
+            </div>
+                <div id="Col3" class="divCss DivMenuInfoDetailHide" style="padding-top: 15px;">
+                <div class="DivCss2" style="width: 50px">
+                    @Html.Label("متن", new { @class = "WebUserLabel" })
+                </div>
+                <div class="FloatRight">
+                    @Html.TextArea("FooterText2",FooterText ,new { @class = "webUserTextBox", @style = "width:160px",@id="FooterText2" })
+                </div>
+                <div id="FooterTextValArea" class="FloatRight DivMenuInfoDetailHide">
+                    <span class = "field-validation-left">متن الزامی است.</span>
+            </div>
+                
+            </div>
+            <div class="divCss" style="padding-top: 15px;">
+                <div class="DivCss1" style="width: 50px">
+                    &nbsp;
+                </div>
+                <div class="FloatRight">
+                    <input id="btnSave" type="submit" onclick="return CheckValidation($('#hfCol').val())" class="webUserButton" value="ثبت" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

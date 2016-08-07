@@ -1,0 +1,49 @@
+﻿@{
+    string Text = Convert.ToString(ViewBag.FooterPage);
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    Domain.ViewModel.Admin.IconTitlePage MenuItems = ViewBag.MenuObject;
+}
+@Html.Hidden("MenuItems", MenuItems.Icon + ":-" + MenuItems.MenuName + ":-" + MenuItems.SubMenuName)
+
+<script src="~/Scripts/jquery-1.6.2.js"></script>
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+<script>
+    Page();
+</script>
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript" src="~/Scripts/Admin/InitializeFckfinder.js"></script>
+    <script>
+        Initializes('#ckEditor');
+    </script>
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+<div class="divCssWh">
+    <div class="divCss" id="thisis">
+        @Html.Partial("_succWrittenBy")
+    </div>
+    <div style="padding-top: 15px">
+        @using (Ajax.BeginForm(actionName: "Edit", controllerName: "Setting", routeValues: new { Type = 8 },
+            ajaxOptions: new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "thisis", InsertionMode = InsertionMode.Replace },
+                       htmlAttributes: new { enctype = "multipart/form-data" }))
+        {
+            <div class="divCss">
+                <div style="width: 700px; float: right">
+                    @Html.TextArea("ckEditor", Text)
+                </div>
+            </div>
+            <div class="divCss" style="padding-top: 15px">
+                <div class="DivCss1">
+                    <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+                </div>
+                <div class="FloatRight">
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,120 @@
+﻿@model Domain.Entities.Article
+@{
+    PersianToolS.PersinToolsClass dateFa = new PersianToolS.PersinToolsClass();
+    PersianToolS.PersinToolsClass.PersianDate Date = new PersianToolS.PersinToolsClass.PersianDate();
+    var Images = Model.NewsGallery.ToList();
+}
+<style>
+    .owl-buttons {
+        display: none;
+    }
+
+    h1 {
+        font-size: 14px;
+    }
+
+    .blogpost .blogpost-body {
+        padding-top: 0px !important;
+    }
+
+    h3 {
+        font-size: 13px;
+    }
+
+    .newssidebar .tagsarea a {
+        float: left;
+    }
+</style>
+<div class="page-intro ltr" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                    </li>
+                    <li>Articles</li>
+                    <li class="active">@Model.Title</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="direction:ltr;">
+    <div class="row">
+        <div class="col-md-12">
+            @{Date = dateFa.DateToPersian(Model.CreationDate);}
+            <h1 class="page-title ttlna" style="text-align:left;">@Model.Title</h1>
+            <article class="clearfix blogpost full">
+                <div class="blogpost-body">
+                    <div class="blogpost-content">
+
+                        @if (Images != null && Images.Count > 0)
+                        {
+
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <div class="owl-carousel content-slider-with-controls">
+
+                                        @foreach (var Item1 in Images)
+                                        {
+                                            <div class="overlay-container">
+                                                @if (System.IO.File.Exists(Server.MapPath("~/Files/NewsGallery/" + Item1.ArticleId + "/" + @Item1.Image)))
+                                                {
+                                                    using (var image = new System.Drawing.Bitmap(Server.MapPath("~/Files/NewsGallery/" + Item1.ArticleId + "/" + @Item1.Image)))
+                                                    {
+                                                        if (image.Width >= image.Height)
+                                                        {
+                                                            <img src="/Files/NewsGallery/@Item1.ArticleId/@Item1.Image" class="img-responsive" alt="@(string.IsNullOrEmpty(Item1.alt) ? "Article Gallery Image" : Item1.alt)" style="margin: 0 auto; width: 100%; max-width: 400px;">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="/Files/NewsGallery/@Item1.ArticleId/@Item1.Image" class="img-responsive" alt="@(string.IsNullOrEmpty(Item1.alt) ? "Article Gallery Image" : Item1.alt)" style="margin: 0 auto; width: auto; max-height: 350px;">
+                                                        }
+                                                    }
+                                                }
+                                                <a href="/Files/NewsGallery/@Item1.ArticleId/@Item1.Image" class="popup-img overlay" title="image title"><i class="fa fa-search-plus"></i></a>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+                        }
+                        <p>
+                            @Html.Raw(Model.LongDes)
+                        </p>
+                        @if (Model.Tags != null)
+                        {
+                            <div class="newssidebar ltr">
+                                <div class="tagsarea padding-bottom-20 ">
+                                    <h3 class="boldtext">Tags:</h3>
+                                    <div class="tagcloud">
+                                        @{
+                                            string[] Tags = null;
+                                            if (Model.Tags != null)
+                                            {
+                                                Tags = Model.Tags.Split(';');
+                                            }
+                                        }
+                                        @if (Tags != null)
+                                        {
+                                            for (int i = 0; i < Tags.Count(); i++)
+                                            {
+                                                <a href="#">@Tags[i]</a>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                                            }
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>

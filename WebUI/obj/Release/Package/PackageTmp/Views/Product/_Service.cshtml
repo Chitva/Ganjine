@@ -1,0 +1,288 @@
+﻿@using Domain.Validation.Admin
+    @{
+        List<Domain.Entities.ServiceTab> ServiceTabList = ViewBag.Tabs;
+        int Counter = 0;
+        string Str = "active";
+        string Str1 = "";
+        PersianToolS.PersinToolsClass dateFa = new PersianToolS.PersinToolsClass();
+        PersianToolS.PersinToolsClass.PersianDate Date=new PersianToolS.PersinToolsClass.PersianDate();
+    }
+@Html.Hidden("hfprevelement")
+    <style>
+        .tagit-new{
+            display:none !important;
+        }
+        .tab-content{
+            padding-top:0 !important;
+        }
+    </style>
+    <script>
+        
+        function owlCarousel() {
+            var owl = $(".owl-carousel");
+            //init carousel
+            owl.owlCarousel();
+            owl.data('owlCarousel').reinit({
+                items: 1
+            });
+        }
+      
+    </script>
+    <link href="~/Content/Tags/jquery.tagit.css" rel="stylesheet" />
+    <link href="~/Content/Tags/tagit.ui-zendesk.css" rel="stylesheet" />
+@*<script src="~/Scripts/Tags/JqueryForTags/jquery.min.js"></script>*@
+<div class="tabs-style-2" >
+    <ul class="nav nav-tabs" role="tablist">
+        @if (ServiceTabList != null)
+        {
+            foreach (var Item in ServiceTabList)
+            {
+                Str = (Counter == 0 && string.IsNullOrEmpty(ViewBag.Msg)) ? "active" : "";
+                <li class="@Str" value="@Item.Id">
+                    @{
+                        Str = "#h2tab" + Item.Id;
+                        Counter++;
+                        Str1 = (Item.TabType == 2) ? "hreftabgp" : "hrefelseimg";
+                    }
+                    <a class="@Str1" href="@Str" role="tab" data-toggle="tab"><i value="@Item.Id"></i>@Item.Name</a>
+                </li>
+            }
+        }
+        @{
+            Counter = 0;
+        }
+        @*@if (ServiceTabList != null && ServiceTabList.Count > 0)
+        {
+          <li value="123456" class="@(string.IsNullOrEmpty(ViewBag.Msg) ? "" : "active")">
+            <a class="hreftabgp" href="#h123456" role="tab" data-toggle="tab"><i value="123456"></i>سفارش محصول</a>
+        </li>  
+        }*@
+        
+    </ul>
+    <div class="tab-content" style="padding-top:0;">
+        @if (ServiceTabList != null)
+        {
+
+            foreach (var Item in ServiceTabList)
+            {
+                Str = (Counter == 0 && string.IsNullOrEmpty(ViewBag.Msg)) ? "active" : "";
+                Str1 = "h2tab" + Item.Id;
+
+                var ServiceTabFileList = Item.ServiceTabFile.ToList();
+                <div class="tab-pane fade in @Str" id="@Str1">
+                    @*<h1 class="text-center title">@Item.Name</h1>*@
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if (Item.TabType == 1)
+                            {
+                                <div class="graycss" style="direction: ltr;">
+                                    <article class="clearfix blogpost full">
+                                        <div class="blogpost-body">
+                                            <div class="blogpost-content">
+                                                @if (ServiceTabFileList != null)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="float: right">
+                                                            <div class="owl-carousel content-slider-with-controls"
+                                                                 style="margin:0; border: solid 1px #c68e2b">
+                                                                @foreach (var Item1 in ServiceTabFileList)
+                                                                {
+                                                                    <div class="overlay-container">
+                                                                        @if (File.Exists(Server.MapPath("~/Files/ServiceGallery/" + Item1.ServiceTabId + "/" + @Item1.File)))
+                                                                        {
+                                                                            using (var image = new System.Drawing.Bitmap(Server.MapPath("~/Files/ServiceGallery/" + Item1.ServiceTabId + "/" + @Item1.File)))
+                                                                            {
+                                                                                if (image.Width >= image.Height)
+                                                                                {
+                                                                                    <img src="/Files/ServiceGallery/@Item1.ServiceTabId/@Item1.File" class="img-responsive" alt="@(string.IsNullOrEmpty(Item1.Alt) ? "تصویر محصول" : Item1.Alt)" style="margin: 0 auto; width: 100%; max-width: 400px;">
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <img src="/Files/ServiceGallery/@Item1.ServiceTabId/@Item1.File" class="img-responsive" alt="@(string.IsNullOrEmpty(Item1.Alt) ? "تصویر محصول" : Item1.Alt)" style="margin: 0 auto; width: auto; max-height: 350px;">
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        <a href="/Files/ServiceGallery/@Item1.ServiceTabId/@Item1.File" class="popup-img overlay" title="image title"><i class="fa fa-search-plus"></i></a>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" 
+                                                             style="float: right; direction: rtl;">
+                                                            <div class="product-details">
+                                                                <h4>
+                                                                    @Item.Title
+                                                                </h4>
+                                                                <br />
+                                                                @if (Item.IsExist)
+                                                                {
+                                                                    <div class="product-lable price">
+                                                                        قیمت پایه :
+                                                                        <span class="bold" style="@(Item.Discount > 0 ? "text-decoration: line-through;" : "")">
+                                                                            @(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", Item.Price)) تومان
+                                                                        </span>
+
+                                                                        <button type="button" class="product-button add pull-left">
+                                                                            <i class="fa fa-shopping-cart"></i>
+                                                                            افزودن به سبد خرید
+                                                                        </button>
+                                                                        <div class="clearfix"></div>
+                                                                    </div>
+                                                                    if (Item.Discount > 0)
+                                                                    {
+                                                                        <label class="product-lable dis">
+                                                                            <i class="fa fa-caret-left"></i>
+                                                                            تخفیف
+                                                                            <span>@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", Item.Discount)) تومان</span>
+                                                                        </label>
+                                                                        <div class="product-lable price">
+                                                                            قیمت برای شما: <span class="bold colored">@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", Item.Price-Item.Discount)) تومان</span>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                               else
+                                                                {
+                                                                    <div class="product-lable price">
+                                                                        آخرین قیمت (تاریخ ۹۵/۰۵/۰۵) : <span class="bold">@(string.Format(new System.Globalization.CultureInfo("fa-IR"), "{0:N0}", Item.Price - Item.Discount))</span> تومان
+                                                                    </div>
+                                                                    <label class="product-lable notExists">
+                                                                        <i class="fa fa-caret-left"></i>
+                                                                        ناموجود
+                                                                    </label>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <p>
+                                                            @Html.Raw(Item.TabTypeText)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            }
+                            @if (Item.TabType == 2)
+                            {
+
+                                Str = "ImageGalleryDiv" + Item.Id;
+                                <div id="@Str" class="graycss padding-bottom-10" style="overflow: hidden;">
+                                    @if (Counter == 0)
+                                    {
+                                        @Html.Partial("_ImageGalleryService")
+                                    }
+                                </div>
+                            }
+                            @if (Item.TabType == 3)
+                            {
+                                if (ServiceTabFileList != null && ServiceTabFileList.Count > 0)
+                                {
+                                    <style>
+                                        .team-member.option-3 .image-box-body {
+                                            height: 148px;
+                                        }
+
+                                        @@media (min-width: 1200px) {
+                                            .team-member.option-3 .image-box-body {
+                                                height: 118px;
+                                            }
+                                        }
+
+                                        @@media (min-width: 768px) and (max-width: 991px) {
+                                            .team-member.option-3 .image-box-body {
+                                                height: 153px;
+                                            }
+                                        }
+
+                                        @@media (max-width: 767px) {
+                                            .team-member.option-3 .overlay-container {
+                                                width: 100% !important;
+                                            }
+
+                                            .team-member.option-3 .image-box-body {
+                                                width: 100% !important;
+                                                /*height: auto;*/
+                                            }
+                                        }
+                                    </style>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                Counter++;
+            }
+        }
+
+        @*<div class="tab-pane fade in @(string.IsNullOrEmpty(ViewBag.Msg) ? "" : "active")" id="h123456">
+            @Html.Partial("_OrderRegistration", new OrderValidation() {})
+        </div>*@
+    </div>
+</div>
+
+    <script>
+        
+        $(".hrefelseimg").click(function () {
+    
+            var s = "";
+            var id = $(this).find('i').attr('value');
+            var m = "#h2tab" + id;
+            var t = $("#hfprevelement").val();
+            if (t != null && t != "") {
+                $(t).addClass("tab-pane");
+            }
+            $("#hfprevelement").val(m);
+            $(m).removeClass("tab-pane");
+        });
+        $(".hreftabgp").click(function () {
+            var s = "";
+            var id = $(this).find('i').attr('value');
+            var m = "#h2tab" + id;
+            var t = $("#hfprevelement").val();
+            if (t != null && t != "") {
+                $(t).addClass("tab-pane");
+            }
+            $("#hfprevelement").val(m);
+            $(m).removeClass("tab-pane");
+
+            $.ajax({
+                url: "/Product/GetImageGalleryList",
+                data: "{ 'id': '" +id + "'}",
+                dataType: "json", contentType: "application/json; charset=utf-8",
+                type: "POST",
+                success: function (result) {
+                    s = "#ImageGalleryDiv" + id;
+                    $(s).html(result.Partial);
+                }
+            });
+        });
+        owlCarousel();
+        $('.isotope-container').fadeIn();
+        var $container = $('.isotope-container').isotope({
+            itemSelector: '.isotope-item',
+            layoutMode: 'masonry',
+            transitionDuration: '0.6s',
+            filter: "*",
+            isOriginLeft: true
+        });
+        $('.filters').on('click', 'ul.nav li a', function () {
+            var filterValue = $(this).attr('data-filter');
+
+            $(".filters").find("li.active").removeClass("active");
+            $(this).parent().addClass("active");
+            $container.isotope({ filter: filterValue });
+            return false;
+        });
+    </script>
+    <script src="~/Scripts/Tags/JqueryForTags/jquery-ui.min1.js"></script>
+    <script src="~/Scripts/Tags/tag-it.js"></script>
+    <script>
+        $('.readOnlyTags').tagit({
+            readOnly: true
+        });
+    </script>

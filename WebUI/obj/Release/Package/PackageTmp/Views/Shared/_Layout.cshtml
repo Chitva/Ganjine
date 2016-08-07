@@ -1,0 +1,769 @@
+﻿@{
+    List<Domain.Entities.ServiceGroup> ServiceGroupList = ViewBag.ServiceGroup;
+    List<Domain.Entities.ServiceTab> ServiceTabList = ViewBag.ServiceTabs;
+    List<Domain.Entities.ServiceGroup> Parents = new List<Domain.Entities.ServiceGroup>();
+    if (ServiceGroupList != null)
+    {
+        if (ServiceGroupList.Where(x => x.ParentID == null).OrderBy(p => p.Priority) != null)
+        {
+            Parents = ServiceGroupList.Where(x => x.ParentID == null).OrderBy(p => p.Priority).ToList();
+        }
+        if (Parents.Where(_ => _.GrandsonsCount > 0).Any())
+        {
+            Parents = Parents.Where(_ => _.GrandsonsCount > 0).ToList();
+        }
+
+    }
+
+    List<Domain.Entities.FooterColumnName> FooterColNames = ViewBag.FooterColName;
+
+
+    List<Domain.Entities.WorkExperienceGroup> Parentsw = new List<Domain.Entities.WorkExperienceGroup>();
+
+    List<Domain.Entities.WorkExperienceGroup> WorkExperienceList = new List<Domain.Entities.WorkExperienceGroup>();
+    if (ViewBag.WorkExGroup != null)
+    {
+        WorkExperienceList = ViewBag.WorkExGroup;
+    }
+
+
+
+    string workExp = "";
+    string serviceName = "";
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    @*<title>tandistalaei.com</title>
+        <meta name="description" content="">
+        <meta name="author" content="chitva.com">*@
+    @*<link rel="" href="">*@
+
+    <!--Dynamic metadescription,title,keywords-->
+    @if (ViewBag.Title != null)
+    {
+        <title>@ViewBag.Title</title>
+    }
+
+    @if (ViewBag.MetaDescription != null)
+    {
+        <meta name="description" content="@ViewBag.MetaDescription" />
+    }
+
+    @if (ViewBag.MetaKeywords != null)
+    {
+        <meta name="keywords" content="@(ViewBag.MetaKeywords.Replace(";", ","))" />
+    }
+
+
+    <!-- Mobile Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="/Bootstrap/css/common.css" rel="stylesheet" />
+    <!-- Web Fonts -->
+    <link href="/Bootstrap/css/FontFarsi.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
+    <link href="/Content/validation.css" rel="stylesheet" />
+    <link href="/Bootstrap/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/Bootstrap/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/Bootstrap/fonts/fontello/css/fontello.css" rel="stylesheet">
+    <link href="/Bootstrap/plugins/rs-plugin/css/settings.css" media="screen" rel="stylesheet">
+    <link href="/Bootstrap/plugins/rs-plugin/css/extralayers.css" media="screen" rel="stylesheet">
+    <link href="/Bootstrap/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/Bootstrap/css/animations.css" rel="stylesheet">
+    <link href="/Bootstrap/plugins/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="/Bootstrap/css/style.css" rel="stylesheet">
+    <link href="/Bootstrap/css/skins/green.css" rel="stylesheet">
+    <!-- Custom css -->
+    <link href="/Bootstrap/css/custom.css" rel="stylesheet">
+    <link href="~/Content/Loading/demo.css" rel="stylesheet" />
+    <!----------Modified CSS for Persian Layout---------------->
+    <link href="~/Content/Layouts/PersianLayout.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.0.3.min.js"></script>
+    <link href="~/fonts/css/style.css" rel="stylesheet" />
+</head>
+<body class="boxed rtl persianumber">
+    <!-- scrollToTop -->
+    <!-- ================ -->
+    <div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+    <!-- page wrapper start -->
+    <!-- ================ -->
+    <div class="bar">
+        <div class="container">
+            <div class="pull-left">
+                <a href="/">
+                    فارسی
+                </a>
+                <span>|</span>
+                <a href="/en/home">
+                    English
+                </a>
+            </div>
+            <div class="pull-right">
+                <a href="#" onclick="$('#loginModal').modal('show');">
+                    <i class="fa fa-lock"></i>
+                    وارد شوید
+                </a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="/Home/Register">
+                    <i class="fa fa-user"></i>
+                    ثبت نام کنید
+                </a>                
+                &nbsp;&nbsp;&nbsp;
+                <a href="/shopping/myshoppingcart">
+                    <i class="fa fa-shopping-cart"></i>
+                    سبد خرید
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="custom-header">
+        <div class="container">
+            <a href="/Home" class="logo">
+                <img src="/Images/Logo.png" style="width: 290px; margin: 10px auto;" alt="logo Image">
+            </a>
+        </div>
+    </div>
+    <header class="header">
+        <div class="container">
+            <!-- header-right start -->
+            <div class="header-right clearfix">
+                <!-- main-navigation start -->
+                <div class="main-navigation animated">
+                    <!-- navbar start -->
+                    <!-- ================ -->
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right padding-right-0">
+                                    <li>
+                                        <a href="/home">
+                                            <i class="fa fa-home"></i>
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">محصولات</a>
+                                        <ul class="dropdown-menu">
+                                            @foreach (var Item in Parents)
+                                            {
+                                                var temp1 = ServiceGroupList.FirstOrDefault(x => x.Id == Item.Id);
+                                                if (temp1 == null && Item.HasTab.Value)
+                                                {
+                                                    var name = ServiceTabList.FirstOrDefault(_ => _.ServiceGroupId == Item.Id).Title;
+                                                    var dashName = name.Replace(" ", "_");
+                                                    <li><a href="/Product/@Item.Id/@name">@dashName</a></li>
+                                                }
+                                                else
+                                                {
+
+                                                    <li>
+                                                        <a href="/category/@(Item.Id)/@(Item.Name)" class="dropdown-toggle" data-toggle="dropdown">@Item.Name </a>
+                                                    </li>
+                                                }
+                                            }
+
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="/SaleAgency">نمایندگی های فروش </a>
+                                    </li>
+
+
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">درباره ی ما</a>
+                                        <ul class="dropdown-menu">
+
+                                            <li><a href="/Introduction/CompanyHistory">معرفی مجموعه</a></li>
+                                            <li><a href="/Introduction/Certificates">گواهینامه ها</a></li>
+                                            <li><a href="/Introduction/RajiSpecifications">خواص گز راجی</a></li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">گالری تصاویر</a>
+                                                <ul class="dropdown-menu">
+                                                    @if (WorkExperienceList.Any())
+                                                    {
+                                                        Parentsw = WorkExperienceList.Where(x => x.ParentID == null).OrderBy(p => p.Priority).ToList();
+                                                        foreach (var Item in Parentsw)
+                                                        {
+                                                            if (WorkExperienceList.FirstOrDefault(x => x.ParentID == Item.Id) == null)
+                                                            {
+                                                                workExp = @Item.Name.Replace(" ", "-");
+                                                                <li><a href="/Gallery/@Item.Id/@workExp">@Item.Name</a></li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li class="dropdown">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Item.Name </a>
+                                                                    <ul class="dropdown-menu">
+                                                                        @CreateNodesw(Item.Id)
+                                                                    </ul>
+                                                                </li>
+                                                            }
+                                                        }
+                                                    }
+
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">خواندنی ها</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/News">اخبار</a></li>
+                                            <li><a href="/Article">مقالات</a></li>
+                                            <li><a href="/Story">داستان های آموزنده</a></li>
+                                            <li><a href="/RajiStory">حکایت گز راجی</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="/AboutUs">ارتباط با ما</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    <footer id="footer">
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    @{
+                        int CountFooter = FooterColNames.Count;
+                        string ClassName = "";
+                        switch (CountFooter)
+                        {
+                            case 4:
+                                {
+                                    ClassName = "col-sm-6 col-md-3 col-lg-3";
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    ClassName = "col-sm-4 col-md-4 col-lg-4";
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    ClassName = "col-sm-6 col-md-6 col-lg-6";
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    ClassName = "col-sm-12 col-md-12 col-lg-12";
+                                    break;
+                                }
+                        }
+                        var i = 0;
+                        foreach (var Item in FooterColNames)
+                        {
+                            var Footers = Item.Footer;
+                            string lnki = "";
+                            i++;
+                            <div class="@ClassName">
+                                <div class="footer-content">
+                                    <h2>@Item.Name</h2>
+                                    <nav>
+                                        <ul class="nav nav-pills nav-stacked" style="padding-right:12px;">
+                                            @foreach (var Item1 in Footers)
+                                            {
+                                                if (!string.IsNullOrEmpty(Item1.FooterLink))
+                                                {
+                                                    lnki = Item1.FooterLink;
+                                                    if (!Item1.FooterLink.Contains("http"))
+                                                    {
+                                                        lnki = "http://" + Item1.FooterLink;
+                                                    }
+
+
+                                                    <li><a href="@lnki">@Item1.FooterText</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li>@Html.Raw(Item1.FooterText)</li>
+                                                }
+                                            }
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div style="background-color: #008090; padding-top: 38px; padding-bottom: 28px;">
+            <style>
+                .bar{
+                    background: #faf7f1;
+                    height: 28px;
+                    border-bottom: solid 1px #e6d5b7;
+                    font-size: 13px;
+                    line-height: 31px;
+                    color: #d58d0c;
+                }
+                .bar a{
+                    text-decoration:none;
+                }
+                .bar a i{
+                    font-size: 15px;
+                }
+                .form-control:focus {
+                    border-color: #01a6bb;
+                }
+
+                .footer-content, .footer-content h2, .footer-content a {
+                    color: #fff !important;
+                }
+
+                    .footer-content a:hover {
+                        color: #faa814 !important;
+                    }
+
+                #footer  {
+                    border-top: solid 4px #faa814;
+    padding-top: 1px;
+                }
+
+
+                #footer .socials {
+                    list-style: none;
+                    text-align: center;
+                }
+                    #footer .socials li {
+                        width: 40px;
+                        height: 40px;
+                        display: inline-block;
+                        margin: 0 2px;
+                    }
+
+                    #footer .socials a {
+                        display: block;
+                        height: 100%;
+                        background-image: url('/Images/socials.png');
+                        background-position: 0px 0px;
+                        background-size: cover;
+                        border: solid 1px transparent;
+                    }
+
+                    #footer .socials a:hover {
+                        border: solid 1px #aee1e8;
+                    }
+
+                    #footer .socials a:hover, 
+                    #footer .socials a:focus {
+                        text-decoration: none;
+                    }
+
+                    #footer .socials a.facebook {
+                        background-position-x: 0;
+                    }
+
+                    #footer .socials a.twitter {
+                        background-position-x: 152px;
+                    }
+
+                    #footer .socials a.google {
+                        background-position-x: 116px;
+                    }
+
+                    #footer .socials a.linkedin {
+                        background-position-x: 76px;
+                    }
+
+                    #footer .socials a.flickr {
+                        background-position-x: 38px;
+                    }
+                    
+                    #footer #email{
+                            padding-right: 14px;
+                        background-color: #01464f; color: #bec3c4; border-width: 1px; border-color:#008090;
+                    }
+                    #footer #email:focus{
+                           border-color:#aee1e8;
+                    }
+                    
+                    #footer #sendEmail{
+    font-size: 15px;
+    min-width: 10px;
+    padding: 4px 15px;
+    background-color: #7d7d7d;
+    border: none;
+    color: #2e2e2e;
+    position: absolute;
+    left: 16px;
+    top: 1px;                    
+    height: 38px;
+                    }
+
+                    .btn.special{    
+                        color: #008090 !important;
+                        background: #fff;
+                        padding: 8px 24px;
+                        border: none;
+                        position: relative;
+                    }
+                    .btn.special div{    
+                        display: inline-block;
+                    }
+                    .btn.special div.content{    
+                        border-top: solid 1px #faa814;
+                        border-bottom: solid 1px #faa814;
+                        padding: 5px 32px;
+                    }
+                    .btn.special div:first-child,
+                    .btn.special div:last-child{    
+                        background-image: url('/Images/OtherProduct.png');
+                        position: absolute;
+                        width: 80px;
+                        top: 5px;
+                        bottom: 0;
+                        background-repeat: no-repeat;
+                    }
+                    .btn.special div:first-child{    
+                        right: -36px;
+                    }
+                    .btn.special div:last-child{    
+                        left: -36px;
+                         -moz-transform: scaleX(-1);
+                        -webkit-transform: scaleX(-1);
+                        -o-transform: scaleX(-1);
+                        transform: scaleX(-1);
+                        -ms-filter: fliph; /*IE*/
+                        filter: fliph; /*IE*/
+                    }
+            </style>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="color: #ddd;">
+                        <ul class="socials">
+                            <li>
+                                <a class="facebook" href="#" title="Facebook">&nbsp;</a>
+                            </li>
+                            <li>
+                                <a class="twitter" href="#" title="Twitter">&nbsp;</a>
+                            </li>
+                            <li>
+                                <a class="google" href="#" title="Google plus">&nbsp;</a>
+                            </li>
+                            <li>
+                                <a class="linkedin" href="#" title="Linkedin">&nbsp;</a>
+                            </li>
+                            <li>
+                                <a class="flickr" href="#" title="Flickr">&nbsp;</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <form name="letter" style="margin:0;" novalidate>
+                            <div class="row">
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 pull-right">
+                                    <input autocomplete="off" class="form-control" type="email" id="email" name="email" placeholder="برای عضویت در خبرنامه، ایمیل خود را وارد نمایید" />
+                                    <button class="" id="sendEmail" type="button">
+                                        <i class="fa fa-chevron-left" style="margin-top: 9px;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $("#sendEmail").click(function () {
+
+                                        $("#errorValidateMsg").hide();
+
+                                        if (!letter.email.validity.valid || !$("#email").val() || !$("#email").val().length) {
+                                            alert("ایمیل وارد شده معتبر نیست");
+                                        }
+                                        else {
+                                            debugger;
+                                            $.ajax({
+                                                url: "/home/savenewsletteremail",
+                                                method: "post",
+                                                data: {
+                                                    emailAddress: $("#email").val()
+                                                },
+                                                success: function () {
+                                                    alert("با موفقیت ثبت شد");
+                                                },
+                                                error: function () {
+                                                    alert(" در هنگام ثبت خطایی رخ داده");
+                                                    $("#email").val("");
+                                                }
+                                            });
+                                        }
+                                    });
+                                });
+                            </script>
+                            <script>
+                                $(document).ready(function () {
+
+                                    //$('#ModalLoginBtn').click(function (e) {
+                                    //    debugger;
+                                    //    e.preventDefault();
+                                    //    $("#ModalLoginForm").submit();
+                                    //});
+                                    if ($("#ModalLoginForm").length > 0) {
+                                        var Validator = $("#ModalLoginForm").validate({
+                                            submitHandler: function (form) {
+                                                debugger;
+                                                $("#ModalLoginBtn").attr("disabled", true);
+                                                $.ajax({
+                                                    url: "/Home/Login",
+                                                    data: {
+                                                        Email: $("#LoginEmail").val(),
+                                                        Password: $("#Password").val(),
+                                                        RememberMe: $("#RememberMe").is(':checked')
+                                                    },
+                                                    method: "post",
+                                                    beforeSend: function () {
+                                                        $(".messages > *").each(function () {
+                                                            $(this).hide();
+                                                        });
+                                                    },
+                                                    complete: function () {
+                                                        debugger;
+                                                        $("#ModalLoginBtn").attr("disabled", false);
+                                                        Validator.resetForm();
+                                                    },
+                                                    statusCode: {
+                                                        200: function (result) {
+                                                            debugger;
+                                                            $("#ModalLoginBtn").attr("disabled", false);
+                                                            $("#success").show();
+                                                            setTimeout(function () {
+                                                                $("#success").fadeOut(2000, function () {
+                                                                    $("#success").hide();
+                                                                    grecaptcha.reset();
+                                                                });
+                                                            }, 5000);
+
+                                                            window.location.href = '/home';
+                                                            //$("#LoginEmail").val('');
+                                                            //$("#Password").val('');
+                                                            //$("#RememberMe").attr('checked', false);
+                                                        },
+                                                        400: function (result) {
+                                                            debugger;
+                                                            $("#failed").show();
+                                                        }
+                                                    }
+                                                });
+
+                                            },
+                                            // debug: true,
+                                            errorPlacement: function (error, element) {
+                                                error.insertAfter(element);
+                                            },
+                                            onkeyup: false,
+                                            onclick: false,
+                                            rules: {
+                                                LoginEmail: {
+                                                    required: true,
+                                                },
+                                                Password: {
+                                                    required: true,
+                                                },
+                                            },
+                                            messages: {
+                                                LoginEmail: {
+                                                    required: "نام کاربری خود را وارد کنید"
+                                                },
+                                                Password: {
+                                                    required: "کلمه عبور خود را وارد کنید"
+                                                }
+                                            },
+                                            highlight: function (element) {
+
+                                            },
+                                            success: function (element) {
+
+                                            }
+                                        });
+                                    };
+                                });
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .footer li {
+                text-align: justify;
+            }
+        </style>
+        <div class="subfooter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center; position: relative;">
+                        <div class="col-md-7  pull-right " style="padding-left: 0px;">
+                            <p id="cpdiv" style="text-align: left !important; color: #70979c;">
+
+                                طراحی و اجرا توسط گروه نرم افزاری  <a target="_blank" style="color: #aee1e8;" href="http://www.chitva.com">چیتوا</a>  ©
+
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="loginModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">ورود به تندیس طلایی</h4>
+                </div>
+                <div class="modal-body">
+                    <form   id="ModalLoginForm" role="form">
+                        <div class="form-group row">
+                            <label for="inputUsername" class="col-sm-2 col-xs-12 form-control-label">ایمیل</label>
+                            <div class="col-sm-10 col-xs-12">
+                                <input type="text" class="form-control ltr" id="LoginEmail" name="LoginEmail" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-2 col-xs-12 form-control-label">رمز عبور</label>
+                            <div class="col-sm-10 col-xs-12">
+                                <input type="text" class="form-control ltr" id="Password" name="Password" placeholder="">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-12">&nbsp;</div>
+                            <div class="col-sm-10 col-xs-12">
+                                <input id="RememberMe" name="RememberMe" type="checkbox" />
+                                <label for="inputRememberMe">مرا بخاطر بسپار</label>
+                                <button  id="ModalLoginBtn" type="submit" class="btn btn-primary btn-sm pull-left">ورود</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <span>قبلا در تندیس طلایی ثبت نام نکرده اید؟</span>
+                    &nbsp;&nbsp;&nbsp;
+                    <a  style="color:#50cfd3;" href="/home/Register">
+                        ثبت نام
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<script type="text/javascript" src="/Bootstrap/plugins/jquery.min.js"></script>*@
+    <script type="text/javascript" src="/Bootstrap/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Scripts/PersianNumber/persianumber.min.js"></script>
+    <script src="~/Scripts/Scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="/Bootstrap/plugins/modernizr.js"></script>
+
+    <!-- jQuery REVOLUTION Slider  -->
+    <script type="text/javascript" src="/Bootstrap/plugins/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="/Bootstrap/plugins/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+
+    <script type="text/javascript" src="/Bootstrap/plugins/isotope/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="/Bootstrap/plugins/owl-carousel/owl.carousel.js"></script>
+    <script type="text/javascript" src="/Bootstrap/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="/Bootstrap/plugins/jquery.appear.js"></script>
+    <script type="text/javascript" src="/Bootstrap/plugins/jquery.countTo.js"></script>
+    <script type="text/javascript" src="/Bootstrap/plugins/jquery.knob.min.js"></script>
+    <script src="/Bootstrap/plugins/jquery.parallax-1.1.3.js"></script>
+    <script src="/Bootstrap/plugins/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript" src="/Bootstrap/js/template.js"></script>
+    <!-- Custom Scripts -->
+    <script type="text/javascript" src="/Bootstrap/js/custom.js"></script>
+    <!--Modified Scripts For Persian LayOut-->
+    <script src="~/Scripts/Layouts/PersianLayout.js"></script>
+
+</body>
+</html>
+<!--Product-->
+@helper  CreateNodes(int? ParentID)
+{
+List<Domain.Entities.ServiceGroup> ServiceGroupAllList = ViewBag.ServiceGroup;
+List<Domain.Entities.ServiceGroup> ServiceGroupList = ViewBag.ServiceGroup;
+ServiceGroupList = ServiceGroupList.Where(p => p.ParentID == ParentID).OrderBy(p => p.Priority).ToList();
+int CountServiceGroupList = ServiceGroupList.Count;
+
+if (CountServiceGroupList > 0)
+{
+    for (int i = 0; i < CountServiceGroupList; i++)
+    {
+        if (ServiceGroupAllList.FirstOrDefault(x => x.ParentID == ServiceGroupList[i].Id) != null)
+        {
+                <li class="dropdown">
+                    <a href="/category/@(ServiceGroupList[i].Id)/@(ServiceGroupList[i].Name)" class="dropdown-toggle" data-toggle="dropdown">@ServiceGroupList[i].Name </a>
+                    <ul class="dropdown-menu">
+                        @CreateNodes(ServiceGroupList[i].Id)
+                    </ul>
+                </li>
+        }
+        else
+        {
+            var serviceName = @ServiceGroupList[i].Name.Replace(" ", "-");
+                <li><a href="/Product/@ServiceGroupList[i].Id/@serviceName">@ServiceGroupList[i].Name</a></li>
+        }
+    }
+}
+}
+
+
+<!--Gallery-->
+@helper  CreateNodesw(int? ParentID)
+{
+List<Domain.Entities.WorkExperienceGroup> WorkExperienceGroupAllList = ViewBag.WorkExGroup;
+List<Domain.Entities.WorkExperienceGroup> WorkExperienceGroupList = ViewBag.WorkExGroup;
+WorkExperienceGroupList = WorkExperienceGroupList.Where(p => p.ParentID == ParentID).OrderBy(p => p.Priority).ToList();
+int CountServiceGroupList = WorkExperienceGroupList.Count;
+
+if (CountServiceGroupList > 0)
+{
+    for (int i = 0; i < CountServiceGroupList; i++)
+    {
+        if (WorkExperienceGroupAllList.FirstOrDefault(x => x.ParentID == WorkExperienceGroupList[i].Id) != null)
+        {
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@WorkExperienceGroupList[i].Name </a>
+                    <ul class="dropdown-menu">
+                        @CreateNodesw(WorkExperienceGroupList[i].Id)
+                    </ul>
+                </li>
+        }
+        else
+        {
+            var workExpN = WorkExperienceGroupList[i].Name.Replace(" ", "-");
+                <li><a href="/Gallery/@WorkExperienceGroupList[i].Id/@workExpN">@WorkExperienceGroupList[i].Name</a></li>
+        }
+    }
+}
+}
+@RenderSection("ScriptIndex", false)

@@ -1,0 +1,1054 @@
+﻿@model Domain.Entities.Emp_GeneralApplicanInfo
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+}
+@Html.Hidden("MenuItems", "1389012364_PixelKit_5-Oclock-Shades-Icon-Set__0008_4.png" + ":-" + "مدیریت تقاضاهای استخدام" + ":-" + "جزئیات تقاضای استخدام ")
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/Admin/IconTitlePageScript.js"></script>
+@section scripts{
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+}
+<script>
+    Page();
+</script>
+<script>
+    function tablePrint() {
+        var display_setting = "toolbar=yes,location=no,directories=yes,menubar=yes,";
+        display_setting += "scrollbars=yes,width=750, height=600, left=100, top=25";
+
+        var content_innerhtml = document.getElementById("divCssWh").innerHTML;
+        var document_print = window.open("", "", display_setting);
+        document_print.document.open();
+        document_print.document.write('<html><head><title>Print using javascript </title><style>.divCssWh {        direction: rtl;    }    .divCssWh > table > tbody > tr > td {        padding: 3px 5px 7px 0;        width: 50%;    }    .divCssWh fieldset table tr td {    padding: 5px;    border-right: solid #ccc 1px;    }    .divCssWh table {        width: 97.5%;    }    .divCssWh h4 {        margin: 30px 0 5px 0;    }    .divCssWh hr {        margin-left: 20px;    }    .divCssWh tr:nth-child(2n+1) {        background-color: #f7f7f7;    }</style></head>');
+        document_print.document.write('<body" onLoad="self.print();self.close();" >');
+        document_print.document.write('<div class="divCssWh">' + content_innerhtml + "</div>");
+        document_print.document.write('</body></html>');
+        document_print.print();
+        document_print.document.close();
+        return false;
+    }
+</script>
+<style>
+    .divCssWh {
+        direction: rtl;
+    }
+
+    .divCssWh > table > tbody > tr > td {
+        padding: 3px 5px 7px 0;
+        width: 50%;
+    }
+
+    .divCssWh fieldset table tr td {
+    padding: 5px;
+    border-right: solid #ccc 1px;
+    }
+
+    .divCssWh table {
+        width: 97.5%;
+    }
+
+    .divCssWh h4 {
+        margin: 30px 0 5px 0;
+    }
+
+    .divCssWh hr {
+        margin-left: 20px;
+    }
+
+    .divCssWh tr:nth-child(2n+1) {
+        background-color: #f7f7f7;
+    }
+</style>
+<table id="PrintButton" style="width: 100%;">
+    <tbody style="width: 100%;">
+        <tr>
+            <td style="padding: 10px;">
+                <h4>پرینت اطلاعات</h4>
+            </td>
+            <td style="padding: 10px;">
+                <input type="button" value="پرینت" onclick="tablePrint();" style="float: left;">
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="divCssWh" id="divCssWh">
+    
+    <h4>وضعیت</h4>
+    <hr />
+    <table  id="ApplicantDetails">
+        <tbody>
+            <tr>
+                <td>
+                    تاریخ ثبت نام
+                </td>
+                <td>
+                    @{
+                        PersianToolS.PersinToolsClass dateFa = new PersianToolS.PersinToolsClass();
+                        string dtfa = "";
+                        if (Model.RegisteredDate != null)
+                        {
+                            dtfa = dateFa.DateToPersian(Convert.ToDateTime(Model.RegisteredDate)).year + "،"
+                                    + dateFa.DateToPersian(Convert.ToDateTime(Model.RegisteredDate)).DayOfweak + " ، "
+                                    + dateFa.DateToPersian(Convert.ToDateTime(Model.RegisteredDate)).day.ToString() + " "
+                                    + dateFa.DateToPersian(Convert.ToDateTime(Model.RegisteredDate)).MonthName;
+                        }
+                    }
+                    @(dtfa)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    وضعیت استخدام
+                </td>
+                <td>
+                    <form method="post" action="/Admin/Employment/ChangeRequestStatus">
+                        <input name="id" type="hidden" value="@(Model.Id)" />
+                        <select name="status">
+                            <option value="0" @((int)Model.RequestStatus == 0 ? "selected" : "")>جدید</option>
+                            <option value="1" @((int)Model.RequestStatus == 1 ? "selected" : "")>درحال بررسی</option>
+                            <option value="2" @((int)Model.RequestStatus == 2 ? "selected" : "")>بررسی شده</option>
+                            <option value="3" @((int)Model.RequestStatus == 3 ? "selected" : "")>مصاحبه شده</option>
+                            <option value="4" @((int)Model.RequestStatus == 4 ? "selected" : "")>تماس گرفته شده</option>
+                            <option value="5" @((int)Model.RequestStatus == 5 ? "selected" : "")>درانتظار مصاحبه</option>
+                            <option value="6" @((int)Model.RequestStatus == 6 ? "selected" : "")>رد شده</option>
+                            <option value="7" @((int)Model.RequestStatus == 7 ? "selected" : "")>تایید شده</option>
+                        </select>
+                        <input style="float: left;" value="ذخیره" type="submit" />
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>اطلاعات پایه</h4>
+    <hr />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.FirstName)
+                </td>
+                <td>
+                    @Model.FirstName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Family)
+                </td>
+                <td>
+                    @Model.Family
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.BirthCertificateNumber)
+                </td>
+                <td>
+                    @Model.BirthCertificateNumber
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IDCard)
+                </td>
+                <td>
+                    @Model.IDCard
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.BirthDate)
+                </td>
+                <td>
+                    @Model.BirthDate
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ExportPlace)
+                </td>
+                <td>
+                    @Model.ExportPlace
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.FatherName)
+                </td>
+                <td>
+                    @Model.FatherName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IsMarried)
+                </td>
+                <td>
+                    @if ((bool)Model.IsMarried)
+                    {
+                    <span>متاهل</span>
+                    }
+                    else
+                    {
+                    <span>مجرد</span>
+                    }
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ChildrenCount)
+                </td>
+                <td>
+                    @Model.ChildrenCount
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IsMale)
+                </td>
+                <td>
+                        @if ((bool)Model.IsMale)
+                        {
+                            <span>مرد</span>
+                        }
+                        else
+                        {
+                            <span>زن</span>
+                        }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.MilitaryStatus)
+                </td>
+                <td>
+                    @Model.MilitaryStatus
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>عقیده و نژاد</h4>
+    <hr />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Religion)
+                </td>
+                <td>
+                    @Model.Religion
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ReligionSect)
+                </td>
+                <td>
+                    @Model.ReligionSect
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Nationality)
+                </td>
+                <td>
+                    @Model.Nationality
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Race)
+                </td>
+                <td>
+                    @Model.Race
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>فعالیت فعلی</h4>
+    <hr />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HasCurrentJob)
+                </td>
+                <td>
+                    @if ((bool)Model.HasCurrentJob)
+                    {
+                    <span>شاغل جویای کار</span>
+                    }
+                    else
+                    {
+                    <span>فاقد کار</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.JobSeekingTime)
+                </td>
+                <td>
+                    @Model.JobSeekingTime
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HasUnEmpInsurance)
+                </td>
+                <td>
+                    @if ((bool)Model.HasUnEmpInsurance)
+                    {
+                    <span>بلی</span>
+                    }
+                    else
+                    {
+                    <span>خیر</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.PensionStartDate)
+                </td>
+                <td>
+                    @Model.PensionStartDate
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.PensionEndDate)
+                </td>
+                <td>
+                    @Model.PensionEndDate
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>سلامتی</h4>
+    <hr />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Height)
+                </td>
+                <td>
+                    @Model.Height
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Weight)
+                </td>
+                <td>
+                    @Model.Weight
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IsDefective)
+                </td>
+                <td>
+                    @if ((bool)Model.IsDefective)
+                    {
+                    <span>معلول</span>
+                    }
+                    else
+                    {
+                    <span>سالم</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.DefectiveType)
+                </td>
+                <td>
+                    @Model.DefectiveType
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HasIllnessHistory)
+                </td>
+                <td>
+                    @if ((bool)Model.HasIllnessHistory)
+                    {
+                    <span>بلی</span>
+                    }
+                    else
+                    {
+                    <span>خیر</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IllnessType)
+                </td>
+                <td>
+                    @if (Model.IllnessType != null)
+                    {
+                    switch ((int)Model.IllnessType)
+                    {
+                    case 0:
+                    {
+                    <span>نقص عضو</span>
+                    break;
+                    }
+                    case 1:
+                    {
+                    <span>نارسایی قلبی</span>
+                    break;
+                    }
+                    case 2:
+                    {
+                    <span>نارسایی تنفسی</span>
+                    break;
+                    }
+                    case 3:
+                    {
+                    <span>نارسایی کلیوی</span>
+                    break;
+                    }
+                    case 4:
+                    {
+                    <span>حساسیت</span>
+                    break;
+                    }
+                    case 5:
+                    {
+                    <span>دیسک کمر</span>
+                    break;
+                    }
+                    case 6:
+                    {
+                    <span>سایر</span>
+                    break;
+                    }
+                    }
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IsSmocking)
+                </td>
+                <td>
+                    @if ((bool)Model.IsSmocking)
+                    {
+                    <span>بلی</span>
+                    }
+                    else
+                    {
+                    <span>خیر</span>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>وضعیت تحصیلی</h4>
+    <hr />
+    <table>
+        <tbody>
+            @*<tr>
+                <td>
+                    @Html.LabelFor(model => model.HasEducated)
+                </td>
+                <td>
+                    @if ((bool)Model.HasEducated)
+                    {
+                    <span>باسواد</span>
+                    }
+                    else
+                    {
+                    <span>بیسواد</span>
+                    }
+                </td>
+            </tr>*@
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IsStudent)
+                </td>
+                <td>
+                    @if ((bool)Model.IsStudent)
+                    {
+                    <span>بلی</span>
+                    }
+                    else
+                    {
+                    <span>خیر</span>
+                    }
+                 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CurrentEducationlevel)
+                </td>
+                <td>
+                  
+                    @switch ((int)Model.CurrentEducationlevel)
+                    {
+                    case 0:
+                    {
+                    <span>دبستان</span>
+                    break;
+                    }
+                    case 1:
+                    {
+                    <span>راهنمایی</span>
+                    break;
+                    }
+                    case 2:
+                    {
+                    <span>دبیرستان</span>
+                    break;
+                    }
+                    case 3:
+                    {
+                    <span>دانشگاه</span>
+                    break;
+                    }
+                    case 4:
+                    {
+                    <span>بیسواد</span>
+                    break;
+                    }
+                    }
+                  
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @if (Model.Certificates != null && Model.Certificates.Count() > 0)
+    {
+    <br />
+    <fieldset class="employment">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                                نوع مدرک تحصیلی
+                            </td>
+                            <td>
+                                رشته تحصیلی
+                            </td>
+                            <td>
+                                نام دانشگاه /دبستان /دبیرستان
+                            </td>
+                            <td>
+                                سال اخذ
+                            </td>
+                            <td>
+                                معدل
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Certificates)
+                        {
+                        <tr>
+                            <td>
+                                @item.CertificateType
+                            </td>
+                            <td>
+                                @item.FieldOfStudy
+                            </td>
+                            <td>
+                                @item.CollegeName
+                            </td>
+                            <td>
+                                @item.CertificateDate
+                            </td>
+                            <td>
+                                @item.Grade
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+    }
+
+    <h4>وضعیت زبان</h4>
+    <hr />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HasLanguageCertificate)
+                </td>
+                <td>
+                    @if ((bool)Model.HasLanguageCertificate)
+                    {
+                    <span>بلی</span>
+                    }
+                    else
+                    {
+                    <span>خیر</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.KnownForiegnLanguage)
+                </td>
+                <td>
+                    @Model.KnownForiegnLanguage
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>وضعیت مهارت</h4>
+    <hr />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HasDrivingLicense)
+                </td>
+                <td>
+                    @if ((bool)Model.HasDrivingLicense)
+                    {
+                    <span>بلی</span>
+                    }
+                    else
+                    {
+                    <span>خیر</span>
+                    }
+                   
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.DrivingLicenseType)
+                </td>
+                <td>
+                    @Model.DrivingLicenseType
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Welding)
+                </td>
+                <td>
+                    @(Model.Welding ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Building)
+                </td>
+                <td>
+                    @(Model.Building ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.GreenHouseConstruction)
+                </td>
+                <td>
+                    @(Model.GreenHouseConstruction ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.GreenHouseManaging)
+                </td>
+                <td>
+                    @(Model.GreenHouseManaging ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Computer)
+                </td>
+                <td>
+                    @(Model.Computer ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Accounting)
+                </td>
+                <td>
+                    @(Model.Accounting ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Electrician)
+                </td>
+                <td>
+                    @(Model.Electrician ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.TractorDriving)
+                </td>
+                <td>
+                    @(Model.TractorDriving ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Cooking)
+                </td>
+                <td>
+                    @(Model.Cooking ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Agriculture)
+                </td>
+                <td>
+                    @(Model.Agriculture ? "بلی" : "خیر")
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Gardening)
+                </td>
+                <td>
+                    @(Model.Gardening ? "بلی" : "خیر")
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @if (Model.Professions != null && Model.Professions.Count > 0)
+    {
+    <br />
+    <fieldset class="employment">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                                نوع مهارت
+                            </td>
+                            <td>
+                                درجه مهارت
+                            </td>
+                            <td>
+                                نوع فراگیری مهارت
+                            </td>
+                            <td>
+                                مدت دوره
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Professions)
+                        {
+                        <tr>
+                            <td>
+                                @item.ProfessionName
+                            </td>
+                            <td>
+                                @item.ProfessionDegree
+                            </td>
+                            <td>
+                                @item.HowToLearn
+                            </td>
+                            <td>
+                                @item.LearningDuration
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+    }
+
+    <h4>درخواست</h4>
+    <hr />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.JobApplicantTitle)
+                </td>
+                <td>
+                    @Model.JobApplicantTitle
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ProposedSalary)
+                </td>
+                <td>
+                    @Model.ProposedSalary
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RaedyDateToWork)
+                </td>
+                <td>
+                    @Model.RaedyDateToWork
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.FamiliarityType)
+                </td>
+                <td>
+                    @switch ((int)Model.FamiliarityType)
+                    {
+                    case 0:
+                    {
+                    <span>معرف</span>
+                    break;
+                    }
+                    case 1:
+                    {
+                    <span>سایت</span>
+                    break;
+                    }
+                    case 2:
+                    {
+                    <span>تبلیغات</span>
+                    break;
+                    }
+                    case 3:
+                    {
+                    <span>سایر</span>
+                    break;
+                    }
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IntroducerFullName)
+                </td>
+                <td>
+                    @Model.IntroducerFullName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IntroducerJob)
+                </td>
+                <td>
+                    @Model.IntroducerJob
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IntroducerPhone)
+                </td>
+                <td>
+                    @Model.IntroducerPhone
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IntroducerRelationWithYou)
+                </td>
+                <td>
+                    @Model.IntroducerRelationWithYou
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @if (Model.JobHistories != null && Model.JobHistories.Count() > 0)
+    {
+    <br />
+    <fieldset class="employment">
+        <legend>سوابق</legend>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                                نام شرکت/موسسه/....
+                            </td>
+                            <td>
+                                نوع فعالیت
+                            </td>
+                            <td>
+                                آخرین حقوق دریافتی
+                            </td>
+                            <td>
+                                مدت کار
+                            </td>
+                            <td>
+                                شماره تماس محل کار
+                            </td>
+                            <td>
+                                علت ترک کار
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.JobHistories)
+                        {
+                        <tr>
+                            <td>
+                                @item.CompanyName
+                            </td>
+                            <td>
+                                @item.JobPosition
+                            </td>
+                            <td>
+                                @(item.LastRecievedSalary)
+                            </td>
+                            <td>
+                                @item.JobStartDate
+                            </td>
+                            <td>
+                                @item.JobEndDate
+                            </td>
+                            <td>
+                                @item.LeaveReason
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+    }
+
+    <h4>معرف</h4>
+    <hr />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IntroducerFullName)
+                </td>
+                <td>
+                    @Model.IntroducerFullName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IntroducerJob)
+                </td>
+                <td>
+                    @Model.IntroducerJob
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IntroducerPhone)
+                </td>
+                <td>
+                    @Model.IntroducerPhone
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IntroducerRelationWithYou)
+                </td>
+                <td>
+                    @Model.IntroducerRelationWithYou
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>محل سکونت</h4>
+    <hr />
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Province)
+                </td>
+                <td>
+                    @Model.Province
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.City)
+                </td>
+                <td>
+                    @Model.City
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.StreetName)
+                </td>
+                <td>
+                    @Model.StreetName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.AlleyName)
+                </td>
+                <td>
+                    @Model.AlleyName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HouseNumber)
+                </td>
+                <td>
+                    @Model.HouseNumber
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.UnitNumber)
+                </td>
+                <td>
+                    @Model.UnitNumber
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.PhoneNumber)
+                </td>
+                <td>
+                    @Model.PhoneNumber
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.mobileNumber)
+                </td>
+                <td>
+                    @Model.mobileNumber
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.PostalCode)
+                </td>
+                <td>
+                    @Model.PostalCode
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

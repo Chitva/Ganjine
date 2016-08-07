@@ -1,0 +1,650 @@
+﻿
+BODY {
+    
+  background-color: #D5D5D5;
+   background-image: url("../../Images/BackgroundBody1.jpg");
+    color: #333333;
+    font-family: Tahoma,sans-serif,Verdana,Arial,Helvetica,Helvetica-Narrow;
+    margin: 0;
+    padding: 0;
+    direction:rtl;
+  
+}
+A {
+    color: #0153A4;
+    text-decoration: underline;
+  
+}
+#Content {
+    background: #FFFFFF url('../../Images/Admin/AdminImages/content_bkg.gif') repeat-x scroll 0 0;
+    float: left;
+    margin-top: 1px;
+    width: 778px;
+}
+.FloatR {
+    float:right;
+}
+.FloatL {
+    float:left;
+}
+a img {text-decoration: none; 
+}
+
+#SkinOutline {
+    margin: 0 auto;
+    margin-right: auto;
+    width: 970px;
+   
+}
+
+#SkinContent {
+    background-color: #FFFFFF;
+    float: right;
+}
+
+#Header {
+    background: #FFFFFF url('../../Images/Admin/AdminImages/header_bkg.gif') repeat-x scroll left top;
+    margin: 1px 1px 0;
+    padding: 2px 5px 1px 10px;
+    width: auto;
+    height: 100px;
+}
+.Container {
+    width: 100%;
+}
+.Logo {
+    padding-right: 15px;
+    padding-top: 15px;
+    width: 215px;
+    float:right;
+}
+.FloatLeft {
+    float:left;
+    width:730px;
+}
+.Account {
+    font-size: 8pt;
+    text-align:left;
+    width:100%;
+}
+.Search {
+    font-size: 9pt;
+    height: 70px;
+    padding-bottom: 8px;
+    padding-right: 5px;
+    text-align: left;
+    vertical-align: bottom;
+    width: 100%;
+    
+}
+
+#Top {
+    clear: both;
+    margin: 1px 1px 0;
+}
+#Breadcrumb {
+    background: none repeat scroll 0 0 #E5F2FF;
+    border-bottom: 1px solid #86B9F7;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+}
+.Path {
+    width:100%;
+    color: #1F4978 !important;
+    font-size: 8pt;
+    margin-top: 5px;
+    float:right;
+}
+#Right {
+    float: right;
+    margin: 1px 1px 1px 0px;
+    padding: 0;
+    position: relative;
+    top: -15px;
+    /*width: 200px;*/
+      width: 191px;
+}
+#Right .Menu {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #D1E9FF;
+    border-image: none;
+    border-right: 1px solid #86B9F7;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+    margin-bottom: 20px;
+    
+     padding: 0 3px 5px;
+    border-right-color: #86B9F7;
+    border-bottom-color: #86B9F7;
+    border-left-color: #86B9F7;
+}
+
+#Right .MenuHeader {
+    background: transparent url('../../Images/Admin/AdminImages/left_menu_header5.gif') no-repeat scroll 0 0;
+    color: #1F4978;
+    font-size: 9pt;
+    height: 38px;
+    margin-top: 5px;
+    padding-right: 7px;
+    padding-top: 5px;
+}
+.CurrentNode {
+   
+    margin-top: 10px;
+}
+span.Huge {
+    font-size: 16pt;
+}
+A {
+    color: #0153A4;
+    text-decoration: underline;
+}
+.Container {
+    width: 100%;
+}
+
+#Footer {
+    clear: both;
+    color: #505050;
+    font-size: 8pt;
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+#Footer .Copyright {
+    text-align:right;
+    float:right;
+   
+}
+#Footer A {
+    color: #505050;
+}
+#Center {
+    float:right;
+    padding: 10px 10px 10px 0;
+    width: 540px;
+}
+.BrowseContainer {
+    margin-bottom: 15px;
+}
+
+.BrowseContainer .Header {
+    width: 100%;
+    padding-bottom:10px;
+}
+.BrowseContainer .HeaderLeft {
+    background: transparent url('../../Images/Admin/AdminImages/module_header_left.gif') no-repeat scroll left top;
+    height: 60px;
+    width: 6px;
+    float: left;
+}
+.BrowseContainer .HeaderTitle {
+    background: #FCFCFC url('../../Images/Admin/AdminImages/module_header_bkg.gif') repeat-x scroll left top;
+    font-family: Tahoma;
+    font-size: 9pt;
+    font-weight: bold;
+    padding: 6px 4px 4px;
+    float: left;
+}
+.BrowseContainer .HeaderIcon {
+    float: right;
+    margin-right: 5px;
+}
+
+.BrowseContainer .HeaderRight {
+    background: transparent url('../../Images/Admin/AdminImages/module_header_right.gif') no-repeat scroll right top;
+    height: 60px;
+    width: 6px;
+    float: right;
+}
+
+.BrowseContainer .Content {
+
+    overflow:hidden;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #FCFCFC;
+    border-color: -moz-use-text-color #7F7F7F #7F7F7F;
+    border-image: none;
+    border-right: 1px solid #7F7F7F;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+    padding-bottom:20px;
+    clear:both;
+
+}
+#Left {
+    background-color: transparent;
+    float:left;
+    padding: 10px;
+    position: relative;
+    top: -65px;
+    width:190px;
+}
+.FormLeftIcon {
+    text-align:left;
+}
+
+.LeftBlockTitle {
+
+    color: #1F4978;
+    font-size: 16pt;
+    margin-right: 8px;
+    padding-bottom: 3px;
+}
+.WholeDiv {
+    width:100%;
+    float:left;
+    padding-top:10px;
+}
+.que {
+    width:100px;
+    float:right;
+    color: Black;
+    font-size: 11px;
+    padding-bottom:10px;
+    width:180px;
+}
+.normal {
+    float:right;
+     font-size: 8pt;
+}
+.ToolLink {
+  
+    padding-top: 105px;
+      font-size:9pt;
+}
+
+#LoginSkinOutline {
+    margin-left: auto;
+    margin-right: auto;
+    width: 990px;
+}
+#LoginSkinContent {
+    background-color: #FFFFFF;
+    padding-bottom: 30px;
+    padding-top: 1px;
+}
+#HeaderLogin {
+    background: #FFFFFF url('../../Images/Admin/AdminImages/header_bkg.gif') repeat-x scroll right top;
+    margin: 0 1px;
+    padding: 20px 5px 1px 10px;
+    width: auto;
+}
+#ContentLogin {
+    margin-top: 1px;
+    padding: 10px;
+}
+.LoginContainer {
+    margin: 40px auto 90px;
+    width: 550px;
+}
+.LoginContainer .Header {
+    width: 100%;
+    
+     padding-bottom:10px;
+}
+.LoginContainer .HeaderLeft {
+    background: transparent url('../../Images/Admin/AdminImages/module_header_left.gif') no-repeat scroll left top;
+    height: 27px;
+    width: 6px;
+    float: left;
+}
+
+.LoginContainer .HeaderTitle {
+    background: #FCFCFC url('../../Images/Admin/AdminImages/module_header_bkg.gif') repeat-x scroll left top;
+    font-family: Tahoma;
+    font-size: 9pt;
+    font-weight: bold;
+    padding: 6px 4px 4px;
+    width: 530px;
+    float: left;
+}
+
+.LoginContainer .HeaderIcon {
+    float:right;
+    margin-left: 5px;
+}
+
+.LoginContainer .HeaderRight {
+    background: transparent url('../../Images/Admin/AdminImages/module_header_right.gif') no-repeat scroll right top;
+    height: 27px;
+    width: 6px;
+    float: right;
+}
+.LoginContainer .Content {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #FCFCFC;
+    border-color: -moz-use-text-color #7F7F7F #7F7F7F;
+    border-image: none;
+    border-right: 1px solid #7F7F7F;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+   padding-bottom:20px;
+    padding-top: 10px;
+    height:270px;
+    text-align: center;
+}
+
+.FormBody {
+    font-size: 8pt;
+    padding-right: 60px;
+    padding-top:8px;
+}
+.LoginLabel {
+    font-family:Tahoma,Arial;
+    font-size: 9pt;
+   
+}
+.LoginTextBox {
+    border: 1px solid #909090;
+    font-family: Tahoma;
+    font-size: 14pt;
+    font-weight: normal;
+    padding: 3px 3px 3px 2px;
+      -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.ClassUserName {
+    width: 90px;
+    float: right;
+    padding-top:6px;
+}
+.Width100 {
+    padding-top:10px;
+    float:right;
+    width:100%;
+}
+.ForgetPass {
+     float: right;
+    padding-top:6px;
+    padding-right:9px;
+}
+INPUT.LoginButton {
+    background: #FFFFFF url('../../Images/Admin/AdminImages/button_bkg2.png') repeat-x scroll left center;
+    border: 1px solid #8E8F8F;
+    font-family: Tahoma;
+    font-size: 9pt;
+    height: 31px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+INPUT.LoginButton:hover {
+    background: #FFFFFF url('../../Images/Admin/AdminImages/button_hover_bkg2.png') repeat-x scroll left center;
+    border: 1px solid #3C7FB1;
+}
+.EditContainer {
+    margin: 20px auto;
+    width: 100%;
+}
+
+.EditContainer .HeaderLeft {
+    background: transparent url('../../Images/Admin/AdminImages/module_header_left.gif') no-repeat scroll left top;
+    height: 27px;
+    width: 6px;
+    float: left;
+}
+.EditContainer .HeaderTitle {
+    background: #FCFCFC url('../../Images/Admin/AdminImages/module_header_bkg.gif') repeat-x scroll left top;
+    font-family: Tahoma;
+    font-size: 9pt;
+    font-weight: bold;
+    padding: 9px 4px 4px;
+    width: 950px;
+    float: left;
+}
+.EditContainer .HeaderRight {
+    background: transparent url('../../Images/Admin/AdminImages/module_header_right.gif') no-repeat scroll right top;
+    height: 27px;
+    width: 6px;
+    float: right;
+}
+
+.EditContainer .Content {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #FCFCFC;
+    border-color: -moz-use-text-color #7F7F7F #7F7F7F;
+    border-image: none;
+    border-right: 1px solid #7F7F7F;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+    clear: both;
+}
+.SubHead {
+    color: Black;
+    font-size: 11px;
+    float:right;
+    width:63px;
+}
+INPUT.NormalTextBox {
+    border: 1px solid #909090;
+    height: 18px;
+    padding-left: 2px;
+    padding-top: 1px;
+}
+
+.FormFooter {
+    background-color: #F0F0F0;
+    border-top: 1px solid #DFDFDF;
+    font-size: 9pt;
+    padding: 7px;
+    height:34px;
+}
+
+INPUT.Button1, INPUT.Button2, INPUT.Button3 {
+    background: #FFFFFF url('../../Images/Admin/AdminImages/button_bkg.png') repeat-x scroll left bottom;
+    border: 1px solid #8E8F8F;
+    font-family: Tahoma;
+    font-size: 8pt;
+    height: 23px;
+    margin: 1px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+INPUT.Button1:hover, INPUT.Button2:hover, INPUT.Button3:hover, INPUT.SmallButton:hover {
+    background-image: url('../../Images/Admin/AdminImages/button_hover_bkg.png');
+    border: 1px solid #3C7FB1;
+}
+.FloatL {
+    float:left;
+}
+.SpeDiv {
+    width:300px;padding-top:20px;
+    padding-bottom:20px;
+ 
+}
+.FormBody1 {
+    font-size: 8pt;
+    padding-right: 30px;
+}
+
+.MessageBox.Yellow {
+    background-position: right;
+    background-color: #FFFFBA;
+    border: 1px solid #FDDF79;
+    height: 60px;
+    background-image: url('../../Images/Admin/AdminImages/warning_big.gif');
+    background-repeat: no-repeat;
+}
+
+.MessageBox SPAN.description {
+    font-weight: normal !important;
+    font-size:8pt;
+}
+.MessageBox .Set {
+    padding-right:40px; text-align:right; padding-top:9px;
+}
+.Icons {
+    border: 1px solid transparent;
+    font-size: 11px;
+    height: 72px;
+    padding: 4px;
+    text-align: center;
+    vertical-align: top;
+  width:100px;
+    height:100px;
+    float:right;
+    cursor:pointer;
+}
+.Icons:hover{
+    cursor:pointer;
+    background-color: #E9F8FE;
+    border-color: #99DEFD;
+    width:100px;
+    height:100px;
+}
+
+.LoginDropDown {
+    border: 1px solid #909090;
+    border-radius: 4px 4px 4px 4px;
+    font-family: Tahoma;
+    font-size: 11pt;
+    font-weight: normal;
+    padding: 3px 3px 3px 2px;
+    width: 200px;
+}
+.AddBtn {
+    background-position: 75px center;
+    text-align: left;
+    border: 1px solid #c5c5c5;
+    background-image: url('../../Images/Admin/AdminImages/AddIcon.png');
+    background-repeat: no-repeat;
+    background-color: #f2f2f2;
+    padding-right: 2px;
+    width: 95px;
+    color: #2e2e2e;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-family:Tahoma;
+    font-size:13px;
+}
+    .AddBtn:hover {
+        background-color: #c4bdba;
+        border-color: #aaa09b;
+    }
+    .OkIcon {
+    background-position: 48px center;
+    border: 1px solid #c5c5c5;    
+    padding-right:15px;
+    background-image: url('../../Images/Admin/AdminImages/OkIcon.png');
+    background-repeat: no-repeat;
+    background-color: #f2f2f2;
+    width: 65px;
+    color: #2e2e2e;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;  
+    font-family:Tahoma;
+    font-size:13px;
+}
+    .OkIcon:hover {
+        background-color:#c4bdba;
+        border-color:#aaa09b;
+    }
+.CancelIcon {
+    background-position: 48px center;
+    text-align: left;
+    border: 1px solid #c5c5c5;
+    background-image: url('../../Images/Admin/AdminImages/CancelIcon.png');
+    background-repeat: no-repeat;
+    background-color: #f2f2f2;
+    padding-right: 2px;
+    width: 65px;
+    color: #2e2e2e;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-family: Tahoma;
+    font-size: 13px;
+}
+    .CancelIcon:hover {
+        background-color: #c4bdba;
+        border-color: #aaa09b;
+    }
+    .ScrollGrid {
+    max-height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    direction: ltr;
+    clear: both;
+}
+.HideElement {
+display:none;
+}
+#SearchBox {
+border-style: solid;
+border-width: 3px;
+padding-right:10px;
+padding-top:2px;
+width:695px;
+ height:150px;
+border-color:#E5E5E5;
+display:none;
+
+}
+.Div100 {
+float:right;
+width:100%;
+}
+.DefineThemeBody {
+    margin-top:30px;
+    height: 200px;
+    clear: both;
+    width: 500px;
+    background-color:#F3F2F2;
+    color:#333333;
+    background-image:url('../../../../Images/Admin/Pattern/flower-swirl7.png');
+    background-repeat:repeat;
+}
+.pattern-box
+{
+ border: 1px solid #CACACA;
+    display: block;
+    float: left;
+    height: 20px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 20px;
+ }
+.DefineThemePart {
+   
+    width: 180px;
+    height: 70px;
+}
+
+    .DefineThemePart h1 {
+    padding-top:10px;
+    }
+.Div10 {
+    float: right;
+    padding-top: 10px;
+}
+.Div11 {
+    float: right;
+    margin-right: 15px;
+    padding-top: 5px;
+}
+.Div12 {
+    float: right;
+    padding-top: 5px;
+}
+.Div13 {
+    background-color: #fff;
+    width: 200px;
+    height: 189px;
+    padding-top: 1px;
+}

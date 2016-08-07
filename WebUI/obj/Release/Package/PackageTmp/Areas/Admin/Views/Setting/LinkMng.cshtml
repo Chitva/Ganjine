@@ -1,0 +1,99 @@
+﻿@model Domain.ViewModel.Admin.LinkMngVM
+@{
+    ViewBag.Title = "LinkMng";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminOtherPageLayout.cshtml";
+    string result = Convert.ToString(TempData["result"]); 
+}
+@Styles.Render("~/Content/themes/base/css")
+@Styles.Render("~/Content/css")
+
+
+<style>
+    .field-validation-left {
+        margin-top: -6px;
+    }
+    .ltr{
+        direction: ltr;
+    }
+    .divTitle{
+        width: 100px;
+        float: right;
+    }
+</style>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+}
+
+<div class="divCssWh">
+    @if (result != "")
+            {
+        <div class="divCss" style="padding-right: 0;">
+            @if (result == "OK")
+            {
+                <div id="SuccessMsg" style="float: right; width: 300px;">
+                    @Html.Partial("~/Areas/Admin/Views/Alerts/_Successful.cshtml")
+                </div>
+            }
+            else
+            {
+                <div id="AlertMsg" style="float: right; width: 300px;">
+                    @Html.Partial("~/Areas/Admin/Views/Alerts/_Error.cshtml")
+                </div>
+            }
+        </div>
+    }
+    @using (Html.BeginForm(actionName: "LinkMng", controllerName: "Setting", method: FormMethod.Post))
+    {
+        <div class="divCss">
+            <div class="divTitle" style="">
+                @Html.Label("لینک عکس اول", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.Menu1Link ,new {@class ="ltr" })
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="divTitle">
+                @Html.Label("لینک عکس دوم", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.Menu2Link, new { @class = "ltr" })
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="divTitle">
+                @Html.Label("لینک عکس سوم", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.Menu3Link, new { @class = "ltr" })
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="divTitle">
+                @Html.Label("لینک عکس چهارم", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.Menu4Link, new { @class = "ltr" })
+            </div>
+        </div>
+        <div class="divCss">
+            <div class="divTitle">
+                @Html.Label("لینک عکس پنجم", new { @class = "WebUserLabel" })
+            </div>
+            <div class="FloatRight">
+                @Html.TextBoxFor(x => x.Menu5Link, new { @class = "ltr" })
+            </div>
+        </div>
+        <div class="divCss">
+                <div class="divCss" style="padding-top: 15px; padding-right: 50px">
+                    <div class="DivCss1">
+                        <input id="btnSave" type="submit" class="webUserButton" value="ثبت" />
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+
+    
