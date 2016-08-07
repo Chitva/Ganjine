@@ -121,6 +121,64 @@
     <Compile Include="Entities\WorkExperienceGallery.cs" />
     <Compile Include="Entities\WorkExperienceGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\Admin\ChangePasswordModel.cs" />
+    <Compile Include="Validation\Admin\EditUserModel.cs" />
+    <Compile Include="Validation\Admin\LinkBoxVM.cs" />
+    <Compile Include="Validation\Admin\LoginModel.cs" />
+    <Compile Include="Validation\Admin\OrderValidation.cs" />
+    <Compile Include="Validation\Admin\RegisterModel.cs" />
+    <Compile Include="Validation\Admin\RssFeedVM.cs" />
+    <Compile Include="Validation\Admin\validationAddTabStateHouse.cs" />
+    <Compile Include="Validation\Admin\validationAdminName.cs" />
+    <Compile Include="Validation\Admin\validationCompanyUser.cs" />
+    <Compile Include="Validation\Admin\validationContactUs.cs" />
+    <Compile Include="Validation\Admin\validationEditGalleryTab.cs" />
+    <Compile Include="Validation\Admin\ValidationIdAndText.cs" />
+    <Compile Include="Validation\Admin\validationImage.cs" />
+    <Compile Include="Validation\Admin\validationImageGroup.cs" />
+    <Compile Include="Validation\Admin\validationQuestion.cs" />
+    <Compile Include="Validation\User\ContactUsValidation.cs" />
+    <Compile Include="Validation\User\FaqValidation.cs" />
+    <Compile Include="Validation\User\NewsRssViewModel.cs" />
+    <Compile Include="Validation\User\UserLoginViewmodel.cs" />
+    <Compile Include="ViewModel\Admin\BestSpeechVM.cs" />
+    <Compile Include="ViewModel\Admin\DynamicMenu.cs" />
+    <Compile Include="ViewModel\Admin\DynamicSubMenu.cs" />
+    <Compile Include="ViewModel\Admin\EditFooter.cs" />
+    <Compile Include="ViewModel\Admin\IconTitlePage.cs" />
+    <Compile Include="ViewModel\Admin\IdUserNameUsers.cs" />
+    <Compile Include="ViewModel\Admin\LinkMngVM.cs" />
+    <Compile Include="ViewModel\Admin\OrderViewModel.cs" />
+    <Compile Include="ViewModel\Admin\SalesAgencyViewModel.cs" />
+    <Compile Include="ViewModel\Admin\ShowPremission.cs" />
+    <Compile Include="ViewModel\Admin\Tabs.cs" />
+    <Compile Include="ViewModel\Admin\TitleMngViewModel.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelArticle.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelFaq.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelHonour.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelLabratory.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelNews.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelPrice.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelService.cs" />
+    <Compile Include="ViewModel\Admin\viewModelServiceSeo.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelStateHouse.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelStory.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelUnit.cs" />
+    <Compile Include="ViewModel\Admin\viewmodelWorkExperience.cs" />
+    <Compile Include="ViewModel\Admin\ViewPointAnswerVm.cs" />
+    <Compile Include="ViewModel\Mutual\FileUpload.cs" />
+    <Compile Include="ViewModel\User\ArticleViewModel.cs" />
+    <Compile Include="ViewModel\User\ForHomeCeremony.cs" />
+    <Compile Include="ViewModel\User\ForHomeNews.cs" />
+    <Compile Include="ViewModel\User\MinMaxYear.cs" />
+    <Compile Include="ViewModel\User\ProductLinksViewModel.cs" />
+    <Compile Include="ViewModel\User\ProductViewModel.cs" />
+    <Compile Include="ViewModel\User\ShoppingCartViewModel.cs" />
+    <Compile Include="ViewModel\User\StoryViewModel.cs" />
+    <Compile Include="ViewModel\User\UserAccountViewmodel.cs" />
+    <Compile Include="ViewModel\User\UserAddressVM.cs" />
+    <Compile Include="ViewModel\User\viewModelNews.cs" />
+    <Compile Include="ViewModel\User\YearMonth.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -129,13 +187,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Validation\Admin\" />
-    <Folder Include="Validation\User\" />
-    <Folder Include="ViewModel\Admin\" />
-    <Folder Include="ViewModel\Mutual\" />
-    <Folder Include="ViewModel\User\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

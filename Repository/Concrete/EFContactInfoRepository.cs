@@ -10,7 +10,6 @@ using DataLayer.Context;
 using Domain.Entities;
 using RepositoryLayer.Abstract;
 using System.Security.Cryptography;
-using Domain.ViewModel.Admin;
 namespace RepositoryLayer.Concrete
 {
     public class EFContactInfoRepository : IContactInfoRepository

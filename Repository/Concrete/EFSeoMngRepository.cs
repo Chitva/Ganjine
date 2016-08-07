@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using DataLayer.Context;
 using Domain.Entities;
 using System.Security.Cryptography;
-using Domain.ViewModel.Admin;
 using RepositoryLayer.Abstract;
 
 namespace RepositoryLayer.Concrete
