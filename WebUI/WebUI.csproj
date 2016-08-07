@@ -270,7 +270,6 @@
     <Compile Include="CaptchaValidator.cs" />
     <Compile Include="Common\CommonMethods.cs" />
     <Compile Include="Controllers\SaleAgencyController.cs" />
-    <Compile Include="Controllers\TestSndController.cs" />
     <Compile Include="Infrastructure\Extentions\Admin\ArticleExtentions.cs" />
     <Compile Include="Infrastructure\Extentions\Admin\ContactExtensions.cs" />
     <Compile Include="Infrastructure\Extentions\Admin\StoryExtentions.cs" />

@@ -409,3 +409,7 @@ H:\Azizi\TFS\Ganjine.com\WebUI\obj\Debug\WebUI.csprojResolveAssemblyReference.ca
 H:\Azizi\TFS\Ganjine.com\WebUI\obj\Debug\WebUI.csproj.ResolveComReference.cache
 H:\Azizi\TFS\Ganjine.com\WebUI\obj\Debug\WebUI.dll
 H:\Azizi\TFS\Ganjine.com\WebUI\obj\Debug\WebUI.pdb
+H:\Azizi\Git\Ganjine\WebUI\obj\Debug\WebUI.csprojResolveAssemblyReference.cache
+H:\Azizi\Git\Ganjine\WebUI\obj\Debug\WebUI.csproj.ResolveComReference.cache
+H:\Azizi\Git\Ganjine\WebUI\obj\Debug\WebUI.dll
+H:\Azizi\Git\Ganjine\WebUI\obj\Debug\WebUI.pdb

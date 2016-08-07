@@ -100,3 +100,6 @@ H:\Azizi\TFS\TandisTalaei.com\Repository\obj\Debug\Repository.pdb
 H:\Azizi\TFS\Ganjine.com\Repository\obj\Debug\Repository.csprojResolveAssemblyReference.cache
 H:\Azizi\TFS\Ganjine.com\Repository\obj\Debug\Repository.dll
 H:\Azizi\TFS\Ganjine.com\Repository\obj\Debug\Repository.pdb
+H:\Azizi\Git\Ganjine\Repository\obj\Debug\Repository.csprojResolveAssemblyReference.cache
+H:\Azizi\Git\Ganjine\Repository\obj\Debug\Repository.dll
+H:\Azizi\Git\Ganjine\Repository\obj\Debug\Repository.pdb
