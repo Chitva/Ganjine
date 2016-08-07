@@ -2785,6 +2785,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DTO\Pages\Home\" />
     <Folder Include="Files\ServiceGallery\2032\_thumbs\" />
     <Folder Include="Images\Admin\Banner\large\" />
     <Folder Include="Images\Admin\Banner\small\" />
