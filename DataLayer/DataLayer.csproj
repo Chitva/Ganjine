@@ -63,14 +63,14 @@
     <Compile Include="Mapping\FooterColumnNameConfig.cs" />
     <Compile Include="Mapping\FooterConfig.cs" />
     <Compile Include="Mapping\MenuConfig.cs" />
+    <Compile Include="Mapping\StoryGalleryConfig.cs" />
+    <Compile Include="Mapping\StoryConfig.cs" />
     <Compile Include="Mapping\NewsConfig.cs" />
     <Compile Include="Mapping\NewsGalleryConfig.cs" />
     <Compile Include="Mapping\QuestionConfig.cs" />
     <Compile Include="Mapping\ServiceGroupConfig.cs" />
     <Compile Include="Mapping\ServiceTabConfig.cs" />
     <Compile Include="Mapping\ServiceTabFileConfig.cs" />
-    <Compile Include="Mapping\StoryConfig.cs" />
-    <Compile Include="Mapping\StoryGalleryConfig.cs" />
     <Compile Include="Mapping\UploadConfig.cs" />
     <Compile Include="Mapping\WorkExperienceConfig.cs" />
     <Compile Include="Mapping\WorkExperienceGalleryConfig.cs" />

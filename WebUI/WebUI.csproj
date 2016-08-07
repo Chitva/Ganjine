@@ -249,6 +249,8 @@
     <Compile Include="Areas\EN\Controllers\StoryController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\FileUploadStoryController.cs" />
+    <Compile Include="Controllers\FileUploadArticleController.cs" />
     <Compile Include="Controllers\ShoppingController.cs" />
     <Compile Include="Controllers\StoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\ContactController.cs" />
@@ -268,6 +270,7 @@
     <Compile Include="CaptchaValidator.cs" />
     <Compile Include="Common\CommonMethods.cs" />
     <Compile Include="Controllers\SaleAgencyController.cs" />
+    <Compile Include="Controllers\TestSndController.cs" />
     <Compile Include="Infrastructure\Extentions\Admin\ArticleExtentions.cs" />
     <Compile Include="Infrastructure\Extentions\Admin\ContactExtensions.cs" />
     <Compile Include="Infrastructure\Extentions\Admin\StoryExtentions.cs" />
@@ -275,6 +278,9 @@
     <Compile Include="Infrastructure\XmlSitemapResult.cs" />
     <Compile Include="Models\SiteMapNode\ISitemapItem.cs" />
     <Compile Include="Models\SiteMapNode\SitemapItem.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\FileUploadServiceController.cs" />
+    <Compile Include="Controllers\FileUploadWorkExperienceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -2770,6 +2776,8 @@
     <Content Include="Areas\Admin\Views\Commerce\_CommerceGroupTreeview.cshtml" />
     <None Include="Properties\PublishProfiles\DaneshNahad.pubxml" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web References\MellatBank\IPaymentGateway.wsdl" />
     <None Include="Web References\MellatBank\PaymentGatewayImplService.wsdl" />
     <Content Include="Web References\MellatBank\Reference.map">
@@ -2793,7 +2801,6 @@
     <Folder Include="Libs\Content\" />
     <Folder Include="Libs\Fonts\" />
     <Folder Include="Libs\Scripts\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">

@@ -1,7 +1,13 @@
 ﻿using Domain.Entities;
+using Domain.Validation.Admin;
+using Domain.ViewModel.Admin;
 using RepositoryLayer.Abstract;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
 namespace WebUI.Infrastructure.Extentions.User
 {
     public class NewsExtentions
